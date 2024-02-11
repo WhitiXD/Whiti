@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Envidia Copas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-size: cover;
+            background-image: url("C:/Users/whiti/OneDrive/Escritorio/Bar_Pili/fondo_web.png");
+            background-position: center;
+            color: #fff; /* Color del texto */
+        }
+
+        header {
+            padding: 20px 0;
+            text-align: center;
+            position: relative;
+            margin-top: -6%;
+            z-index: 1; /* Asegura que el encabezado esté sobre el contenido */
+            background: linear-gradient(to top, transparent, rgba(10, 10, 10, 0.87)); /* Degradado desde transparente a gris con media opacidad */
+        }
+
+        h1, h2, h3, h4, h5, h6, p {
+            text-shadow: 3px 3px 3px rgba(0, 0, 0, 3); /* Ajuste de sombra de texto */
+        }
+
+        .logo {
+            width: 100%;
+            max-width: 600px; /* Limitar el ancho del logo */
+            height: auto;
+            margin: 0 auto 20px; /* Centrar el logo y añadir margen inferior */
+            position: relative;
+            z-index: -1; /* Asegura que el logo esté sobre el contenido */
+            margin-bottom: -10%;
+            margin-top: -8%;
+            animation: aparecer 3s forwards, neon 2s infinite alternate; /* Animación de aparición y efecto de neón */
+        }
+
+        @keyframes aparecer {
+            from {
+                opacity: 0; /* Empieza completamente transparente */
+            }
+            to {
+                opacity: 1; /* Termina completamente visible */
+            }
+        }
+
+        @keyframes neon {
+            from {
+                filter: brightness(1); /* Brillo inicial */
+            }
+            to {
+                filter: brightness(1.5); /* Brillo máximo */
+            }
+        }
+
+        nav {
+            background-color: #444;
+            padding: 10px 0;
+            text-align: center;
+            position: relative;
+            z-index: 3; /* Asegura que los enlaces de navegación estén sobre el encabezado */
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0 15px;
+        }
+
+        section {
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        section h2 {
+            margin-bottom: 20px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+
+        .container img:hover {
+            transform: translateY(-5px); /* Eleva la imagen 5px al pasar el cursor */
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        p {
+            z-index: 2; 
+        }
+
+        /* Agrega este estilo para el contenedor que aparecerá al hacer clic */
+        .expanded-image-container {
+            position: fixed; /* Fija la posición del contenedor */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro semi-transparente */
+            display: flex;
+            justify-content: center; /* Centra horizontalmente */
+            align-items: center; /* Centra verticalmente */
+            z-index: 9999; /* Asegura que esté por encima de otros elementos */
+        }
+
+        /* Agrega este estilo para la imagen agrandada */
+        .expanded-image {
+            max-width: 90%; /* Ajusta el ancho máximo */
+            max-height: 90%; /* Ajusta la altura máxima */
+            object-fit: contain; /* Ajusta el tamaño de la imagen manteniendo la relación de aspecto */
+        }
+
+        #instagram-feed iframe {
+            width: 90%; /* Ajustar el ancho al 90% del contenedor */
+            height: auto; /* Altura automática para mantener la proporción */
+        }
+
+        @media only screen and (min-width: 768px) {
+            .carta1,
+            .carta2,
+            .carta3 {
+                object-fit: cover;
+                transition: transform 0.3s ease; /* Transición suave de la transformación */
+                width: calc(26% - 4%); /* Ajustar el ancho para considerar el margen */
+                margin: 0%; /* Agregar margen uniforme */
+            }
+        }
+
+        .carta1 {
+            margin-left: 5%;
+        }
+
+        .carta3 {
+            margin-right:5%;
+        }
+        .menu-item {
+                margin-left:4%;
+            }
+
+            .menu-item3 {
+                margin-right:4%;
+            }
+
+        /* Media Query para dispositivos móviles */
+        @media only screen and (max-width: 600px) {
+            header {
+                margin-top: -10%; /* Ajustar el margen superior */
+            }
+            .logo {
+                margin-bottom: -20%; /* Eliminar margen inferior */
+            }
+            nav {
+                margin-top: 20px; /* Ajustar margen superior del menú de navegación */
+            }
+            .menu-item h1,
+            .menu-item2 h1,
+            .menu-item3 h1 {
+                font-size: 19px; /* Ajusta el tamaño de fuente para dispositivos móviles */
+                text-align: center;
+            }
+
+            .carta1,
+            .carta2,
+            .carta3 {
+                width: calc(30% - 4%); /* Ajustar el ancho para considerar el margen */
+            }
+        }
+
+    </style>
+    <script>
+        function expandImage(img) {
+            // Crea un nuevo contenedor para la imagen agrandada
+            var expandedContainer = document.createElement('div');
+            expandedContainer.classList.add('expanded-image-container');
+
+            // Crea la imagen agrandada
+            var expandedImg = document.createElement('img');
+            expandedImg.src = img.src;
+            expandedImg.classList.add('expanded-image');
+
+            // Agrega la imagen agrandada al contenedor
+            expandedContainer.appendChild(expandedImg);
+
+            // Agrega el contenedor al cuerpo del documento
+            document.body.appendChild(expandedContainer);
+
+            // Elimina el contenedor al hacer clic en la imagen agrandada
+            expandedContainer.addEventListener('click', function() {
+                document.body.removeChild(expandedContainer);
+            });
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <img src="C:\Users\whiti\OneDrive\Escritorio\Bar_Pili\envidia_copas-ia2.png" alt="Logo Envidia Copas" class="logo">
+        <p>¡Tu lugar para disfrutar de buenas copas y buen ambiente en Sevilla!.</p>
+    </header>
+    <section id="inicio">
+        <h2>Bienvenidos a Envidia</h2>
+        <p>Somos tu bar de confianza para disfrutar de las mejores bebidas en un ambiente único. ¡Ven y únete a la diversión!</p>
+    </section>
+    <section id="menu">
+        <h2>Nuestro Menú 🍸</h2>
+        <p>Ofrecemos una amplia selección de bebidas alcohólicas y no alcohólicas para todos los gustos. Desde cócteles clásicos hasta creaciones especiales de nuestra carta, tenemos algo para todos.</p>
+        <div class="container">
+            <div class="menu-item">
+                <h1 class="item">Copas</h1>
+            </div>
+            <div class="menu-item2">  
+                <h1 class="item2">Copas</h1>
+            </div>
+            <div class="menu-item3">
+                <h1 class="item3">Copas</h1>
+            </div>
+        </div>
+        <div class="container">
+            <img class="carta1" src="https://i.pinimg.com/originals/d6/84/42/d68442fc673f84aba5c3573dcc96d308.jpg" alt="Cóctel Margarita" onclick="expandImage(this)">
+            <img class="carta2" src="https://i.pinimg.com/originals/d6/84/42/d68442fc673f84aba5c3573dcc96d308.jpg" alt="Cóctel Margarita" onclick="expandImage(this)">
+            <img class="carta3" src="https://i.pinimg.com/originals/d6/84/42/d68442fc673f84aba5c3573dcc96d308.jpg" alt="Cóctel Margarita" onclick="expandImage(this)">
+        </div>
+    </section>
+    <section id="instagram-feed">
+        <h2>Fotos 📷</h2>
+        <script src="https://cdn.lightwidget.com/widgets/lightwidget.js"></script>
+        <iframe src="http://lightwidget.com/widgets/be803b8e84585d17805b288107376103.html" scrolling="no" allowtransparency="true" class="lightwidget-widget" style="border:0;overflow:hidden;"></iframe>
+    </section>
+    <section id="contacto">
+        <h2>Contacto</h2>
+        <p>Puedes contactarnos por teléfono al +123456789 o enviarnos un correo electrónico a info@envidiacopas.com.</p>
+        <p>Síguenos en redes sociales para estar al tanto de nuestras promociones y eventos especiales:</p>
+        <div class="container">
+            <img src="facebook.png" alt="Facebook">
+            <img src="twitter.png" alt="Twitter">
+            <img src="instagram.png" alt="Instagram">
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2024 Envidia Copas. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
