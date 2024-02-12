@@ -141,7 +141,14 @@
                 margin: 0%; /* Agregar margen uniforme */
             }
         }
-
+             #inicio {
+            margin-top: -2%; /* Ajustar el margen superior */
+        }
+    
+    #menu {
+            margin-top: -2%; /* Ajustar el margen superior */
+        }
+    }
 
         .carta1 {
             margin-left: 5%;
@@ -191,31 +198,10 @@
                 width: calc(30% - 4%); /* Ajustar el ancho para considerar el margen */
             }
         }
-            #ticket {
-    border: 2px solid #333;
-    border-radius: 10px;
-    padding: 20px;
-    margin-top: 20px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
-    max-width: 400px;
-    margin: 0 auto;
-  }
-  #ticket h2 {
-    color: #333;
-    font-size: 24px;
-    margin-top: 0;
-  }
-  #ticket p {
-    margin: 10px 0;
-    color: #666;
-  }
+
         
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js"></script>
     <script>
-
         function expandImage(img) {
             // Crea un nuevo contenedor para la imagen agrandada
             var expandedContainer = document.createElement('div');
@@ -237,22 +223,6 @@
                 document.body.removeChild(expandedContainer);
             });
         }
-        const socket = io();
-
-document.getElementById('pedidoForm').addEventListener('submit', function(event) {
-  event.preventDefault();
-  
-  const numeroMesa = document.getElementById('mesa').value;
-  const pedido = document.getElementById('pedido').value;
-  
-  // Enviar el pedido al backend
-  socket.emit('pedido', { mesa: numeroMesa, pedido: pedido });
-  
-  // Mostrar el ticket con los detalles del pedido
-  document.getElementById('mesaTicket').textContent = `Número de mesa: ${numeroMesa}`;
-  document.getElementById('pedidoTicket').textContent = `Pedido: ${pedido}`;
-  document.getElementById('ticket').style.display = 'block';
-});
     </script>
 </head>
 <body>
@@ -260,20 +230,6 @@ document.getElementById('pedidoForm').addEventListener('submit', function(event)
         <img src="https://raw.githubusercontent.com/WhitiXD/Whiti/master/envidia_copas-ia2.png" alt="Logo Envidia Copas" class="logo">
         <p>¡Tu lugar para disfrutar de buenas copas y buen ambiente en Sevilla!.</p>
     </header>
-    <form id="pedidoForm">
-  <label for="mesa">Número de mesa:</label>
-  <input type="number" id="mesa" name="mesa" required>
-  
-  <label for="pedido">Pedido:</label>
-  <textarea id="pedido" name="pedido" rows="4" cols="50" required></textarea>
-  
-  <button type="submit">Enviar pedido</button>
-</form>
-<div id="ticket" style="display: none;">
-  <h2>Ticket de pedido</h2>
-  <p id="mesaTicket"></p>
-  <p id="pedidoTicket"></p>
-</div>
     <section id="inicio">
         <h2>Bienvenidos a Envidia</h2>
         <p>Somos tu bar de confianza para disfrutar de las mejores bebidas en un ambiente único. ¡Ven y únete a la diversión!</p>
