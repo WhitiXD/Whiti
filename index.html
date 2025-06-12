@@ -5,29 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="IMiWiXjV0qaBBoJareXafpb0CY_7Zq3PzrZMufjHQBA" />
     <meta property="og:title" content="Envidia Copas - Sevilla Santa Justa" />
-    <meta property="og:description" content="Vive la noche sevillana frente a Santa Justa con cócteles, tapas, desayunos y juegos como futbolín y dardos." />
+    <meta property="og:description" content="Vive la noche sevillana frente a Santa Justa con cócteles, tapas, desayunos, juegos y eventos únicos." />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" />
     <meta name="author" content="Bar Envidia" />
+    <meta name="keywords" content="bar, Sevilla, Santa Justa, cócteles, tapas, desayunos, futbolín, dardos, eventos" />
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BarOrPub",
+            "name": "Envidia Copas",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "C. Juan Antonio Cavestany, 25",
+                "addressLocality": "Sevilla",
+                "postalCode": "41003",
+                "addressCountry": "ES"
+            },
+            "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": 37.390415,
+                "longitude": -5.974863
+            },
+            "url": "https://www.envidiacopas.com",
+            "telephone": "+34-123-456-789",
+            "openingHoursSpecification": [
+                {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                    "opens": "16:00",
+                    "closes": "02:00"
+                },
+                {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": "Sunday",
+                    "opens": "15:00",
+                    "closes": "22:00"
+                }
+            ]
+        }
+    </script>
     <title>Envidia Copas - Sevilla Santa Justa</title>
     <link rel="icon" href="https://raw.githubusercontent.com/WhitiXD/Whiti/master/copa1-ia.png">
-    <!-- Google Fonts: Montserrat and Lora -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Lora:wght@700&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Montserrat, Lora, Dancing Script -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Lora:wght@700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- React and ReactDOM (latest stable versions) -->
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- React and ReactDOM -->
     <script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
     <!-- Babel for JSX -->
     <script src="https://unpkg.com/@babel/standalone@7.25.7/babel.min.js"></script>
     <!-- GSAP for animations -->
     <script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
+    <!-- Howler.js for audio -->
+    <script src="https://unpkg.com/howler@2.2.4/dist/howler.min.js"></script>
+    <!-- Mapbox -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.css" rel="stylesheet" />
     <style>
         body {
             background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
             font-family: 'Montserrat', sans-serif;
             color: #ffffff;
             overflow-x: hidden;
+            transition: background 0.5s ease, color 0.5s ease;
+        }
+        body.light-mode {
+            background: linear-gradient(180deg, #f8f1e9 0%, #e2c2b9 100%);
+            color: #1e293b;
         }
         .parallax-hero {
             position: relative;
@@ -51,11 +99,30 @@
             background-repeat: no-repeat;
             background-position: center 70%;
             transform: translateY(20px);
+            animation: shake 5s ease-in-out infinite;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateY(20px) rotate(0deg); }
+            50% { transform: translateY(20px) rotate(2deg); }
         }
         .parallax-smoke {
             background-image: url('https://images.unsplash.com/photo-1518481852452-817f0d1a2d3a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
             opacity: 0.3;
             transform: translateY(10px);
+        }
+        .firefly {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: #f59f00;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #f59f00;
+            animation: firefly 3s infinite;
+        }
+        @keyframes firefly {
+            0% { opacity: 0.2; transform: translate(0, 0); }
+            50% { opacity: 1; }
+            100% { opacity: 0.2; transform: translate(20px, -20px); }
         }
         .expanded-image-container {
             position: fixed;
@@ -156,6 +223,41 @@
             margin: 20px auto;
             max-width: 600px;
         }
+        .story-slide {
+            transition: transform 0.5s ease;
+        }
+        .story-slide.active {
+            transform: scale(1.1);
+            z-index: 10;
+        }
+        .reservation-form input, .reservation-form select {
+            transition: border-color 0.3s ease;
+        }
+        .reservation-form input:focus, .reservation-form select:focus {
+            border-color: #f59f00;
+            outline: none;
+        }
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .audio-toggle {
+            position: fixed;
+            top: 60px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .tooltip {
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .tooltip:hover {
+            visibility: visible;
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -163,83 +265,83 @@
     <script type="text/babel">
         const menuData = {
             "Desayunos y Otros": [
-                { name: "A.O.V. - Tulupón (Media)", price: 1.20, note: "", image: "https://images.unsplash.com/photo-1528731708534-81627959f071?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "A.O.V. - Tulupón (Entera)", price: 1.50, note: "", image: "https://images.unsplash.com/photo-1528731708534-81627959f071?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Pan con Sobrasada", price: 1.20, note: "", image: "https://images.unsplash.com/photo-1599948128020-39c3b3a222d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Pan con Jamón York", price: 1.30, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Manteca de Lomo Colorá", price: 1.70, note: "", image: "https://images.unsplash.com/photo-1606851134945-9667bf058c79?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "A.O.V. y Tomate", price: 1.30, note: "", image: "https://images.unsplash.com/photo-1541518763669-2fefb165afcc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "A.O.V. y Salmorejo", price: 1.70, note: "", image: "https://images.unsplash.com/photo-1627308594196-4b0f180aec63?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Porción Mantequilla y Mermelada", price: 1.60, note: "", image: "https://images.unsplash.com/photo-1559561843-297a373e4142?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "A.O.V. y Pavo", price: 1.60, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "A.O.V. y Jamón York", price: 1.90, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Jamón, A.O.V. y Tomate (Media)", price: 1.60, note: "", image: "https://images.unsplash.com/photo-1541518763669-2fefb165afcc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Jamón, A.O.V. y Tomate (Entera)", price: 1.90, note: "", image: "https://images.unsplash.com/photo-1541518763669-2fefb165afcc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Jamón con A.O.V.", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Lomo Asado con Sal y Miel", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1606851134945-9667bf058c79?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Tortilla de Patatas (sin Whisky)", price: 2.60, note: "", image: "https://images.unsplash.com/photo-1551326844-4f64c879b9c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Pringá", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1606851134945-9667bf058c79?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Torta del Casar", price: 2.50, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Jamón y Queso Curado", price: 2.50, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Chorizo y Queso Curado", price: 3.00, note: "", image: "https://images.unsplash.com/photo-1606851134945-9667bf058c79?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Huevos, Bacon, Lomo, Queso, Zumo y Café", price: 6.00, note: "", image: "https://images.unsplash.com/photo-1525351484163-7522494f2660?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Café / Infusiones", price: 1.30, note: "", image: "https://images.unsplash.com/photo-1512568400610-5978aa9e263b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Infusiones Especiales", price: 1.70, note: "", image: "https://images.unsplash.com/photo-1512568400610-5978aa9e263b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Carajillo", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1512568400610-5978aa9e263b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Café Bombón", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1512568400610-5978aa9e263b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Zumo Minute Maid", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1613478223719-2e78e2a78e24?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Batidos Normales", price: 1.80, note: "", image: "https://images.unsplash.com/photo-1504382262782-5b4ece78642b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Zumo Natural de Naranja", price: 1.80, note: "", image: "https://images.unsplash.com/photo-1613478223719-2e78e2a78e24?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Refrescos (Aquarius, Nestea)", price: 2.50, note: "", image: "https://images.unsplash.com/photo-1603991482950-796833f0dd87?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Agua", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1603991482950-796833f0dd87?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Chupitos (Terry, Magno, Anís / 'Jani')", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1514361109680-d8b5626f6723?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Madreño", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1514361109680-d8b5626f6723?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" }
+                { name: "A.O.V. - Tulupón (Media)", price: 1.20, note: "", image: "https://images.unsplash.com/photo-1528731708534-81627959f071?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "200 kcal" },
+                { name: "A.O.V. - Tulupón (Entera)", price: 1.50, note: "", image: "https://images.unsplash.com/photo-1528731708534-81627959f071?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "300 kcal" },
+                { name: "Pan con Sobrasada", price: 1.20, note: "", image: "https://images.unsplash.com/photo-1599948128020-39c3b3a222d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "250 kcal" },
+                { name: "Pan con Jamón York", price: 1.30, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "220 kcal" },
+                { name: "Manteca de Lomo Colorá", price: 1.70, note: "", image: "https://images.unsplash.com/photo-1606851134945-9667bf058c79?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "280 kcal" },
+                { name: "A.O.V. y Tomate", price: 1.30, note: "", image: "https://images.unsplash.com/photo-1541518763669-2fefb165afcc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "210 kcal" },
+                { name: "A.O.V. y Salmorejo", price: 1.70, note: "", image: "https://images.unsplash.com/photo-1627308594196-4b0f180aec63?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "240 kcal" },
+                { name: "Porción Mantequilla y Mermelada", price: 1.60, note: "", image: "https://images.unsplash.com/photo-1559561843-297a373e4142?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "300 kcal" },
+                { name: "A.O.V. y Pavo", price: 1.60, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "200 kcal" },
+                { name: "A.O.V. y Jamón York", price: 1.90, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "230 kcal" },
+                { name: "Jamón, A.O.V. y Tomate (Media)", price: 1.60, note: "", image: "https://images.unsplash.com/photo-1541518763669-2fefb165afcc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "220 kcal" },
+                { name: "Jamón, A.O.V. y Tomate (Entera)", price: 1.90, note: "", image: "https://images.unsplash.com/photo-1541518763669-2fefb165afcc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "260 kcal" },
+                { name: "Jamón con A.O.V.", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "270 kcal" },
+                { name: "Lomo Asado con Sal y Miel", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1606851134945-9667bf058c79?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "290 kcal" },
+                { name: "Tortilla de Patatas (sin Whisky)", price: 2.60, note: "", image: "https://images.unsplash.com/photo-1551326844-4f64c879b9c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "320 kcal" },
+                { name: "Pringá", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1606851134945-9667bf058c79?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "300 kcal" },
+                { name: "Torta del Casar", price: 2.50, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "350 kcal" },
+                { name: "Jamón y Queso Curado", price: 2.50, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "340 kcal" },
+                { name: "Chorizo y Queso Curado", price: 3.00, note: "", image: "https://images.unsplash.com/photo-1606851134945-9667bf058c79?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "360 kcal" },
+                { name: "Huevos, Bacon, Lomo, Queso, Zumo y Café", price: 6.00, note: "", image: "https://images.unsplash.com/photo-1525351484163-7522494f2660?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "600 kcal" },
+                { name: "Café / Infusiones", price: 1.30, note: "", image: "https://images.unsplash.com/photo-1512568400610-5978aa9e263b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "10 kcal" },
+                { name: "Infusiones Especiales", price: 1.70, note: "", image: "https://images.unsplash.com/photo-1512568400610-5978aa9e263b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "15 kcal" },
+                { name: "Carajillo", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1512568400610-5978aa9e263b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "100 kcal" },
+                { name: "Café Bombón", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1512568400610-5978aa9e263b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "150 kcal" },
+                { name: "Zumo Minute Maid", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1613478223719-2e78e2a78e24?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "120 kcal" },
+                { name: "Batidos Normales", price: 1.80, note: "", image: "https://images.unsplash.com/photo-1504382262782-5b4ece78642b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "200 kcal" },
+                { name: "Zumo Natural de Naranja", price: 1.80, note: "", image: "https://images.unsplash.com/photo-1613478223719-2e78e2a78e24?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "110 kcal" },
+                { name: "Refrescos (Aquarius, Nestea)", price: 2.50, note: "", image: "https://images.unsplash.com/photo-1603991482950-796833f0dd87?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "150 kcal" },
+                { name: "Agua", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1603991482950-796833f0dd87?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "0 kcal" },
+                { name: "Chupitos (Terry, Magno, Anís / 'Jani')", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1514361109680-d8b5626f6723?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "80 kcal" },
+                { name: "Madreño", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1514361109680-d8b5626f6723?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "90 kcal" }
             ],
             "Postres y Helados": [
-                { name: "Copa Tricolor (3 Bolas a Elegir)", price: 7.50, note: "", image: "https://images.unsplash.com/photo-1516043827470-1f2e8e7b1d08?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Copa 3 Bolas a Elegir", price: 5.50, note: "", image: "https://images.unsplash.com/photo-1516043827470-1f2e8e7b1d08?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Copa 1 Bola a Elegir", price: 3.50, note: "", image: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Batidos Normales", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1504382262782-5b4ece78642b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Gofre con Chocolate y Nata", price: 4.00, note: "+1€ con helado", image: "https://images.unsplash.com/photo-1507325655130-3f744cd86d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Crepe con Chocolate y Nata", price: 5.00, note: "+1€ con helado", image: "https://images.unsplash.com/photo-1484982498542-8f0f6f08d1c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Copa Tricolor (3 Bolas a Elegir)", price: 7.50, note: "", image: "https://images.unsplash.com/photo-1516043827470-1f2e8e7b1d08?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "450 kcal" },
+                { name: "Copa 3 Bolas a Elegir", price: 5.50, note: "", image: "https://images.unsplash.com/photo-1516043827470-1f2e8e7b1d08?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "400 kcal" },
+                { name: "Copa 1 Bola a Elegir", price: 3.50, note: "", image: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "150 kcal" },
+                { name: "Batidos Normales", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1504382262782-5b4ece78642b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "350 kcal" },
+                { name: "Gofre con Chocolate y Nata", price: 4.00, note: "+1€ con helado", image: "https://images.unsplash.com/photo-1507325655130-762-4cd74cb0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Crepe con Chocolate y Nata", price: 5.00, note: "+1€ con helado", image: "https://images.unsplash.com/photo-1484982498542-8f0f6f08d1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
                 { name: "Pancakes con Sirope, Nata y Helado", price: 6.50, note: "", image: "https://images.unsplash.com/photo-1528207776546-365bb710ee93?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Pancakes con Sirope de Nutella y Nata", price: 5.00, note: "", image: "https://images.unsplash.com/photo-1528207776546-365bb710ee93?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" }
+                { name: "Pancakes con Sirope de Nutella y Nata", price: 5.00, note: "https://images.unsplash.com/photo-1528207776546-365bb710ee93?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "500 kcal" }
             ],
             "Smoothies": [
-                { name: "Peach Paradise (Melocotón, Papaya y Fresa)", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1505252585461-04db1eb84625?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Triple M (Mango, Melón y Maracuyá)", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1504382262782-5b4ece78642b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Berry Dream (Fresa, Frambuesa y Arándanos)", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1505252585461-04db1eb84625?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Piña Colada (Piña y Coco)", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Red Banana (Fresa y Plátano)", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1505252585461-04db1eb84625?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Tropic Mix (Piña, Papaya, Mango)", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1504382262782-5b4ece78642b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Para Llevar", price: 5.00, note: "Listos para llevar", image: "https://images.unsplash.com/photo-1504382262782-5b4ece78642b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" }
+                { name: "Peach Paradise (Melocotón, Papaya y Fresa)", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1505252585461-04db1eb84625?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "250 kcal" },
+                { name: "Triple M (Mango, Melón y Maracuyá)", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1504382262782-5b4ece78642b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "260 kcal" },
+                { name: "Berry Dream (Fresa, Frambuesa y Arándanos)", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1505252585461-04db1eb84625?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "240 kcal" },
+                { name: "Piña Colada (Piña y Coco)", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "270 kcal" },
+                { name: "Red Banana (Fresa y Plátano)", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1505252585461-04db1eb84625?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "260 kcal" },
+                { name: "Tropic Mix (Piña, Papaya, Mango)", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1504382262782-5b4ece78642b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "255 kcal" },
+                { name: "Para Llevar", price: 5.00, note: "Listos para llevar", image: "https://images.unsplash.com/photo-1504382262782-5b4ece78642b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "260 kcal" }
             ],
             "Helados - Formatos": [
-                { name: "Vasito Grande (Artesano)", price: 5.50, note: "", image: "https://images.unsplash.com/photo-1560008581-09826d1de4f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Cono Grande (Artesano)", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Cono Mediano (Segunda Opción)", price: 3.50, note: "", image: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Vasito Pequeño", price: 3.00, note: "", image: "https://images.unsplash.com/photo-1560008581-09826d1de4f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" }
+                { name: "Vasito Grande (Artesano)", price: 5.50, note: "", image: "https://images.unsplash.com/photo-1560008581-09826d1de4f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "400 kcal" },
+                { name: "Cono Grande (Artesano)", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "350 kcal" },
+                { name: "Cono Mediano (Segunda Opción)", price: 3.50, note: "", image: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "300 kcal" },
+                { name: "Vasito Pequeño", price: 3.00, note: "", image: "https://images.unsplash.com/photo-1560008581-09826d1de4f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "200 kcal" }
             ],
             "Cócteles con Alcohol": [
-                { name: "Bloody Mary", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1561131526-f791888a83b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "San Francisco", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Mojito", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1551538827-44c3755b8532?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Caipirinha", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1551538827-44c3755b8532?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Martini Dry", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1588650432184-64b8a90e09b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Red Lion", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Piña Colada", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Gin Gimlet", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1514361109680-d8b5626f6723?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Gin Fizz", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1514361109680-d8b5626f6723?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Margarita", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1588650432184-64b8a90e09b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Daiquiri", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Cosmopolitan", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1588650432184-64b8a90e09b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" }
+                { name: "Bloody Mary", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1561131526-f791888a83b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "180 kcal" },
+                { name: "San Francisco", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "200 kcal" },
+                { name: "Mojito", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1551538827-44c3755b8532?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "220 kcal" },
+                { name: "Caipirinha", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1551538827-44c3755b8532?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "210 kcal" },
+                { name: "Martini Dry", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1588650438710-d8b5626f6723?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "190 kcal" },
+                { name: "Red Lion", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "230 kcal" },
+                { name: "Piña Colada", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "250 kcal" },
+                { name: "Gin Gimlet", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1514361109680-d8b5626f6723?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "200 kcal" },
+                { name: "Gin Fizz", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1514361109680-d8b5626f6723?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "210 kcal" },
+                { name: "Margarita", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1588650432184-64b8a90e09b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "220 kcal" },
+                { name: "Daiquiri", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "230 kcal" },
+                { name: "Cosmopolitan", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1588650432184-64b8a90e09b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "200 kcal" }
             ],
             "Cócteles sin Alcohol": [
-                { name: "Cóctel sin Alcohol", price: 7.50, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" }
+                { name: "Cóctel sin Alcohol", price: 7.50, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "150 kcal" }
             ]
         };
 
-        // Error Boundary Component
+        // Error Boundary
         class ErrorBoundary extends React.Component {
             state = { hasError: false, error: null };
 
@@ -264,6 +366,19 @@
         function MenuModal({ isOpen, onClose }) {
             const [selectedCategory, setSelectedCategory] = React.useState("all");
             const [searchTerm, setSearchTerm] = React.useState("");
+            const [favorites, setFavorites] = React.useState(JSON.parse(localStorage.getItem('favorites')) || []);
+
+            const toggleFavorite = (item, category) => {
+                const id = `${category}-${item.name}`;
+                let updatedFavorites;
+                if (favorites.includes(id)) {
+                    updatedFavorites = favorites.filter(fav => fav !== id);
+                } else {
+                    updatedFavorites = [...favorites, id];
+                }
+                setFavorites(updatedFavorites);
+                localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+            };
 
             if (!isOpen) return null;
 
@@ -278,16 +393,16 @@
 
             return (
                 <div className="fixed inset-0 bg-black bg-opacity-95 flex items-center justify-center z-50">
-                    <div className="bg-gray-800 rounded-3xl p-12 w-full max-w-6xl h-[85vh] overflow-y-auto modal">
+                    <div className="bg-white text-gray-900 rounded-3xl p-12 w-full max-w-6xl h-[85vh] overflow-y-auto modal light-content">
                         <div className="flex justify-between items-center mb-10">
-                            <h2 className="text-4xl font-bold text-amber-400 font-['Lora']">Explora Nuestra Carta</h2>
-                            <button onClick={onClose} className="text-gray-300 hover:text-white text-4xl transition" aria-label="Cerrar carta">×</button>
+                            <h2 className="text-4xl font-bold text-amber-600 font-['Lora']">Explora Nuestra Carta</h2>
+                            <button onClick={onClose} className="text-gray-600 hover:text-gray-900 text-4xl transition" aria-label="Cerrar carta">×</button>
                         </div>
                         <div className="mb-8">
                             <input
                                 type="text"
                                 placeholder="Buscar producto..."
-                                className="w-full p-4 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-amber-400 transition text-lg"
+                                className="w-full p-4 rounded-lg bg-gray-100 text-gray-900 border border-gray-300 focus:border-amber-600 transition text-lg"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                                 aria-label="Buscar en la carta"
@@ -298,33 +413,372 @@
                                 <button
                                     key={category}
                                     onClick={() => setSelectedCategory(category)}
-                                    className={`px-6 py-2 rounded-full font-semibold text-base transition ${selectedCategory === category ? 'bg-amber-400 text-gray-900' : 'bg-gray-700 text-gray-200 hover:bg-gray-600'}`}
-                                    aria-label={`Filtrar por ${category === "all" ? "Todos" : category}`}
+                                    className={`px-6 py-2 rounded-full font-semibold text-base transition ${selectedCategory === category ? 'bg-amber-600 text-white' : 'bg-gray-200 text-gray-900 hover:bg-gray-300'}`}
+                                    aria-label="Filtrar por ${category === "all" ? "Todos" : category}
                                 >
                                     {category === "all" ? "Todos" : category}
                                 </button>
                             ))}
                         </div>
                         {filteredItems.length === 0 ? (
-                            <p className="text-center text-gray-400 text-lg">No se encontraron productos.</p>
+                            <p className="text-center text-gray-600 text-lg">No se encontraron productos.</p>
                         ) : (
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                                 {filteredItems.map((item, index) => (
-                                    <div key={index} className="bg-gray-700 rounded-xl overflow-hidden card">
+                                    <div key={index} className="bg-gray-100 rounded-xl overflow-hidden">
                                         <img
                                             src={item.image}
                                             alt={item.name}
-                                            className="w-full h-60 object-cover cursor-pointer"
+                                            className="w-full h-60 object-cover cursor-pointer lazy-img"}
                                             onClick={() => expandImage({ src: item.image })}
+                                            loading="lazy"
                                         />
                                         <div className="p-6">
-                                            <h3 className="text-xl font-semibold text-white mb-2">{item.name}</h3>
-                                            <p className="text-amber-400 font-bold text-lg">{item.price.toFixed(2)}€</p>
-                                            {item.note && <p className="text-sm text-gray-400 mt-2">{item.note}</p>}
-                                            <p className="text-xs text-gray-500 mt-3">{item.category}</p>
+                                            <div className="flex justify-between items-center mb-2">
+                                                <h3 className="text-xl font-semibold text-gray-900">{item.name}</h3>
+                                                <button
+                                                    onClick={() => toggleFavorite(item, item.category)}
+                                                    className={`fas fa-heart text-2xl} ${favorites.includes(`${item.category}-${item.name}`) ? 'text-red-600' : 'text-gray-400'}`}
+                                                    aria-label={favorites.includes(`${item.category}-${item.name}`) ? 'Eliminar de favoritos' : 'Añadir a favoritos'}
+                                                ></button>
+                                            </div>
+                                            <p className="text-amber-600 font-bold text-lg">{item.price.toFixed(2)}€</p>
+                                            {item.note && <p className="text-sm text-gray-500 mt-2">{item.note}</p>}
+                                            <p className="text-xs text-gray-400 mt-3">{item.category}</p>
+                                            <div className="relative group">
+                                                <span className="text-sm text-gray-600">Nutrición: {item.nutrition}</span>
+                                                <div className="tooltip absolute bg-gray-800 text-white text-xs p-2 rounded-lg -top-10 left-0 opacity-0 invisible">
+                                                    Información nutricional aproximada por porción.
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 ))}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function VirtualTour() {
+            const images = [
+                "https://images.unsplash.com/photo-1577906096429-f73c2c312435?ixlib=rb-4.0.0.3&auto=format&fit=crop&w=800&q=80",
+                "https://images.unsplash.com/photo-1552566626-52f8b828add9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                "https://images.unsplash.com/photo-1514933651103-3d3d1e803c66?ixlib=rb-4.0.0.3&auto=format&fit=crop&w=800&q=80"
+            ];
+            const [currentImage, setCurrentImage] = React.useState(0);
+
+            React.useEffect(() => {
+                const interval = setInterval(() => {
+                    setCurrentImage(prev => (prev + 1) % images.length);
+                }, 5000);
+                return () => clearInterval(interval);
+            }, []);
+
+            return (
+                <section id="tour" className="py-24 text-center bg-gray-900 light:bg-gray-100 animate-section">
+                    <h2 className="text-4xl md:text-5xl font-bold mb-8 text-amber-400 light:text-amber-600 font-['Dancing Script']">Tour Virtual 🌌</h2>
+                    <p className="text-lg md:text-xl max-w-3xl mx-auto mb-10 light-text">
+                        Explora Envidia Copas desde casa con nuestro tour virtual interactivo.
+                    </p>
+                    <div className="relative w-full max-w-4xl mx-auto h-[500px] rounded-xl overflow-hidden">
+                        {images.map((image, index) => (
+                            <img
+                                key={index}
+                                src={image}
+                                alt={Interior slide ${index + 1}`}
+                                className={`w-full h-full object-cover absolute transition-opacity duration-1000 ${index === currentImage ? 'opacity-100' : 'opacity-0'}`}
+                                loading="lazy"
+                            />
+                        ))}
+                        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+                            {images.map((_, index) => (
+                                <button
+                                    key={index}
+                                    className={`w-3 h-3 rounded-full ${index === currentImage ? 'bg-amber-400' : 'bg-gray-400'}`}
+                                    onClick={() => setCurrentImage(index)}
+                                    aria-label={Ir a la imagen ${index + 1}`}
+                                ></button>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+
+        function CocktailMixer() {
+            const canvasRef = React.useRef(null);
+            const [cocktail, setCocktail] = React.useState([]);
+            const ingredients = [
+                { name: "Ron", color: "#f59f00", img: "https://images.unsplash.com/photo-1514361109680-d8b5626f6723?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" },
+                { name: "Menta", color: "#16a34a", img: "https://images.unsplash.com/photo-1551538827-44c3755b8532?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" },
+                { name: "Limón", color: "#a3e635", img: "https://images.unsplash.com/photo-1588650432184-64b8a90e09b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" },
+                { name: "Soda", color: "#38bdf8", img: "https://images.unsplash.com/photo-1603991482950-796833f0dd87?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" }
+            ];
+
+            React.useEffect(() => {
+                try {
+                    const canvas = canvasRef.current;
+                    if (!canvas) return;
+                    const ctx = canvas.getContext('2d');
+                    if (!ctx) return;
+
+                    const drawCocktail = () => {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        const glassHeight = 200;
+                        const layerHeight = glassHeight / Math.max(1, cocktail.length);
+                        cocktail.forEach((ing, idx) => {
+                            ctx.beginPath();
+                            ctx.rect(50, 50 + idx * layerHeight, 200, layerHeight);
+                            ctx.fillStyle = ing.color;
+                            ctx.fill();
+                            ctx.strokeStyle = 'black';
+                            ctx.stroke();
+                        });
+
+                        // Draw glass outline
+                        ctx.beginPath();
+                        ctx.moveTo(50, 50);
+                        ctx.lineTo(100, 250);
+                        ctx.lineTo(200, 250);
+                        ctx.lineTo(250, 50);
+                        ctx.closePath();
+                        ctx.strokeStyle = 'white';
+                        ctx.stroke();
+                    };
+
+                    drawCocktail();
+                } catch (error) {
+                    console.error('CocktailMixer Error:', error);
+                }
+            }, [cocktail]);
+
+            const addIngredient = (ingredient) => {
+                if (cocktail.length < 4) {
+                    setCocktail([...cocktail, ingredient]);
+                    // Play pour sound
+                    if (window.sounds) {
+                        window.sounds.pour.play();
+                    }
+                }
+            };
+
+            const shareCocktail = () => {
+                const cocktailName = cocktail.map(i => i.name).join(' + ');
+                alert(`¡Has creado un cóctel: ${cocktailName}! Comparte en Instagram Stories.`);
+            };
+
+            return (
+                <section id="mixer" className="py-24 text-center bg-gray-900 light:bg-gray-100 animate-section">
+                    <h2 className="text-4xl md:text-5xl font-bold mb-8 text-amber-600 font-['Dancing Script']">Crea Tu Cóctel 🍸</h2>
+                    <p className="text-lg md:text-xl max-w-3xl mx-auto mb-10 light-text">
+                        Mezcla ingredientes y crea tu propio cóctel personalizado. ¡Comparte tu obra maestra!
+                    </p>
+                    <div className="flex flex-col md:flex-row justify-center items-center gap-10">
+                        <canvas
+                            ref={canvasRef}
+                            width={300}
+                            height={300}
+                            className="game-canvas"
+                            aria-label="Crea tu cóctel interactivo"
+                        ></canvas>
+                        <div className="flex flex-col gap-4">
+                            <h3 className="text-xl font-semibold light-text">Ingredientes:</h3>
+                            {ingredients.map((ing, idx) => (
+                                <button
+                                    key={ing.name}
+                                    onClick={() => addIngredient(ing)}
+                                    className="flex items-center gap-2 bg-amber-200 text-gray-900 px-4 py-2 rounded-full font-semibold transition hover:bg-amber-300"
+                                    aria-label={Añade ${ing.name} al cóctel}
+                                >
+                                    <img src={ing.img} alt={ing.name} className="w-8 h-8 object-cover rounded" loading="lazy" />
+                                    {ing.name}
+                                </button>
+                            ))}
+                            {cocktail.length > 0 && (
+                                <button
+                                    onClick={shareCocktail}
+                                    className="bg-blue-500 text-white px-4 py-2 rounded-full font-semibold mt-4 hover:bg-blue-600 transition"
+                                    aria-label="Compartir cóctel"
+                                >
+                                    Compartir Cóctel
+                                </button>
+                            )}
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+
+        function EventCalendar() {
+            const events = [
+                { date: "2023-10-20", title: "Noche de Flamenco", time: "21:00", description: "Vive la pasión del flamenco en vivo." },
+                { date: "2023-10-25", title: "DJ Night", time: "22:00", description: "Baila con los mejores ritmos electrónicos." },
+                { date: "2023-10-30", title: "Taller de Cócteles", time: "19:00", description: "Aprende a preparar cócteles con nuestros mixólogos." }
+            ];
+
+            return (
+                <section id="events" className="py-24 text-center bg-gray-800 light:bg-gray-200 animate-section">
+                    <h2 className="text-4xl md:text-5xl font-bold mb-8 text-amber-600 font-['Dancing Script']">Próximos Eventos 🎤</h2>
+                    <p className="text-lg md:text-xl max-w-3xl mx-auto mb-10 light-text">
+                        No te pierdas nuestras noches temáticas y eventos especiales en Envidia Copas.
+                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+                        {events.map((event) => (
+                            <div key={event.date} className="bg-gray-700 light:bg-white rounded-xl p-6 shadow-lg">
+                                <h3 className="text-xl font-semibold text-amber-500 light:text-amber-600">{event.title}</h3>
+                                <p className="text-lg light-text">{event.date} a las {event.time}</p>
+                                <p className="text-light-text">{event.description}</p>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+            );
+        }
+
+        function ReservationForm({ isOpen, onClose }) {
+            const [formData, setFormData] = React.useState({
+                name: "",
+                email: "",
+                phone: "",
+                date: "",
+                time: "",
+                guests: 1
+            });
+            const [submitted, setSubmitted] = React.useState(false);
+
+            const handleChange = (e) => {
+                setFormData({ ...formData, [e.target.name]: e.target.value });
+            };
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                if (formData.name && formData.email && formData.phone && formData.date && formData.time && formData.guests > 0) {
+                    setSubmitted(true);
+                    setTimeout(() => {
+                        setSubmitted(false);
+                        onClose();
+                        setFormData({
+                            name: "",
+                            email: "",
+                            phone: "",
+                            date: "",
+                            time: "",
+                            guests: 1
+                        });
+                    }, 3000);
+                } else {
+                    alert("Por favor, completa todos los campos.");
+                }
+            };
+
+            if (!isOpen) return null;
+
+            return (
+                <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+                    <div className="bg-white text-gray-900 rounded-xl p-10 w-full max-w-lg reservation-form">
+                        {submitted ? (
+                            <div className="text-center">
+                                <h3 className="text-2xl font-bold text-amber-600 mb-4">¡Reserva Confirmada!</h3>
+                                <p>Gracias por reservar en Envidia Copas. Te esperamos.</p>
+                            </div>
+                        ) : (
+                            <div>
+                                <h2 className="text-2xl font-bold text-amber-600 mb-4">Reserva tu Mesa</h2>}
+                                <div onSubmit={handleSubmit}>
+                                    <div className="mb-4">
+                                        <label className="block text-sm font-medium mb-1">Nombre</label>
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            value={formData.name}
+                                            onChange={handleChange}
+                                            className="w-full p-2 border border-gray-300 rounded-lg"
+                                            required
+                                            aria-label="Nombre completo"
+                                        />
+                                    </div>
+                                    <div className="mb-4">
+                                        <label className="block text-sm font-medium mb-1">Correo Electrónico</label>
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            value={formData.email}
+                                            onChange={handleChange}
+                                            className="w-full p-2 border border-gray-300 rounded-lg"
+                                            required}
+                                            aria-label="Correo electrónico"
+                                        />
+                                    </div>
+                                    <div className="mb-4">
+                                        <label className="block text-sm font-medium mb-1">Teléfono</label>
+                                        <input
+                                            type="tel"
+                                            name="phone"
+                                            value={formData.phone}
+                                            onChange={handleChange}
+                                            className="w-full p-2 border border-gray-300 rounded-lg"
+                                            required
+                                            aria-label="Número de teléfono"
+                                        />
+                                    </div>
+                                    <div className="mb-4">
+                                        <label className="block text-sm font-medium mb-1">Fecha</label>
+                                        <input
+                                            type="date"
+                                            name="date"
+                                            value={formData.date}
+                                            onChange={handleChange}
+                                            className="w-full p-2 border border-gray-300 rounded-lg"
+                                            required
+                                            aria-label="Fecha de la reserva"
+                                        />
+                                    </div>
+                                    <div className="mb-4">
+                                        <label className="block text-sm font-medium mb-1">Hora</label>
+                                        <select name="time" value={formData.time} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded-lg" required aria-label="Hora de la reserva">
+                                            <option value="">Selecciona una hora</option>
+                                            <option value="16:00">16:00</option>
+                                            <option value="17:00">17:00</option>
+                                            <option value="18:00">18:00</option>
+                                            <option value="19:00">19:00</option>
+                                            <option value="20:00">20:00</option>
+                                            <option value="21:00">21:00</option>
+                                            <option value="22:00">22:00</option>
+                                        </select>
+                                    </div>
+                                    <div className="mb-4">
+                                        <label className="block text-sm font-medium mb-1">Número de Personas</label>
+                                        <input
+                                            type="number"
+                                            name="guests"
+                                            value={formData.guests}
+                                            onChange={handleChange}
+                                            min="1"
+                                            max="20"
+                                            className="w-full p-2 border border-gray-300 rounded-lg"
+                                            required
+                                            aria-label="Número de personas"
+                                        />
+                                    </div>
+                                    <div className="flex justify-end gap-4">
+                                        <button
+                                            type="button"
+                                            onClick={onClose}
+                                            className="px-4 py-2 bg-gray-300 text-gray-900 rounded-lg hover:bg-gray-400 transition"
+                                            aria-label="Cancelar reserva"
+                                        >
+                                            Cancelar
+                                        </button>
+                                        <button
+                                            type="submit"
+                                            className="px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition"
+                                            aria-label="Enviar reserva"
+                                        >
+                                            Reservar
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         )}
                     </div>
@@ -335,6 +789,7 @@
         function GameCanvas() {
             const canvasRef = React.useRef(null);
             const [score, setScore] = React.useState(0);
+            const [leaderboard, setLeaderboard] = React.useState(JSON.parse(localStorage.getItem('leaderboard')) || []);
 
             React.useEffect(() => {
                 try {
@@ -350,7 +805,6 @@
 
                     const draw = () => {
                         ctx.clearRect(0, 0, canvas.width, canvas.height);
-                        // Draw target
                         ctx.beginPath();
                         ctx.arc(target.x, target.y, target.radius, 0, Math.PI * 2);
                         ctx.fillStyle = '#dc2626';
@@ -359,7 +813,6 @@
                         ctx.arc(target.x, target.y, target.radius * 0.3, 0, Math.PI * 2);
                         ctx.fillStyle = '#ffffff';
                         ctx.fill();
-                        // Draw dart
                         ctx.beginPath();
                         ctx.arc(dart.x, dart.y, dart.radius, 0, Math.PI * 2);
                         ctx.fillStyle = '#f59f00';
@@ -368,7 +821,7 @@
                         if (isPlaying) {
                             dart.x += dart.vx;
                             dart.y += dart.vy;
-                            dart.vy += 0.1; // Gravity
+                            dart.vy += 0.1;
                             if (dart.x > canvas.width || dart.y > canvas.height || dart.x < 0 || dart.y < 0) {
                                 isPlaying = false;
                                 dart.x = 50;
@@ -377,7 +830,18 @@
                                 dart.vy = -5;
                                 const distance = Math.hypot(dart.x - target.x, dart.y - target.y);
                                 if (distance < target.radius) {
-                                    setScore(prev => prev + 10);
+                                    setScore(prev => {
+                                        const newScore = prev + 10;
+                                        if (window.sounds) {
+                                            window.sounds.cheer.play();
+                                        }
+                                        if (newScore > (leaderboard[0]?.score || 0)) {
+                                            const newLeaderboard = [{ name: 'Jugador', score: newScore }, ...leaderboard.slice(0, 4)];
+                                            setLeaderboard(newLeaderboard);
+                                            localStorage.setItem('leaderboard', JSON.stringify(newLeaderboard));
+                                        }
+                                        return newScore;
+                                    });
                                 }
                             }
                         }
@@ -390,6 +854,9 @@
                     const handleClick = () => {
                         if (!isPlaying) {
                             isPlaying = true;
+                            if (window.sounds) {
+                                window.sounds.dart.play();
+                            }
                         }
                     };
 
@@ -402,7 +869,7 @@
                 } catch (error) {
                     console.error('GameCanvas Error:', error);
                 }
-            }, []);
+            }, [leaderboard]);
 
             return (
                 <div className="text-center">
@@ -410,207 +877,17 @@
                         ref={canvasRef}
                         width={400}
                         height={300}
-                        className="game-canvas"
+                        className="game-canvas mx-auto"
                         aria-label="Juego interactivo de dardos"
                     ></canvas>
-                    <p className="text-lg mt-4">Puntuación: {score}</p>
-                    <p className="text-sm text-gray-400">Haz clic para lanzar un dardo</p>
-                </div>
-            );
-        }
-
-        function App() {
-            const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
-            React.useEffect(() => {
-                try {
-                    const handleScroll = () => {
-                        const scrollY = window.scrollY;
-                        const bg = document.querySelector('.parallax-bg');
-                        const cocktail = document.querySelector('.parallax-cocktail');
-                        const smoke = document.querySelector('.parallax-smoke');
-                        if (bg) bg.style.transform = `translateY(${scrollY * 0.5}px)`;
-                        if (cocktail) cocktail.style.transform = `translateY(${scrollY * 0.3}px)`;
-                        if (smoke) smoke.style.transform = `translateY(${scrollY * 0.2}px)`;
-
-                        document.querySelectorAll('.animate-section').forEach(el => {
-                            const rect = el.getBoundingClientRect();
-                            if (rect.top < window.innerHeight * 0.8) {
-                                el.classList.add('visible');
-                            }
-                        });
-                    };
-                    window.addEventListener('scroll', handleScroll);
-                    handleScroll();
-
-                    if (typeof gsap !== 'undefined') {
-                        gsap.from('.tapas-plate', {
-                            x: -200,
-                            opacity: 0,
-                            duration: 1,
-                            scrollTrigger: { trigger: '#menu', start: 'top 80%' }
-                        });
-                        gsap.from('.game-canvas', {
-                            scale: 0.8,
-                            opacity: 0,
-                            duration: 1,
-                            scrollTrigger: { trigger: '#ocio', start: 'top 80%' }
-                        });
-                    }
-
-                    return () => window.removeEventListener('scroll', handleScroll);
-                } catch (error) {
-                    console.error('App Effect Error:', error);
-                }
-            }, []);
-
-            const featuredItems = [
-                menuData["Cócteles con Alcohol"]?.find(item => item.name === "Mojito"),
-                menuData["Desayunos y Otros"]?.find(item => item.name === "Torta del Casar"),
-                menuData["Postres y Helados"]?.find(item => item.name === "Pancakes con Sirope, Nata y Helado")
-            ].filter(Boolean);
-
-            return (
-                <ErrorBoundary>
-                    <div>
-                        <header className="parallax-hero flex items-center justify-center text-center">
-                            <div className="parallax-layer parallax-bg"></div>
-                            <div className="parallax-layer parallax-cocktail"></div>
-                            <div className="parallax-layer parallax-smoke"></div>
-                            <div className="relative z-10">
-                                <img
-                                    src="https://raw.githubusercontent.com/WhitiXD/Whiti/master/envidia_copas-ia2.png"
-                                    alt="Logo Envidia Copas"
-                                    className="mx-auto w-full max-w-xs mb-6"
-                                />
-                                <h1 className="text-5xl md:text-7xl font-bold text-amber-400 font-['Lora'] drop-shadow-2xl">Envidia Copas</h1>
-                                <p className="text-xl md:text-2xl mt-4 max-w-2xl mx-auto drop-shadow-lg">
-                                    Frente a Santa Justa, Sevilla: Cócteles, tapas, desayunos y diversión sin fin
-                                </p>
-                                <button
-                                    onClick={() => setIsMenuOpen(true)}
-                                    className="mt-8 bg-amber-400 text-gray-900 px-10 py-4 rounded-full font-semibold text-lg button-primary"
-                                    aria-label="Ver la carta"
-                                >
-                                    Ver Carta
-                                </button>
-                            </div>
-                        </header>
-                        <nav className="bg-gray-800 py-6 sticky top-0 z-40 shadow-lg">
-                            <div className="container mx-auto flex justify-center gap-8">
-                                <a href="#inicio" className="text-white hover:text-amber-400 font-semibold text-lg nav-link transition" aria-label="Inicio">Inicio</a>
-                                <a href="#menu" className="text-white hover:text-amber-400 font-semibold text-lg nav-link transition" aria-label="Menú">Menú</a>
-                                <a href="#ocio" className="text-white hover:text-amber-400 font-semibold text-lg nav-link transition" aria-label="Ocio">Ocio</a>
-                                <a href="#contacto" className="text-white hover:text-amber-400 font-semibold text-lg nav-link transition" aria-label="Contacto">Contacto</a>
-                            </div>
-                        </nav>
-                        <main>
-                            <section id="inicio" className="py-24 text-center bg-gray-900 animate-section">
-                                <h2 className="text-4xl md:text-5xl font-bold mb-8 text-amber-400 font-['Lora']">Vive Envidia Copas</h2>
-                                <p className="text-lg md:text-xl max-w-3xl mx-auto">
-                                    En el corazón de Sevilla, frente a la estación Santa Justa, Envidia Copas es más que un bar: es un destino. Disfruta de cócteles artesanales, desayunos caseros, tapas sevillanas y meriendas dulces, todo en un ambiente vibrante con juegos como futbolín y dardos.
-                                </p>
-                            </section>
-                            <section id="menu" className="py-24 text-center bg-gray-800 animate-section">
-                                <div className="tapas-plate h-32 mb-8"></div>
-                                <h2 className="text-4xl md:text-5xl font-bold mb-8 text-amber-400 font-['Lora']">Nuestra Carta 🍹</h2>
-                                <p className="text-lg md:text-xl max-w-3xl mx-auto mb-10">
-                                    Saborea nuestra selección de cócteles, tapas, postres y más, creada con pasión y los mejores ingredientes.
-                                </p>
-                                <div className="flex flex-wrap justify-center gap-6 mb-12">
-                                    {featuredItems.map((item, index) => (
-                                        <div key={index} className="carousel-item bg-gray-700 rounded-xl overflow-hidden w-72">
-                                            <img src={item.image} alt={item.name} className="w-full h-48 object-cover" />
-                                            <div className="p-4">
-                                                <h3 className="text-lg font-semibold text-white">{item.name}</h3>
-                                                <p className="text-amber-400 font-bold">{item.price.toFixed(2)}€</p>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                                <button
-                                    onClick={() => setIsMenuOpen(true)}
-                                    className="bg-amber-400 text-gray-900 px-10 py-4 rounded-full font-semibold text-lg button-primary"
-                                    aria-label="Ver carta completa"
-                                >
-                                    Ver Carta Completa
-                                </button>
-                                <MenuModal isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
-                            </section>
-                            <section id="ocio" className="py-24 text-center bg-gray-900 animate-section">
-                                <h2 className="text-4xl md:text-5xl font-bold mb-8 text-amber-400 font-['Lora']">Diversión sin Límites 🎯</h2>
-                                <p className="text-lg md:text-xl max-w-3xl mx-auto mb-10">
-                                    Nuestra zona de ocio es el alma de Envidia Copas. Juega al futbolín, apunta con los dardos o relájate con amigos en un ambiente único.
-                                </p>
-                                <GameCanvas />
-                            </section>
-                            <section id="contacto" className="py-24 text-center bg-gray-800 animate-section">
-                                <h2 className="text-4xl md:text-5xl font-bold mb-8 text-amber-400 font-['Lora']">Encuéntranos</h2>
-                                <p className="text-lg md:text-xl max-w-3xl mx-auto mb-10">
-                                    Estamos en <strong>C. Juan Antonio Cavestany, 25, 41003 Sevilla</strong>, frente a Santa Justa. Síguenos en <a href="https://www.instagram.com/envidia_cafeycopas" target="_blank" className="text-amber-400 hover:text-amber-300" aria-label="Instagram de Envidia Copas">Instagram</a> o visítanos.
-                                </p>
-                                <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3170.071441073104!2d-5.974863684689042!3d37.39041587983084!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd126c2b7f7f7b1b%3A0x8b3c1e7f7f7f7f7f!2sC.%20Juan%20Antonio%20Cavestany%2C%2025%2C%2041003%20Sevilla%2C%20Spain!5e0!3m2!1sen!2sus!4v1697051234567!5m2!1sen!2sus"
-                                    className="w-full max-w-4xl h-96 mx-auto rounded-xl shadow-lg"
-                                    allowFullScreen=""
-                                    loading="lazy"
-                                    referrerPolicy="no-referrer-when-downgrade"
-                                    aria-label="Mapa de Envidia Copas"
-                                ></iframe>
-                                <p className="text-lg mt-8 font-semibold">Horario:</p>
-                                <p className="text-base">Martes - Sábado: 16:00 - 02:00</p>
-                                <p className="text-base">Domingo: 15:00 - 22:00</p>
-                            </section>
-                            <section id="instagram-feed" className="py-24 text-center bg-gray-900 animate-section">
-                                <h2 className="text-4xl md:text-5xl font-bold mb-8 text-amber-400 font-['Lora']">Nuestro Instagram 📸</h2>
-                                <p className="text-lg md:text-xl max-w-3xl mx-auto mb-10">
-                                    Descubre la magia de Envidia Copas en Instagram: cócteles, eventos y más.
-                                </p>
-                                <iframe
-                                    src="https://www.instagram.com/envidia_cafeycopas/embed/"
-                                    className="w-full max-w-4xl mx-auto h-[600px] border-none"
-                                    allowTransparency="true"
-                                    frameBorder="0"
-                                    scrolling="auto"
-                                    aria-label="Feed de Instagram"
-                                ></iframe>
-                            </section>
-                        </main>
-                        <footer className="bg-gray-800 py-12 text-center">
-                            <p className="text-base">© 2025 Envidia Copas. Todos los derechos reservados.</p>
-                            <div className="mt-4 flex justify-center gap-6">
-                                <a href="https://www.instagram.com/envidia_cafeycopas" target="_blank" className="text-amber-400 hover:text-amber-300 font-semibold" aria-label="Instagram">Instagram</a>
-                                <a href="#contacto" className="text-amber-400 hover:text-amber-300 font-semibold" aria-label="Contacto">Contacto</a>
-                            </div>
-                        </footer>
+                    <p className="text-lg mt-4 light-text">Puntuación: {score}</p>
+                    <p className="text-sm text-gray-400 light:text-gray-600">Haz clic para lanzar un dardo</p>
+                    <div className="mt-4">
+                        <h3 className="text-xl font-semibold text-amber-400 light:text-amber-600">Tabla de Clasificación</h3>
+                        <ul className="list-none">
+                            {leaderboard.map((entry, idx) => (
+                                <li key={idx} className="text-light-text">{entry.name}: {entry.score} puntos</li>
+                            ))}
+                        </ul>
                     </div>
-                </ErrorBoundary>
-            );
-        }
-
-        function expandImage(img) {
-            try {
-                const expandedContainer = document.createElement('div');
-                expandedContainer.classList.add('expanded-image-container');
-                const expandedImg = document.createElement('img');
-                expandedImg.src = img.src;
-                expandedImg.classList.add('expanded-image');
-                expandedContainer.appendChild(expandedImg);
-                document.body.appendChild(expandedContainer);
-                expandedContainer.addEventListener('click', () => document.body.removeChild(expandedContainer));
-            } catch (error) {
-                console.error('Expand Image Error:', error);
-            }
-        }
-
-        // Fallback for CDN failure
-        window.addEventListener('error', (event) => {
-            if (event.message.includes('Script error')) {
-                console.error('Script loading error. Ensure CDNs are accessible or use local scripts.');
-            }
-        });
-
-        ReactDOM.render(<App />, document.getElementById('root'));
-    </script>
-</body>
-</html>
+                </div>
