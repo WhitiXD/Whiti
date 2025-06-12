@@ -4,27 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="IMiWiXjV0qaBBoJareXafpb0CY_7Zq3PzrZMufjHQBA" />
-    <meta property="og:title" content="Envidia Copas - Sevilla">
-    <meta property="og:description" content="Disfruta de cócteles artesanales, desayunos deliciosos y postres irresistibles en el corazón de Sevilla.">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">
-    <meta name="author" content="Bar Envidia">
-    <title>Envidia Copas - Sevilla</title>
+    <meta property="og:title" content="Envidia Copas - Sevilla Santa Justa" />
+    <meta property="og:description" content="Vive la noche sevillana frente a Santa Justa con cócteles, tapas, desayunos y juegos como futbolín y dardos." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" />
+    <meta name="author" content="Bar Envidia" />
+    <title>Envidia Copas - Sevilla Santa Justa</title>
     <link rel="icon" href="https://raw.githubusercontent.com/WhitiXD/Whiti/master/copa1-ia.png">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Montserrat and Lora -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Lora:wght@700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
+    <!-- React and ReactDOM -->
+    <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    <!-- Babel for JSX -->
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.20.15/babel.min.js"></script>
+    <!-- GSAP for animations -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
     <style>
         body {
-            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80");
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            font-family: 'Montserrat', sans-serif;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        .parallax-hero {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .parallax-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
-            min-height: 100vh;
-            font-family: 'Inter', sans-serif;
-            color: #fff;
+        }
+        .parallax-bg {
+            background-image: url('https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            transform: translateY(0);
+        }
+        .parallax-cocktail {
+            background-image: url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center 70%;
+            transform: translateY(20px);
+        }
+        .parallax-smoke {
+            background-image: url('https://images.unsplash.com/photo-1518481852452-817f0d1a2d3a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            opacity: 0.3;
+            transform: translateY(10px);
         }
         .expanded-image-container {
             position: fixed;
@@ -36,29 +67,21 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 9999;
-            cursor: zoom-out;
+            z-index: 10000;
         }
         .expanded-image {
             max-width: 95%;
             max-height: 95%;
             object-fit: contain;
-            border-radius: 12px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            border-radius: 16px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
         }
         .modal {
-            animation: slideIn 0.4s ease-in-out;
+            animation: fadeIn 0.5s ease-in-out;
         }
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .logo {
-            transition: transform 0.3s ease, filter 0.3s ease;
-        }
-        .logo:hover {
-            transform: scale(1.05);
-            filter: brightness(1.2);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
         .card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -69,54 +92,88 @@
         }
         .nav-link {
             position: relative;
+            padding-bottom: 4px;
         }
         .nav-link::after {
             content: '';
             position: absolute;
             width: 0;
             height: 2px;
-            bottom: -4px;
+            bottom: 0;
             left: 0;
-            background-color: #facc15;
+            background-color: #f59f00;
             transition: width 0.3s ease;
         }
         .nav-link:hover::after {
             width: 100%;
         }
-        .hero-section {
-            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6)), url("https://images.unsplash.com/photo-1555244162-8037d8a0e30f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80");
-            background-size: cover;
-            background-position: center;
+        .carousel-item {
+            transition: transform 0.3s ease;
+            transform-style: preserve-3d;
+        }
+        .carousel-item:hover {
+            transform: rotateY(10deg);
+        }
+        .animate-section {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        .animate-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .game-canvas {
+            border: 2px solid #f59f00;
+            border-radius: 10px;
+            background: radial-gradient(circle, #2d3748 0%, #1e293b 100%);
+        }
+        .button-primary {
+            background-color: #d97706;
+            transform: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .button-primary:hover {
+            transform: translateY(-3px);
+        }
+        .tapas-plate {
+            background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: 100% 100%;
+            animation: slidePlate 1.5s ease-in-out;
+        }
+        @keyframes slidePlate {
+            from { transform: 0 translateX(-100%); opacity: 0; }
+            to { transform: 0 translateX(0); opacity: 1; to; }
         }
     </style>
 </head>
 <body>
     <div id="root"></div>
-
     <script type="text/babel">
         const menuData = {
             "Desayunos y Otros": [
-                { name: "Tostada A.O.V. - Tulupón (Media)", price: 1.20, note: "", image: "https://images.unsplash.com/photo-1528731708534-81627959f071?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Tostada A.O.V. - Tulupón (Entera)", price: 1.50, note: "", image: "https://images.unsplash.com/photo-1528731708534-81627959f071?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Pan con Sobrasada", price: 1.20, note: "", image: "https://images.unsplash.com/photo-1599948128020-39c3b3a222d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Pan con Jamón York", price: 1.30, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "A.O.V. - Tulupón (Media)", price: 1.20, note: "", image: "https://images.unsplash.com/photo-1528731708534-81627959f071?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "A.O.V. - Tulupón (Entera)", price: 1.50, note: "", image: "https://images.unsplash.com/photo-1528731708534-81627959f071?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Pan con Sobrasada", price: 1.20, note: "https://images.unsplash.com/photo-1599948128020-39c3b3a222d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Pan con Jamón York", price: 1.30, note: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto"=format&fit=crop&w=800&q=80" },
                 { name: "Manteca de Lomo Colorá", price: 1.70, note: "", image: "https://images.unsplash.com/photo-1606851134945-9667bf058c79?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Tostada A.O.V. y Tomate", price: 1.30, note: "", image: "https://images.unsplash.com/photo-1541518763669-2fefb165afcc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Tostada A.O.V. y Salmorejo", price: 1.70, note: "", image: "https://images.unsplash.com/photo-1627308594196-4b0f180aec63?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "A.O.V. y Tomate", price: 1.30, note: "", image: "https://images.unsplash.com/photo-1541518763669-2fefb165afcc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "A.O.V. y Salmorejo", price: 1.70, note: "", image: "https://images.unsplash.com/photo-1627308594196-4b0f180aec63?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
                 { name: "Porción Mantequilla y Mermelada", price: 1.60, note: "", image: "https://images.unsplash.com/photo-1559561843-297a373e4142?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Tostada A.O.V. y Pavo", price: 1.60, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Tostada A.O.V. y Jamón York", price: 1.90, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Tostada Jamón, A.O.V. y Tomate (Media)", price: 1.60, note: "", image: "https://images.unsplash.com/photo-1541518763669-2fefb165afcc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Tostada Jamón, A.O.V. y Tomate (Entera)", price: 1.90, note: "", image: "https://images.unsplash.com/photo-1541518763669-2fefb165afcc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Tostada Jamón con A.O.V.", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Tostada Lomo Asado con Sal y Miel", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1606851134945-9667bf058c79?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Tostada Tortilla de Patatas (sin Whisky)", price: 2.60, note: "", image: "https://images.unsplash.com/photo-1551326844-4f64c879b9c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Tostada Pringá", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1606851134945-9667bf058c79?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Tostada Torta del Casar", price: 2.50, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Tostada Jamón y Queso Curado", price: 2.50, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Tostada Chorizo y Queso Curado", price: 3.00, note: "", image: "https://images.unsplash.com/photo-1606851134945-9667bf058c79?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Desayuno Completo: Huevos, Bacon, Lomo, Queso, Zumo y Café", price: 6.00, note: "", image: "https://images.unsplash.com/photo-1525351484163-7522494f2660?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Café o Infusiones", price: 1.30, note: "", image: "https://images.unsplash.com/photo-1512568400610-5978aa9e263b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "A.O.V. y Pavo", price: 1.60, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "A.O.V. y Jamón York", price: 1.90, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Jamón, A.O.V. y Tomate (Media)", price: 1.60, note: "", image: "https://images.unsplash.com/photo-1541518763669-2fefb165afcc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Jamón, A.O.V. y Tomate (Entera)", price: 1.90, note: "", image: "https://images.unsplash.com/photo-1541518763669-2fefb165afcc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Jamón con A.O.V.", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Lomo Asado con Sal y Miel", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1606851134945-9667bf058c79?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Tortilla de Patatas (sin Whisky)", price: 2.60, note: "", image: "https://images.unsplash.com/photo-1551326844-4f64c879b9c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Pringá", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1606851134945-9667bf058c79?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Torta del Casar", price: 2.50, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Jamón y Queso Curado", price: 2.50, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Chorizo y Queso Curado", price: 3.00, note: "", image: "https://images.unsplash.com/photo-1606851134945-9667bf058c79?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Huevos, Bacon, Lomo, Queso, Zumo y Café", price: 6.00, note: "", image: "https://images.unsplash.com/photo-1525351484163-7522494f2660?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Café / Infusiones", price: 1.30, note: "", image: "https://images.unsplash.com/photo-1512568400610-5978aa9e263b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
                 { name: "Infusiones Especiales", price: 1.70, note: "", image: "https://images.unsplash.com/photo-1512568400610-5978aa9e263b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
                 { name: "Carajillo", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1512568400610-5978aa9e263b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
                 { name: "Café Bombón", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1512568400610-5978aa9e263b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
@@ -145,7 +202,7 @@
                 { name: "Piña Colada (Piña y Coco)", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
                 { name: "Red Banana (Fresa y Plátano)", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1505252585461-04db1eb84625?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
                 { name: "Tropic Mix (Piña, Papaya, Mango)", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1504382262782-5b4ece78642b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Smoothie Para Llevar", price: 5.00, note: "Listo para llevar", image: "https://images.unsplash.com/photo-1504382262782-5b4ece78642b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" }
+                { name: "Para Llevar", price: 5.00, note: "Listos para llevar", image: "https://images.unsplash.com/photo-1504382262782-5b4ece78642b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" }
             ],
             "Helados - Formatos": [
                 { name: "Vasito Grande (Artesano)", price: 5.50, note: "", image: "https://images.unsplash.com/photo-1560008581-09826d1de4f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
@@ -168,48 +225,10 @@
                 { name: "Cosmopolitan", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1588650432184-64b8a90e09b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" }
             ],
             "Cócteles sin Alcohol": [
-                { name: "Virgin Bloody Mary", price: 7.50, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Virgin San Francisco", price: 7.50, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Virgin Mojito", price: 7.50, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Virgin Caipirinha", price: 7.50, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Virgin Piña Colada", price: 7.50, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Virgin Cosmopolitan", price: 7.50, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" }
+                { name: "Cóctel sin Alcohol", price: 7.50, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" }
             ]
         };
 
-        // Helper function to expand images
-        function expandImage(src) {
-            const expandedContainer = document.createElement('div');
-            expandedContainer.classList.add('expanded-image-container');
-            const expandedImg = document.createElement('img');
-            expandedImg.src = src;
-            expandedImg.classList.add('expanded-image');
-            expandedContainer.appendChild(expandedImg);
-            document.body.appendChild(expandedContainer);
-            expandedContainer.addEventListener('click', () => document.body.removeChild(expandedContainer));
-        }
-
-        // MenuItem Component
-        function MenuItem({ item, expandImage }) {
-            return (
-                <div className="bg-gray-800 rounded-xl overflow-hidden card">
-                    <img
-                        src={item.image}
-                        alt={item.name}
-                        className="w-full h-64 object-cover cursor-pointer"
-                        onClick={() => expandImage(item.image)}
-                    />
-                    <div className="p-6">
-                        <h3 className="text-xl font-semibold text-white mb-2">{item.name}</h3>
-                        <p className="text-yellow-400 font-bold text-lg">{item.price.toFixed(2)}€</p>
-                        {item.note && <p className="text-sm text-gray-400 mt-2">{item.note}</p>}
-                        <p className="text-xs text-gray-500 mt-3 capitalize">{item.category}</p>
-                    </div>
-                </div>
-            );
-        }
-
-        // MenuModal Component
         function MenuModal({ isOpen, onClose }) {
             const [selectedCategory, setSelectedCategory] = React.useState("all");
             const [searchTerm, setSearchTerm] = React.useState("");
@@ -226,38 +245,53 @@
             );
 
             return (
-                <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 p-4">
-                    <div className="bg-gray-900 rounded-2xl p-8 w-full max-w-6xl h-[90vh] overflow-y-auto modal shadow-2xl">
-                        <div className="flex justify-between items-center mb-8">
-                            <h2 className="text-4xl font-bold text-yellow-400 font-['Playfair_Display']">Nuestra Carta</h2>
-                            <button onClick={onClose} className="text-gray-300 hover:text-white text-4xl transition duration-300">×</button>
+                <div className="fixed inset-0 bg-black bg-opacity-95 flex items-center justify-center z-50">
+                    <div className="bg-gray-800 rounded-3xl p-12 w-full max-w-6xl h-[85vh] overflow-y-auto modal">
+                        <div className="flex justify-between items-center mb-10">
+                            <h2 className="text-4xl font-bold text-amber-400 font-['Lora']">Explora Nuestra Carta</h2>
+                            <button onClick={onClose} className="text-gray-300 hover:text-white text-4xl transition" aria-label="Cerrar carta">×</button>
                         </div>
                         <div className="mb-8">
                             <input
                                 type="text"
                                 placeholder="Buscar producto..."
-                                className="w-full p-4 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-yellow-400 transition duration-300 text-lg"
+                                className="w-full p-4 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-amber-400 transition text-lg"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
+                                aria-label="Buscar en la carta"
                             />
                         </div>
-                        <div className="flex flex-wrap gap-3 sm:gap-4 mb-8 justify-center">
+                        <div className="flex flex-wrap gap-3 mb-8">
                             {categories.map(category => (
                                 <button
                                     key={category}
                                     onClick={() => setSelectedCategory(category)}
-                                    className={`px-5 py-2.5 sm:px-6 sm:py-3 rounded-full font-semibold text-sm sm:text-base transition duration-300 ${selectedCategory === category ? 'bg-yellow-400 text-gray-900 shadow-md' : 'bg-gray-800 text-gray-200 hover:bg-gray-700'}`}
+                                    className={`px-6 py-2 rounded-full font-semibold text-base transition ${selectedCategory === category ? 'bg-amber-400 text-gray-900' : 'bg-gray-700 text-gray-200 hover:bg-gray-600'}`}
+                                    aria-label={`Filtrar por ${category === "all" ? "Todos" : category}`}
                                 >
                                     {category === "all" ? "Todos" : category}
                                 </button>
                             ))}
                         </div>
                         {filteredItems.length === 0 ? (
-                            <p className="text-center text-gray-400 text-lg mt-10">No se encontraron productos que coincidan con su búsqueda.</p>
+                            <p className="text-center text-gray-400 text-lg">No se encontraron productos.</p>
                         ) : (
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                                 {filteredItems.map((item, index) => (
-                                    <MenuItem key={index} item={item} expandImage={expandImage} />
+                                    <div key={index} className="bg-gray-700 rounded-xl overflow-hidden card">
+                                        <img
+                                            src={item.image}
+                                            alt={item.name}
+                                            className="w-full h-60 object-cover cursor-pointer"
+                                            onClick={() => expandImage({ src: item.image })}
+                                        />
+                                        <div className="p-6">
+                                            <h3 className="text-xl font-semibold text-white mb-2">{item.name}</h3>
+                                            <p className="text-amber-400 font-bold text-lg">{item.price.toFixed(2)}€</p>
+                                            {item.note && <p className="text-sm text-gray-400 mt-2">{item.note}</p>}
+                                            <p className="text-xs text-gray-500 mt-3">{item.category}</p>
+                                        </div>
+                                    </div>
                                 ))}
                             </div>
                         )}
@@ -266,100 +300,251 @@
             );
         }
 
-        // Main App Component
+        function GameCanvas() {
+            const canvasRef = React.useRef(null);
+            const [gameState, setGameState] = React.useState("idle");
+            const [score, setScore] = React.useState(0);
+
+            React.useEffect(() => {
+                const canvas = canvasRef.current;
+                const ctx = canvas.getContext('2d');
+                let dart = { x: 50, y: 250, vx: 0, vy: 0, radius: 10 };
+                let target = { x: 350, y: 150, radius: 50 };
+                let animationFrame;
+
+                const draw = () => {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    // Draw target
+                    ctx.beginPath();
+                    ctx.arc(target.x, target.y, target.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = '#dc2626';
+                    ctx.fill();
+                    ctx.beginPath();
+                    ctx.arc(target.x, target.y, target.radius * 0.3, 0, Math.PI * 2);
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fill();
+                    // Draw dart
+                    ctx.beginPath();
+                    ctx.arc(dart.x, dart.y, dart.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = '#f59f00';
+                    ctx.fill();
+
+                    if (gameState === "playing") {
+                        dart.x += dart.vx;
+                        dart.y += dart.vy;
+                        dart.vy += 0.1; // Gravity
+                        if (dart.x > canvas.width || dart.y > canvas.height) {
+                            setGameState("idle");
+                            setScore(prev => prev + (Math.hypot(dart.x - target.x, dart.y - target.y) < target.radius ? 10 : 0));
+                        }
+                    }
+
+                    animationFrame = requestAnimationFrame(draw);
+                };
+
+                draw();
+
+                return () => cancelAnimationFrame(animationFrame);
+            }, [gameState]);
+
+            const handleClick = (e) => {
+                if (gameState === "idle") {
+                    const rect = canvasRef.current.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    setGameState("playing");
+                    setTimeout(() => {
+                        setGameState("idle");
+                    }, 1000);
+                }
+            };
+
+            return (
+                <div className="text-center">
+                    <canvas
+                        ref={canvasRef}
+                        width={400}
+                        height={300}
+                        className="game-canvas"
+                        onClick={handleClick}
+                        aria-label="Juego interactivo de dardos"
+                    ></canvas>
+                    <p className="text-lg mt-4">Puntuación: {score}</p>
+                    <p className="text-sm text-gray-400">Haz clic para lanzar un dardo</p>
+                </div>
+            );
+        }
+
         function App() {
             const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
+            React.useEffect(() => {
+                // Parallax effect
+                const handleScroll = () => {
+                    const scrollY = window.scrollY;
+                    document.querySelector('.parallax-bg').style.transform = `translateY(${scrollY * 0.5}px)`;
+                    document.querySelector('.parallax-cocktail').style.transform = `translateY(${scrollY * 0.3}px)`;
+                    document.querySelector('.parallax-smoke').style.transform = `translateY(${scrollY * 0.2}px)`;
+
+                    // Section animations
+                    document.querySelectorAll('.animate-section').forEach(el => {
+                        const rect = el.getBoundingClientRect();
+                        if (rect.top < window.innerHeight * 0.8) {
+                            el.classList.add('visible');
+                        }
+                    });
+                };
+                window.addEventListener('scroll', handleScroll);
+                handleScroll();
+
+                // GSAP animations
+                gsap.from('.tapas-plate', {
+                    x: -200,
+                    opacity: 0,
+                    duration: 1,
+                    scrollTrigger: { trigger: '#menu', start: 'top 80%' }
+                });
+                gsap.from('.game-canvas', {
+                    scale: 0.8,
+                    opacity: 0,
+                    duration: 1,
+                    scrollTrigger: { trigger: '#ocio', start: 'top 80%' }
+                });
+
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            const featuredItems = [
+                menuData["Cócteles con Alcohol"].find(item => item.name === "Mojito"),
+                menuData["Desayunos y Otros"].find(item => item.name === "Torta del Casar"),
+                menuData["Postres y Helados"].find(item => item.name === "Pancakes con Sirope, Nata y Helado")
+            ].filter(Boolean);
+
             return (
                 <div>
-                    <header className="hero-section py-24 text-center">
-                        <img
-                            src="https://raw.githubusercontent.com/WhitiXD/Whiti/master/envidia_copas-ia2.png"
-                            alt="Logo Envidia Copas"
-                            className="mx-auto w-full max-w-md logo"
-                        />
-                        <h1 className="text-5xl md:text-6xl font-bold mt-6 text-yellow-400 font-['Playfair_Display'] drop-shadow-lg">Envidia Copas</h1>
-                        <p className="text-xl md:text-2xl mt-4 max-w-2xl mx-auto drop-shadow-lg px-4">El lugar perfecto en Sevilla para cócteles artesanales, desayunos y postres únicos</p>
-                        <button
-                            onClick={() => setIsMenuOpen(true)}
-                            className="mt-8 bg-yellow-400 text-gray-900 px-10 py-4 rounded-full font-semibold text-lg hover:bg-yellow-500 transition duration-300 shadow-lg"
-                        >
-                            Ver Carta
-                        </button>
-                    </header>
-
-                    <nav className="bg-gray-900 py-6 sticky top-0 z-40 shadow-lg">
-                        <div className="container mx-auto flex flex-wrap justify-center gap-6 px-4">
-                            <a href="#inicio" className="text-white hover:text-yellow-400 font-semibold text-lg nav-link transition duration-300">Inicio</a>
-                            <a href="#menu" className="text-white hover:text-yellow-400 font-semibold text-lg nav-link transition duration-300">Menú</a>
-                            <a href="#contacto" className="text-white hover:text-yellow-400 font-semibold text-lg nav-link transition duration-300">Contacto</a>
-                        </div>
-                    </nav>
-
-                    <main>
-                        <section id="inicio" className="py-24 text-center bg-gray-900/80 px-4">
-                            <h2 className="text-4xl md:text-5xl font-bold mb-8 text-yellow-400 font-['Playfair_Display'] drop-shadow-lg">Bienvenidos a Envidia Copas</h2>
-                            <p className="text-lg md:text-xl max-w-4xl mx-auto drop-shadow-lg">
-                                Ubicados en **C. Juan Antonio Cavestany, 25, 41003 Sevilla**, somos tu destino para disfrutar de una experiencia gastronómica única. Desde cócteles artesanales hasta desayunos y postres irresistibles, nuestro ambiente acogedor te invita a compartir momentos inolvidables.
+                    <header className="parallax-hero flex items-center justify-center text-center">
+                        <div className="parallax-layer parallax-bg"></div>
+                        <div className="parallax-layer parallax-cocktail"></div>
+                        <div className="parallax-layer parallax-smoke"></div>
+                        <div className="relative z-10">
+                            <img
+                                src="https://raw.githubusercontent.com/WhitiXD/Whiti/master/envidia_copas-ia2.png"
+                                alt="Logo Envidia Copas"
+                                className="mx-auto w-full max-w-xs mb-6"
+                            />
+                            <h1 className="text-5xl md:text-7xl font-bold text-amber-400 font-['Lora'] drop-shadow-2xl">Envidia Copas</h1>
+                            <p className="text-xl md:text-2xl mt-4 max-w-2xl mx-auto drop-shadow-lg">
+                                Frente a Santa Justa, Sevilla: Cócteles, tapas, desayunos y diversión sin fin
                             </p>
                             <button
                                 onClick={() => setIsMenuOpen(true)}
-                                className="mt-8 bg-yellow-400 text-gray-900 px-10 py-4 rounded-full font-semibold text-lg hover:bg-yellow-500 transition duration-300 shadow-lg"
+                                className="mt-8 bg-amber-400 text-gray-900 px-10 py-4 rounded-full font-semibold text-lg button-primary"
+                                aria-label="Ver la carta"
                             >
                                 Ver Carta
                             </button>
-                        </section>
-
-                        <section id="menu" className="py-24 text-center bg-gray-900/60 px-4">
-                            <h2 className="text-4xl md:text-5xl font-bold mb-8 text-yellow-400 font-['Playfair_Display'] drop-shadow-lg">Nuestra Carta 🍸</h2>
-                            <p className="text-lg md:text-xl max-w-4xl mx-auto mb-10 drop-shadow-lg">
-                                Descubre nuestra selección de desayunos, cócteles, smoothies, helados y postres, elaborados con pasión y los mejores ingredientes.
+                        </div>
+                    </header>
+                    <nav className="bg-gray-800 py-6 sticky top-0 z-40 shadow-lg">
+                        <div className="container mx-auto flex justify-center gap-8">
+                            <a href="#inicio" className="text-white hover:text-amber-400 font-semibold text-lg nav-link transition" aria-label="Inicio">Inicio</a>
+                            <a href="#menu" className="text-white hover:text-amber-400 font-semibold text-lg nav-link transition" aria-label="Menú">Menú</a>
+                            <a href="#ocio" className="text-white hover:text-amber-400 font-semibold text-lg nav-link transition" aria-label="Ocio">Ocio</a>
+                            <a href="#contacto" className="text-white hover:text-amber-400 font-semibold text-lg nav-link transition" aria-label="Contacto">Contacto</a>
+                        </div>
+                    </nav>
+                    <main>
+                        <section id="inicio" className="py-24 text-center bg-gray-900 animate-section">
+                            <h2 className="text-4xl md:text-5xl font-bold mb-8 text-amber-400 font-['Lora']">Vive Envidia Copas</h2>
+                            <p className="text-lg md:text-xl max-w-3xl mx-auto">
+                                En el corazón de Sevilla, frente a la estación Santa Justa, Envidia Copas es más que un bar: es un destino. Disfruta de cócteles artesanales, desayunos caseros, tapas sevillanas y meriendas dulces, todo en un ambiente vibrante con juegos como futbolín y dardos.
                             </p>
+                        </section>
+                        <section id="menu" className="py-24 text-center bg-gray-800 animate-section">
+                            <div className="tapas-plate h-32 mb-8"></div>
+                            <h2 className="text-4xl md:text-5xl font-bold mb-8 text-amber-400 font-['Lora']">Nuestra Carta 🍹</h2>
+                            <p className="text-lg md:text-xl max-w-3xl mx-auto mb-10">
+                                Saborea nuestra selección de cócteles, tapas, postres y más, creada con pasión y los mejores ingredientes.
+                            </p>
+                            <div className="flex flex-wrap justify-center gap-6 mb-12">
+                                {featuredItems.map((item, index) => (
+                                    <div key={index} className="carousel-item bg-gray-700 rounded-xl overflow-hidden w-72">
+                                        <img src={item.image} alt={item.name} className="w-full h-48 object-cover" />
+                                        <div className="p-4">
+                                            <h3 className="text-lg font-semibold text-white">{item.name}</h3>
+                                            <p className="text-amber-400 font-bold">{item.price.toFixed(2)}€</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
                             <button
                                 onClick={() => setIsMenuOpen(true)}
-                                className="bg-yellow-400 text-gray-900 px-10 py-4 rounded-full font-semibold text-lg hover:bg-yellow-500 transition duration-300 shadow-lg"
+                                className="bg-amber-400 text-gray-900 px-10 py-4 rounded-full font-semibold text-lg button-primary"
+                                aria-label="Ver carta completa"
                             >
-                                Ver Carta
+                                Ver Carta Completa
                             </button>
                             <MenuModal isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
                         </section>
-
-                        <section id="instagram-feed" className="py-24 text-center bg-gray-900/80 px-4">
-                            <h2 className="text-4xl md:text-5xl font-bold mb-8 text-yellow-400 font-['Playfair_Display'] drop-shadow-lg">Nuestro Instagram 📷</h2>
-                            <p className="text-lg md:text-xl max-w-4xl mx-auto mb-10 drop-shadow-lg">
-                                Síguenos en Instagram para estar al día con nuestras creaciones, eventos y promociones especiales.
+                        <section id="ocio" className="py-24 text-center bg-gray-900 animate-section">
+                            <h2 className="text-4xl md:text-5xl font-bold mb-8 text-amber-400 font-['Lora']">Diversión sin Límites 🎯</h2>
+                            <p className="text-lg md:text-xl max-w-3xl mx-auto mb-10">
+                                Nuestra zona de ocio es el alma de Envidia Copas. Juega al futbolín, apunta con los dardos o relájate con amigos en un ambiente único.
+                            </p>
+                            <GameCanvas />
+                        </section>
+                        <section id="contacto" className="py-24 text-center bg-gray-800 animate-section">
+                            <h2 className="text-4xl md:text-5xl font-bold mb-8 text-amber-400 font-['Lora']">Encuéntranos</h2>
+                            <p className="text-lg md:text-xl max-w-3xl mx-auto mb-10">
+                                Estamos en <strong>C. Juan Antonio Cavestany, 25, 41003 Sevilla</strong>, frente a Santa Justa. Síguenos en <a href="https://www.instagram.com/envidia_cafeycopas" target="_blank" className="text-amber-400 hover:text-amber-300" aria-label="Instagram de Envidia Copas">Instagram</a> o visítanos.
+                            </p>
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3170.071441073104!2d-5.974863684689042!3d37.39041587983084!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd126c2b7f7f7b1b%3A0x8b3c1e7f7f7f7f7f!2sC.%20Juan%20Antonio%20Cavestany%2C%2025%2C%2041003%20Sevilla%2C%20Spain!5e0!3m2!1sen!2sus!4v1697051234567!5m2!1sen!2sus"
+                                className="w-full max-w-4xl h-96 mx-auto rounded-xl shadow-lg"
+                                allowFullScreen=""
+                                loading="lazy"
+                                referrerPolicy="no-referrer-when-downgrade"
+                                aria-label="Mapa de Envidia Copas"
+                            ></iframe>
+                            <p className="text-lg mt-8 font-semibold">Horario:</p>
+                            <p className="text-base">Martes - Sábado: 16:00 - 02:00</p>
+                            <p className="text-base">Domingo: 15:00 - 22:00</p>
+                        </section>
+                        <section id="instagram-feed" className="py-24 text-center bg-gray-900 animate-section">
+                            <h2 className="text-4xl md:text-5xl font-bold mb-8 text-amber-400 font-['Lora']">Nuestro Instagram 📸</h2>
+                            <p className="text-lg md:text-xl max-w-3xl mx-auto mb-10">
+                                Descubre la magia de Envidia Copas en Instagram: cócteles, eventos y más.
                             </p>
                             <iframe
                                 src="https://www.instagram.com/envidia_cafeycopas/embed/"
-                                className="w-full max-w-5xl mx-auto h-[700px] border-none rounded-lg shadow-xl"
+                                className="w-full max-w-4xl mx-auto h-[600px] border-none"
                                 allowTransparency="true"
                                 frameBorder="0"
                                 scrolling="auto"
-                                title="Instagram Feed Envidia Copas"
+                                aria-label="Feed de Instagram"
                             ></iframe>
                         </section>
-
-                        <section id="contacto" className="py-24 text-center bg-gray-900/60 px-4">
-                            <h2 className="text-4xl md:text-5xl font-bold mb-8 text-yellow-400 font-['Playfair_Display'] drop-shadow-lg">Contacto</h2>
-                            <p className="text-lg md:text-xl max-w-4xl mx-auto drop-shadow-lg">
-                                ¡Estamos deseando conocerte! Contáctanos a través de <a href="https://www.instagram.com/envidia_cafeycopas" target="_blank" rel="noopener noreferrer" className="text-yellow-400 hover:text-yellow-300 font-semibold">Instagram</a> para reservas, eventos o cualquier consulta.
-                            </p>
-                            <p className="text-xl mt-6 font-semibold">Horario:</p>
-                            <p className="text-lg">Martes - Sábado: 16:00 - 02:00</p>
-                            <p className="text-lg">Domingo: 15:00 - 22:00</p>
-                            <p className="text-lg mt-4">**Dirección:** C. Juan Antonio Cavestany, 25, 41003 Sevilla</p>
-                        </section>
                     </main>
-
-                    <footer className="bg-gray-900 py-12 text-center">
-                        <p className="text-lg">© 2025 Envidia Copas. Todos los derechos reservados.</p>
-                        <div className="mt-6 flex justify-center gap-8">
-                            <a href="https://www.instagram.com/envidia_cafeycopas" target="_blank" rel="noopener noreferrer" className="text-yellow-400 hover:text-yellow-300 font-semibold transition duration-300">Instagram</a>
-                            <a href="#contacto" className="text-yellow-400 hover:text-yellow-300 font-semibold transition duration-300">Contacto</a>
+                    <footer className="bg-gray-800 py-12 text-center">
+                        <p className="text-base">© 2025 Envidia Copas. Todos los derechos reservados.</p>
+                        <div className="mt-4 flex justify-center gap-6">
+                            <a href="https://www.instagram.com/envidia_cafeycopas" target="_blank" className="text-amber-400 hover:text-amber-300 font-semibold" aria-label="Instagram">Instagram</a>
+                            <a href="#contacto" className="text-amber-400 hover:text-amber-300 font-semibold" aria-label="Contacto">Contacto</a>
                         </div>
                     </footer>
                 </div>
             );
+        }
+
+        function expandImage(img) {
+            const expandedContainer = document.createElement('div');
+            expandedContainer.classList.add('expanded-image-container');
+            const expandedImg = document.createElement('img');
+            expandedImg.src = img.src;
+            expandedImg.classList.add('expanded-image');
+            expandedContainer.appendChild(expandedImg);
+            document.body.appendChild(expandedContainer);
+            expandedContainer.addEventListener('click', () => document.body.removeChild(expandedContainer));
         }
 
         ReactDOM.render(<App />, document.getElementById('root'));
