@@ -1,1349 +1,291 @@
-                    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-site-verification" content="IMiWiXjV0qaBBoJareXafpb0CY_7Zq3PzrZMufjHQBA" />
-    <meta property="og:title" content="Envidia Copas - Sevilla Santa Justa" />
-    <meta property="og:description" content="Vive la noche sevillana frente a Santa Justa con cócteles, tapas, desayunos, juegos y eventos únicos." />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" />
-    <meta name="author" content="Bar Envidia" />
-    <meta name="keywords" content="bar, Sevilla, Santa Justa, cócteles, tapas, desayunos, futbolín, dardos, eventos, flamenco" />
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "BarOrPub",
-            "name": "Envidia Copas",
-            "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "C. Juan Antonio Cavestany, 25",
-                "addressLocality": "Sevilla",
-                "postalCode": "41003",
-                "addressCountry": "ES"
-            },
-            "geo": {
-                "@type": "GeoCoordinates",
-                "latitude": 37.390415,
-                "longitude": -5.974863
-            },
-            "url": "https://www.envidiacopas.com",
-            "telephone": "+34-123-456-789",
-            "openingHoursSpecification": [
-                {
-                    "@type": "OpeningHoursSpecification",
-                    "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-                    "opens": "16:00",
-                    "closes": "02:00"
-                },
-                {
-                    "@type": "OpeningHoursSpecification",
-                    "dayOfWeek": "Sunday",
-                    "opens": "15:00",
-                    "closes": "22:00"
-                }
-            ],
-            "servesCuisine": "Spanish",
-            "hasMenu": "https://www.envidiacopas.com#menu"
-        }
-    </script>
-    <title>Envidia Copas - Sevilla Santa Justa</title>
     <link rel="icon" href="https://raw.githubusercontent.com/WhitiXD/Whiti/master/copa1-ia.png">
-    <!-- Google Fonts: Montserrat, Lora, Dancing Script -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Lora:wght@700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- React and ReactDOM -->
-    <script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
-    <!-- Babel for JSX -->
-    <script src="https://unpkg.com/@babel/standalone@7.25.7/babel.min.js"></script>
-    <!-- GSAP for animations -->
-    <script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
-    <!-- Howler.js for audio -->
-    <script src="https://unpkg.com/howler@2.2.4/dist/howler.min.js"></script>
-    <!-- Mapbox -->
-    <script src="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.js"></script>
-    <link href="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="google-site-verification" content="IMiWiXjV0qaBBoJareXafpb0CY_7Zq3PzrZMufjHQBA" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Bar Eenvidia Copas">
+    <meta property="og:description" content="Envidia Copas">
+    <meta property="og:type" content="website">
+    <meta name="author" content="Bar Envidia">
+    <title>Envidia Copas</title>
     <style>
         body {
-            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
-            font-family: 'Montserrat', sans-serif;
-            color: #ffffff;
-            overflow-x: hidden;
-            transition: background 0.5s ease, color 0.5s ease;
-        }
-        body.light-mode {
-            background: linear-gradient(180deg, #f8f1e9 0%, #e2c2b9 100%);
-            color: #1e293b;
-        }
-        .light-text {
-            color: #ffffff;
-        }
-        body.light-mode .light-text {
-            color: #1e293b;
-        }
-        .light-content {
-            background: #ffffff;
-            color: #1e293b;
-        }
-        .parallax-hero {
-            position: relative;
-            height: 100vh;
-            overflow: hidden;
-        }
-        .parallax-layer {
-            position: absolute;
-            width: 100%;
-            height: 100%;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
             background-size: cover;
+            background-image: url("https://github.com/WhitiXD/Whiti/blob/master/fondo_web2.webp?raw=true");
             background-position: center;
+            color: #fff; /* Color del texto */
         }
-        .parallax-bg {
-            background-image: url('https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
-            transform: translateY(0);
+
+        header {
+            padding: 20px 0;
+            text-align: center;
+            position: relative;
+            margin-top: -6%;
+            z-index: 1; /* Asegura que el encabezado esté sobre el contenido */
+            background: linear-gradient(to top, transparent, rgba(10, 10, 10, 1)); /* Degradado desde transparente a gris con media opacidad */
         }
-        .parallax-cocktail {
-            background-image: url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center 70%;
-            transform: translateY(20px);
-            animation: shake 5s ease-in-out infinite;
+
+        h1, h2, h3, h4, h5, h6, p {
+            text-shadow: 3px 3px 3px rgba(0, 0, 0, 3); /* Ajuste de sombra de texto */
         }
-        @keyframes shake {
-            0%, 100% { transform: translateY(20px) rotate(0deg); }
-            50% { transform: translateY(20px) rotate(2deg); }
+
+        .logo {
+            width: 100%;
+            max-width: 600px; /* Limitar el ancho del logo */
+            height: auto;
+            margin: 0 auto 20px; /* Centrar el logo y añadir margen inferior */
+            position: relative;
+            z-index: -1; /* Asegura que el logo esté sobre el contenido */
+            margin-bottom: -10%;
+            margin-top: -8%;
+            animation: aparecer 3s forwards, neon 2s infinite alternate; /* Animación de aparición y efecto de neón */
         }
-        .parallax-smoke {
-            background-image: url('https://images.unsplash.com/photo-1518481852452-817f0d1a2d3a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
-            opacity: 0.3;
-            transform: translateY(10px);
+
+        @keyframes aparecer {
+            from {
+                opacity: 0; /* Empieza completamente transparente */
+            }
+            to {
+                opacity: 1; /* Termina completamente visible */
+            }
         }
-        .firefly {
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            background: #f59f00;
-            border-radius: 50%;
-            box-shadow: 0 0 10px #f59f00;
-            animation: firefly 3s infinite;
+
+        @keyframes neon {
+            from {
+                filter: brightness(1); /* Brillo inicial */
+            }
+            to {
+                filter: brightness(1.5); /* Brillo máximo */
+            }
         }
-        @keyframes firefly {
-            0% { opacity: 0.2; transform: translate(0, 0); }
-            50% { opacity: 1; }
-            100% { opacity: 0.2; transform: translate(20px, -20px); }
+
+        nav {
+            background-color: #444;
+            padding: 10px 0;
+            text-align: center;
+            position: relative;
+            z-index: 3; /* Asegura que los enlaces de navegación estén sobre el encabezado */
         }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0 15px;
+        }
+
+        section {
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        section h2 {
+            margin-bottom: 20px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+
+        .container img:hover {
+            transform: translateY(-5px); /* Eleva la imagen 5px al pasar el cursor */
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        p {
+            z-index: 2; 
+        }
+
+        /* Agrega este estilo para el contenedor que aparecerá al hacer clic */
         .expanded-image-container {
-            position: fixed;
+            position: fixed; /* Fija la posición del contenedor */
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.95);
+            background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro semi-transparente */
             display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
+            justify-content: center; /* Centra horizontalmente */
+            align-items: center; /* Centra verticalmente */
+            z-index: 9999; /* Asegura que esté por encima de otros elementos */
         }
+
+        /* Agrega este estilo para la imagen agrandada */
         .expanded-image {
-            max-width: 95%;
-            max-height: 95%;
-            object-fit: contain;
-            border-radius: 16px;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+            max-width: 90%; /* Ajusta el ancho máximo */
+            max-height: 90%; /* Ajusta la altura máxima */
+            object-fit: contain; /* Ajusta el tamaño de la imagen manteniendo la relación de aspecto */
         }
-        .modal {
-            animation: fadeIn 0.5s ease-in-out;
+
+        #instagram-feed iframe {
+            width: 200%; 
+            height: auto; 
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
+
+        .instalink:hover{
+            color: aqua;
         }
-        .card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        .instalink{
+            color: tan;
         }
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
-        }
-        .nav-link {
-            position: relative;
-            padding-bottom: 4px;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background-color: #f59f00;
-            transition: width 0.3s ease;
-        }
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        .carousel-item {
-            transition: transform 0.3s ease;
-            transform-style: preserve-3d;
-        }
-        .carousel-item:hover {
-            transform: rotateY(10deg);
-        }
-        .animate-section {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 1s ease, transform 1s ease;
-        }
-        .animate-section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .game-canvas {
-            border: 10px solid #f59f00;
-            border-radius: 8px;
-            background: radial-gradient(circle, #2d3748 0%, #1e293b 100%);
-        }
-        .button-primary {
-            background-color: #d97706;
-            color: #ffffff;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-        .button-primary:hover {
-            background-color: #b45309;
-            transform: translateY(-3px);
-        }
-        .tapas-plate {
-            background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: 100% 100%;
-            animation: slidePlate 1.5s ease-in-out;
-        }
-        @keyframes slidePlate {
-            from { transform: translateX(-100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        .error-boundary {
-            padding: 20px;
-            background: #7f1d1d;
-            color: #fff;
-            text-align: center;
-            border-radius: 8px;
-            margin: 20px auto;
-            max-width: 600px;
-        }
-        .story-slide {
-            transition: transform 0.5s ease;
-        }
-        .story-slide.active {
-            transform: scale(1.1);
-            z-index: 10;
-        }
-        .reservation-form input, .reservation-form select {
-            transition: border-color 0.3s ease;
-        }
-        .reservation-form input:focus, .reservation-form select:focus {
-            border-color: #f59f00;
-            outline: none;
-        }
-        .theme-toggle, .audio-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-        .audio-toggle {
-            top: 60px;
-        }
-        .tooltip {
-            visibility: hidden;
-            opacity: 0;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-        .group:hover .tooltip {
-            visibility: visible;
-            opacity: 1;
-        }
-        .lazy-img {
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-        .lazy-img.loaded {
-            opacity: 1;
-        }
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-        }
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background: #ffffff;
-            transition: all 0.3s ease;
-        }
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
-        }
-        @media (max-width: 768px) {
-            .hamburger {
-                display: flex;
+
+        @media only screen and (min-width: 600px) {
+            .carta1,
+            .carta2,
+            .carta3 {
+                object-fit: cover;
+                transition: transform 0.3s ease; /* Transición suave de la transformación */
+                width: calc(26% - 4%); /* Ajustar el ancho para considerar el margen */
+                margin: 0%; /* Agregar margen uniforme */
             }
-            .nav-links {
-                display: none;
+        }
+
+
+        .carta1 {
+            margin-left: 5%;
+        }
+
+        .carta3 {
+            margin-right:5%;
+        }
+        .menu-item {
+                margin-left:4%;
             }
-            .nav-links.active {
-                display: flex;
-                flex-direction: column;
-                position: absolute;
-                top: 80px;
-                left: 0;
-                width: 100%;
-                background: #1e293b;
-                padding: 20px;
+
+            .menu-item3 {
+                margin-right:4%;
+            }
+
+            #instagram-feed iframe {
+            width: 100%; 
+            height: auto; 
+        }
+
+        footer {
+            background: linear-gradient(to top, rgba(10, 10, 10, 1), rgba(10, 10, 10, 0.7));
+        }
+
+                .flex-item {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .container-flex {
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+        }
+
+        /* Media Query para dispositivos móviles */
+        @media only screen and (max-width: 600px) {
+            header {
+                margin-top: -20%; /* Ajustar el margen superior */
+            }
+            .logo {
+                margin-bottom: -30%; /* Eliminar margen inferior */
+            }
+            nav {
+                margin-top: 20px; /* Ajustar margen superior del menú de navegación */
+            }
+            .menu-item h1,
+            .menu-item2 h1,
+            .menu-item3 h1 {
+                font-size: 19px; /* Ajusta el tamaño de fuente para dispositivos móviles */
                 text-align: center;
             }
-            body.light-mode .nav-links.active {
-                background: #f8f1e9;
+
+            .carta1,
+            .carta2,
+            .carta3 {
+                width: calc(30% - 4%); /* Ajustar el ancho para considerar el margen */
             }
         }
+
+        
     </style>
+    <script>
+        function expandImage(img) {
+            // Crea un nuevo contenedor para la imagen agrandada
+            var expandedContainer = document.createElement('div');
+            expandedContainer.classList.add('expanded-image-container');
+
+            // Crea la imagen agrandada
+            var expandedImg = document.createElement('img');
+            expandedImg.src = img.src;
+            expandedImg.classList.add('expanded-image');
+
+            // Agrega la imagen agrandada al contenedor
+            expandedContainer.appendChild(expandedImg);
+
+            // Agrega el contenedor al cuerpo del documento
+            document.body.appendChild(expandedContainer);
+
+            // Elimina el contenedor al hacer clic en la imagen agrandada
+            expandedContainer.addEventListener('click', function() {
+                document.body.removeChild(expandedContainer);
+            });
+        }
+    </script>
 </head>
 <body>
-    <div id="root"></div>
-    <script type="text/babel">
-        const menuData = {
-            "Desayunos y Otros": [
-                { name: "A.O.V. - Tulupón (Media)", price: 1.20, note: "", image: "https://images.unsplash.com/photo-1528731708534-81627959f071?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "200 kcal" },
-                { name: "A.O.V. - Tulupón (Entera)", price: 1.50, note: "", image: "https://images.unsplash.com/photo-1528731708534-81627959f071?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "300 kcal" },
-                { name: "Pan con Sobrasada", price: 1.20, note: "", image: "https://images.unsplash.com/photo-1599948128020-39c3b3a222d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "250 kcal" },
-                { name: "Pan con Jamón York", price: 1.30, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "220 kcal" },
-                { name: "Manteca de Lomo Colorá", price: 1.70, note: "", image: "https://images.unsplash.com/photo-1606851134945-9667bf058c79?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "280 kcal" },
-                { name: "A.O.V. y Tomate", price: 1.30, note: "", image: "https://images.unsplash.com/photo-1541518763669-2fefb165afcc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "210 kcal" },
-                { name: "A.O.V. y Salmorejo", price: 1.70, note: "", image: "https://images.unsplash.com/photo-1627308594196-4b0f180aec63?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "240 kcal" },
-                { name: "Porción Mantequilla y Mermelada", price: 1.60, note: "", image: "https://images.unsplash.com/photo-1559561843-297a373e4142?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "300 kcal" },
-                { name: "A.O.V. y Pavo", price: 1.60, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "200 kcal" },
-                { name: "A.O.V. y Jamón York", price: 1.90, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "230 kcal" },
-                { name: "Jamón, A.O.V. y Tomate (Media)", price: 1.60, note: "", image: "https://images.unsplash.com/photo-1541518763669-2fefb165afcc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "220 kcal" },
-                { name: "Jamón, A.O.V. y Tomate (Entera)", price: 1.90, note: "", image: "https://images.unsplash.com/photo-1541518763669-2fefb165afcc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "260 kcal" },
-                { name: "Jamón con A.O.V.", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "270 kcal" },
-                { name: "Lomo Asado con Sal y Miel", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1606851134945-9667bf058c79?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "290 kcal" },
-                { name: "Tortilla de Patatas (sin Whisky)", price: 2.60, note: "", image: "https://images.unsplash.com/photo-1551326844-4f64c879b9c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "320 kcal" },
-                { name: "Pringá", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1606851134945-9667bf058c79?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "300 kcal" },
-                { name: "Torta del Casar", price: 2.50, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "350 kcal" },
-                { name: "Jamón y Queso Curado", price: 2.50, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "340 kcal" },
-                { name: "Chorizo y Queso Curado", price: 3.00, note: "", image: "https://images.unsplash.com/photo-1606851134945-9667bf058c79?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "360 kcal" },
-                { name: "Huevos, Bacon, Lomo, Queso, Zumo y Café", price: 6.00, note: "", image: "https://images.unsplash.com/photo-1525351484163-7522494f2660?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "600 kcal" },
-                { name: "Café / Infusiones", price: 1.30, note: "", image: "https://images.unsplash.com/photo-1512568400610-5978aa9e263b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "10 kcal" },
-                { name: "Infusiones Especiales", price: 1.70, note: "", image: "https://images.unsplash.com/photo-1512568400610-5978aa9e263b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "15 kcal" },
-                { name: "Carajillo", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1512568400610-5978aa9e263b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "100 kcal" },
-                { name: "Café Bombón", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1512568400610-5978aa9e263b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "150 kcal" },
-                { name: "Zumo Minute Maid", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1613478223719-2e78e2a78e24?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "120 kcal" },
-                { name: "Batidos Normales", price: 1.80, note: "", image: "https://images.unsplash.com/photo-1504382262782-5b4ece78642b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "200 kcal" },
-                { name: "Zumo Natural de Naranja", price: 1.80, note: "", image: "https://images.unsplash.com/photo-1613478223719-2e78e2a78e24?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "110 kcal" },
-                { name: "Refrescos (Aquarius, Nestea)", price: 2.50, note: "", image: "https://images.unsplash.com/photo-1603991482950-796833f0dd87?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "150 kcal" },
-                { name: "Agua", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1603991482950-796833f0dd87?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "0 kcal" },
-                { name: "Chupitos (Terry, Magno, Anís / 'Jani')", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1514361109680-d8b5626f6723?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "80 kcal" },
-                { name: "Madreño", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1514361109680-d8b5626f6723?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "90 kcal" }
-            ],
-            "Postres y Helados": [
-                { name: "Copa Tricolor (3 Bolas a Elegir)", price: 7.50, note: "", image: "https://images.unsplash.com/photo-1516043827470-1f2e8e7b1d08?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "450 kcal" },
-                { name: "Copa 3 Bolas a Elegir", price: 5.50, note: "", image: "https://images.unsplash.com/photo-1516043827470-1f2e8e7b1d08?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "400 kcal" },
-                { name: "Copa 1 Bola a Elegir", price: 3.50, note: "", image: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "150 kcal" },
-                { name: "Batidos Normales", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1504382262782-5b4ece78642b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "350 kcal" },
-                { name: "Gofre con Chocolate y Nata", price: 4.00, note: "+1€ con helado", image: "https://images.unsplash.com/photo-1507325655130-3f744cd86d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "400 kcal" },
-                { name: "Crepe con Chocolate y Nata", price: 5.00, note: "+1€ con helado", image: "https://images.unsplash.com/photo-1484982498542-8f0f6f08d1c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "420 kcal" },
-                { name: "Pancakes con Sirope, Nata y Helado", price: 6.50, note: "", image: "https://images.unsplash.com/photo-1528207776546-365bb710ee93?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "550 kcal" },
-                { name: "Pancakes con Sirope de Nutella y Nata", price: 5.00, note: "", image: "https://images.unsplash.com/photo-1528207776546-365bb710ee93?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "500 kcal" }
-            ],
-            "Smoothies": [
-                { name: "Peach Paradise (Melocotón, Papaya y Fresa)", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1505252585461-04db1eb84625?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "250 kcal" },
-                { name: "Triple M (Mango, Melón y Maracuyá)", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1504382262782-5b4ece78642b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "260 kcal" },
-                { name: "Berry Dream (Fresa, Frambuesa y Arándanos)", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1505252585461-04db1eb84625?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "240 kcal" },
-                { name: "Piña Colada (Piña y Coco)", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "270 kcal" },
-                { name: "Red Banana (Fresa y Plátano)", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1505252585461-04db1eb84625?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "260 kcal" },
-                { name: "Tropic Mix (Piña, Papaya, Mango)", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1504382262782-5b4ece78642b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "255 kcal" },
-                { name: "Para Llevar", price: 5.00, note: "Listos para llevar", image: "https://images.unsplash.com/photo-1504382262782-5b4ece78642b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "260 kcal" }
-            ],
-            "Helados - Formatos": [
-                { name: "Vasito Grande (Artesano)", price: 5.50, note: "", image: "https://images.unsplash.com/photo-1560008581-09826d1de4f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "400 kcal" },
-                { name: "Cono Grande (Artesano)", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "350 kcal" },
-                { name: "Cono Mediano (Segunda Opción)", price: 3.50, note: "", image: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "300 kcal" },
-                { name: "Vasito Pequeño", price: 3.00, note: "", image: "https://images.unsplash.com/photo-1560008581-09826d1de4f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "200 kcal" }
-            ],
-            "Cócteles con Alcohol": [
-                { name: "Bloody Mary", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1561131526-f791888a83b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "180 kcal" },
-                { name: "San Francisco", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "200 kcal" },
-                { name: "Mojito", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1551538827-44c3755b8532?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "220 kcal" },
-                { name: "Caipirinha", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1551538827-44c3755b8532?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "210 kcal" },
-                { name: "Martini Dry", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1588650432184-64b8a90e09b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "190 kcal" },
-                { name: "Red Lion", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "230 kcal" },
-                { name: "Piña Colada", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "250 kcal" },
-                { name: "Gin Gimlet", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1514361109680-d8b5626f6723?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "200 kcal" },
-                { name: "Gin Fizz", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1514361109680-d8b5626f6723?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "210 kcal" },
-                { name: "Margarita", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1588650432184-64b8a90e09b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "220 kcal" },
-                { name: "Daiquiri", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "230 kcal" },
-                { name: "Cosmopolitan", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1588650432184-64b8a90e09b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "200 kcal" }
-            ],
-            "Cócteles sin Alcohol": [
-                { name: "Cóctel sin Alcohol", price: 7.50, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", nutrition: "150 kcal" }
-            ]
-        };
-
-        // Error Boundary
-        class ErrorBoundary extends React.Component {
-            state = { hasError: false, error: null };
-
-            static getDerivedStateFromError(error) {
-                return { hasError: true, error };
-            }
-
-            render() {
-                if (this.state.hasError) {
-                    return (
-                        <div className="error-boundary">
-                            <h2>Algo salió mal.</h2>
-                            <p>{this.state.error?.message || 'Error desconocido.'}</p>
-                            <p>Por favor, recarga la página o contacta con soporte.</p>
-                        </div>
-                    );
-                }
-                return this.props.children;
-            }
-        }
-
-        // Menu Modal
-        function MenuModal({ isOpen, onClose }) {
-            const [selectedCategory, setSelectedCategory] = React.useState("all");
-            const [searchTerm, setSearchTerm] = React.useState("");
-            const [favorites, setFavorites] = React.useState(JSON.parse(localStorage.getItem('favorites')) || []);
-
-            const toggleFavorite = (item, category) => {
-                const id = `${category}-${item.name}`;
-                let updatedFavorites;
-                if (favorites.includes(id)) {
-                    updatedFavorites = favorites.filter(fav => fav !== id);
-                } else {
-                    updatedFavorites = [...favorites, id];
-                }
-                setFavorites(updatedFavorites);
-                localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
-                if (typeof gsap !== 'undefined') {
-                    gsap.fromTo(`#heart-${id}`, { scale: 1 }, { scale: 1.5, duration: 0.3, yoyo: true, repeat: 1 });
-                }
-            };
-
-            if (!isOpen) return null;
-
-            const categories = ["all", ...Object.keys(menuData)];
-            const filteredItems = Object.entries(menuData).flatMap(([category, items]) =>
-                (selectedCategory === "all" || selectedCategory === category)
-                    ? items.filter(item =>
-                        item.name.toLowerCase().includes(searchTerm.toLowerCase())
-                    ).map(item => ({ ...item, category }))
-                    : []
-            );
-
-            return (
-                <div className="fixed inset-0 bg-black bg-opacity-95 flex items-center justify-center z-50">
-                    <div className="bg-white text-gray-900 rounded-3xl p-12 w-full max-w-6xl h-[85vh] overflow-y-auto modal light-content">
-                        <div className="flex justify-between items-center mb-10">
-                            <h2 className="text-4xl font-bold text-amber-600 font-['Lora']">Explora Nuestra Carta</h2>
-                            <button onClick={onClose} className="text-gray-600 hover:text-gray-900 text-4xl transition" aria-label="Cerrar carta">×</button>
-                        </div>
-                        <div className="mb-8">
-                            <input
-                                type="text"
-                                placeholder="Buscar producto..."
-                                className="w-full p-4 rounded-lg bg-gray-100 text-gray-900 border border-gray-300 focus:border-amber-600 transition text-lg"
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                                aria-label="Buscar en la carta"
-                            />
-                        </div>
-                        <div className="flex flex-wrap gap-3 mb-8">
-                            {categories.map(category => (
-                                <button
-                                    key={category}
-                                    onClick={() => setSelectedCategory(category)}
-                                    className={`px-6 py-2 rounded-full font-semibold text-base transition ${selectedCategory === category ? 'bg-amber-600 text-white' : 'bg-gray-200 text-gray-900 hover:bg-gray-300'}`}
-                                    aria-label={`Filtrar por ${category === "all" ? "Todos" : category}`}
-                                >
-                                    {category === "all" ? "Todos" : category}
-                                </button>
-                            ))}
-                        </div>
-                        {filteredItems.length === 0 ? (
-                            <p className="text-center text-gray-600 text-lg">No se encontraron productos.</p>
-                        ) : (
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                                {filteredItems.map((item, index) => (
-                                    <div key={index} className="bg-gray-100 rounded-xl overflow-hidden card">
-                                        <img
-                                            src={item.image}
-                                            alt={item.name}
-                                            className="w-full h-60 object-cover cursor-pointer lazy-img"
-                                            onClick={() => expandImage({ src: item.image })}
-                                            loading="lazy"
-                                            onLoad={(e) => e.target.classList.add('loaded')}
-                                        />
-                                        <div className="p-6">
-                                            <div className="flex justify-between items-center mb-2">
-                                                <h3 className="text-xl font-semibold text-gray-900">{item.name}</h3>
-                                                <button
-                                                    id={`heart-${item.category}-${item.name}`}
-                                                    onClick={() => toggleFavorite(item, item.category)}
-                                                    className={`fas fa-heart text-2xl ${favorites.includes(`${item.category}-${item.name}`) ? 'text-red-600' : 'text-gray-400'}`}
-                                                    aria-label={favorites.includes(`${item.category}-${item.name}`) ? 'Eliminar de favoritos' : 'Añadir a favoritos'}
-                                                ></button>
-                                            </div>
-                                            <p className="text-amber-600 font-bold text-lg">{item.price.toFixed(2)}€</p>
-                                            {item.note && <p className="text-sm text-gray-500 mt-2">{item.note}</p>}
-                                            <p className="text-xs text-gray-400 mt-3">{item.category}</p>
-                                            <div className="relative group">
-                                                <span className="text-sm text-gray-600">Nutrición: {item.nutrition}</span>
-                                                <div className="tooltip absolute bg-gray-800 text-white text-xs p-2 rounded-lg -top-10 left-0">
-                                                    Información nutricional aproximada por porción.
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-                    </div>
-                </div>
-            );
-        }
-
-        // Menu Stories
-        function MenuStories() {
-            const stories = [
-                { name: "Mojito Especial", price: 8.00, image: "https://images.unsplash.com/photo-1551538827-44c3755b8532?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" },
-                { name: "Tapa del Día", price: 3.50, image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" },
-                { name: "Helado Artesano", price: 4.00, image: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" }
-            ];
-            const [currentStory, setCurrentStory] = React.useState(0);
-
-            React.useEffect(() => {
-                const interval = setInterval(() => {
-                    setCurrentStory(prev => (prev + 1) % stories.length);
-                }, 5000);
-                return () => clearInterval(interval);
-            }, []);
-
-            return (
-                <section className="py-12 text-center bg-gray-800 light:bg-gray-200 animate-section">
-                    <h2 className="text-3xl font-bold mb-6 text-amber-400 light:text-amber-600 font-['Dancing Script']">Especiales del Día</h2>
-                    <div className="flex justify-center gap-4 overflow-x-auto pb-4 px-4">
-                        {stories.map((story, index) => (
-                            <div
-                                key={index}
-                                className={`story-slide flex-shrink-0 w-40 rounded-xl overflow-hidden transition-transform ${index === currentStory ? 'active' : ''}`}
-                            >
-                                <img src={story.image} alt={story.name} className="w-full h-48 object-cover lazy-img" loading="lazy" onLoad={(e) => e.target.classList.add('loaded')} />
-                                <div className="p-2 bg-gray-700 light:bg-gray-100">
-                                    <p className="text-sm font-semibold light-text">{story.name}</p>
-                                    <p className="text-xs text-amber-400 light:text-amber-600">{story.price.toFixed(2)}€</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </section>
-            );
-        }
-
-        // Virtual Tour
-        function VirtualTour() {
-            const images = [
-                "https://images.unsplash.com/photo-1577906096429-f73c2c312435?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                "https://images.unsplash.com/photo-1552566626-52f8b828add9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                "https://images.unsplash.com/photo-1514933651103-3d3d1e803c66?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-            ];
-            const [currentImage, setCurrentImage] = React.useState(0);
-
-            React.useEffect(() => {
-                const interval = setInterval(() => {
-                    setCurrentImage(prev => (prev + 1) % images.length);
-                }, 5000);
-                return () => clearInterval(interval);
-            }, []);
-
-            return (
-                <section id="tour" className="py-24 text-center bg-gray-900 light:bg-gray-100 animate-section">
-                    <h2 className="text-4xl md:text-5xl font-bold mb-8 text-amber-400 light:text-amber-600 font-['Dancing Script']">Tour Virtual 🌌</h2>
-                    <p className="text-lg md:text-xl max-w-3xl mx-auto mb-10 light-text">
-                        Explora Envidia Copas desde casa con nuestro tour virtual interactivo.
-                    </p>
-                    <div className="relative w-full max-w-4xl mx-auto h-[500px] rounded-xl overflow-hidden">
-                        {images.map((image, index) => (
-                            <img
-                                key={index}
-                                src={image}
-                                alt={`Interior slide ${index + 1}`}
-                                className={`w-full h-full object-cover absolute transition-opacity duration-1000 ${index === currentImage ? 'opacity-100' : 'opacity-0'} lazy-img`}
-                                loading="lazy"
-                                onLoad={(e) => e.target.classList.add('loaded')}
-                            />
-                        ))}
-                        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
-                            {images.map((_, index) => (
-                                <button
-                                    key={index}
-                                    className={`w-3 h-3 rounded-full ${index === currentImage ? 'bg-amber-400' : 'bg-gray-400'}`}
-                                    onClick={() => setCurrentImage(index)}
-                                    aria-label={`Ir a la imagen ${index + 1}`}
-                                ></button>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-            );
-        }
-
-        // Cocktail Mixer
-        function CocktailMixer() {
-            const canvasRef = React.useRef(null);
-            const [cocktail, setCocktail] = React.useState([]);
-            const ingredients = [
-                { name: "Ron", color: "#f59f00", img: "https://images.unsplash.com/photo-1514361109680-d8b5626f6723?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" },
-                { name: "Menta", color: "#16a34a", img: "https://images.unsplash.com/photo-1551538827-44c3755b8532?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" },
-                { name: "Limón", color: "#a3e635", img: "https://images.unsplash.com/photo-1588650432184-64b8a90e09b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" },
-                { name: "Soda", color: "#38bdf8", img: "https://images.unsplash.com/photo-1603991482950-796833f0dd87?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" }
-            ];
-
-            React.useEffect(() => {
-                try {
-                    const canvas = canvasRef.current;
-                    if (!canvas) return;
-                    const ctx = canvas.getContext('2d');
-                    if (!ctx) return;
-
-                    const drawCocktail = () => {
-                        ctx.clearRect(0, 0, canvas.width, canvas.height);
-                        const glassHeight = 200;
-                        const layerHeight = glassHeight / Math.max(1, cocktail.length);
-                        cocktail.forEach((ing, idx) => {
-                            ctx.beginPath();
-                            ctx.rect(50, 50 + idx * layerHeight, 200, layerHeight);
-                            ctx.fillStyle = ing.color;
-                            ctx.fill();
-                            ctx.closePath();
-                        });
-
-                        // Draw glass outline
-                        ctx.beginPath();
-                            ctx.moveTo(50, 50);
-                            ctx.lineTo(100, 250);
-                            ctx.lineTo(200, 250);
-                            ctx.lineTo(250, 50);
-                            ctx.closePath();
-                            ctx.strokeStyle = 'white';
-                            ctx.stroke();
-                    };
-
-                    drawCocktail();
-                } catch (error) {
-                    console.error('Cocktail Mixer Error:', error);
-                }
-            }, [cocktail]);
-
-            const addIngredient = (ingredient) => {
-                if (cocktail.length < 4) {
-                    setCocktail([...cocktail, ingredient]);
-                    if (window.sounds) {
-                        window.sounds.pour.play();
-                    }
-                }
-            };
-
-            const shareCocktail = () => {
-                const cocktailName = cocktail.map(i => i.name).join(' + ');
-                alert(`¡Has creado un cóctel: ${cocktailName}! Comparte en Instagram Stories.`);
-            };
-
-            return (
-                <section id="mixer" className="py-24 text-center bg-gray-900 light:bg-gray-100 animate-section">
-                    <h2 class="text-4xl md:text-5xl font-bold mb-8 text-amber-400 light:text-amber-600 font-['Dancing Script']">Crea Tu Cóctel 🍸</h2>
-                    <p className="text-lg md:text-xl max-w-3xl mx-auto mb-10 light-text">
-                        Mezcla ingredientes y crea tu propio cóctel personalizado. ¡Comparte tu obra maestra!
-                    </p>
-                    <div className="flex flex-col md:flex-row justify-center items-center gap-10">
-                        <canvas
-                            ref={canvasRef}
-                            width={300}
-                            height={300}
-                            className="game-canvas"
-                            aria-label="Crea tu cómixer interactivo"
-                        ></canvas>
-                        <div className="flex flex-col gap-4">
-                            <h3 className="text-xl font-semibold light-text">Ingredientes:</h3>
-                            {ingredients.map((ing, idx) => (
-                                <button
-                                    key={ing.name}
-                                    onClick={() => addIngredient(ing)}
-                                    className="flex items-center gap-2 bg-amber-400 text-gray-900 px-4 py-2 rounded-xl font-semibold transition hover:bg-amber-500"
-                                    aria-label={`Añade ${ing.name} al cóctel`}
-                                >
-                                    <img src={ing.img} alt={ing.name} className="w-8 h-8 object-cover rounded lazy-img" loading="lazy" onLoad={(e) => e.target.classList.add('loaded')} />
-                                    {ing.name}
-                                </button>
-                            ))}
-                            {cocktail.length > 0 && (
-                                <button
-                                    onClick={shareCocktail}
-                                    className="bg-blue-500 text-white px-4 py-2 rounded-xl font-semibold mt-4 transition hover:bg-blue-600"
-                                    aria-label="Compartir cóctel"
-                                >
-                                    Compartir Cóctel
-                                </button>
-                            )}
-                        </div>
-                    </div>
-                </section>
-            );
-        }
-
-        // Event Calendar
-        function EventCalendar() {
-            const events = [
-                { date: "2025-06-20", title: "Noche de Flamenco", time: "21:00", description: "Vive la pasión del flamenco en vivo con artistas locales." },
-                { date: "2025-06-25", title: "DJ Night", time: "22:00", description: "Baila con los mejores ritmos electrónicos." },
-                { date: "2025-06-30", title: "Taller de Cócteles", time: "19:00", description: "Aprende a preparar cócteles con nuestros mixólogos." }
-            ];
-
-            return (
-                <section id="events" className="py-24 text-center bg-gray-800 light-bg-gray-200 animate-section">
-                    <h2 className="text-4xl md:text-5xl font-bold mb-8 text-amber-400 light-text-amber-600 font-['Dancing Script']">Próximos Eventos 🎤</h2>
-                    <p className="text-lg md:text-xl max-w-3xl mx-auto mb-10 light-text">
-                        No te pierdas nuestras noches temáticas y eventos especiales en Envidia Copas.
-                    </p>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
-                        {events.map((event, idx) => (
-                            <div key={idx} className="bg-gray-700 light:bg-white rounded-xl p-6 shadow-lg card">
-                                <h3 className="text-xl font-bold mb-amber text-2 text-amber light500-text-amber text-600">{event.title}</h3>
-                                <p className="text-lg mb-light text-2 light-text">{event.date} a las {event.time}</p>
-                                <p className="text-light-text">{event.description}</p>
-                            </div>
-                        ))}
-                    </div>
-                );
-            }
-
-        // Reservation Form
-        function ReservationForm({ isOpen, onClose }) {
-            const [formData, setFormData] = React.useState({
-                name: '',
-                email: '',
-                phone: '',
-                date: '',
-                time: '',
-                guests: 1
-            });
-            const [submitted, setSubmitted] = React.useState(false);
-
-            const handleChange = (e) => {
-                setFormData({ ...formData, [e.target.name]: e.target.value
-                });
-            };
-
-            const handleSubmit = (e) => {
-                e.preventDefault();
-                console.log('Reserva enviada:', { ...formData });
-                setSubmitted(true);
-                setTimeout(() => {
-                    setFormData({ name: '', email: '', phone: '', date: '', time: '', guests: '1' });
-                    setSubmitted(false);
-                    onClose();
-                }, 3000);
-            };
-
-            if (!isOpen) return null;
-
-            return (
-                <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center items-center justify-center z-50">
-                    <div className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-3xl p-12 w-full max-w-md mx-auto modal">
-                        <div className="flex justify-between items-center mb-8">
-                            <h2 className="text-3xl font-bold text-amber-600 font-['Lora']">Reserva Tu Mesa</h2>
-                            <button onClick={onClose} className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white text-3xl transition" aria-label="Cerrar formulario de reserva">×</button>
-                        </div>
-                        {submitted ? (
-                            <p className="text-center text-green-600 dark:text-green-400 text-lg">¡Reserva enviada con éxito! Te contactaremos pronto.</p>
-                        ) : (
-                            <form onSubmit={handleSubmit} className="reservation-form space-y-6">
-                                <div>
-                                    <label htmlFor="name" className="block text-sm font-medium dark:text-gray-300">Nombre</label>
-                                    <input
-                                        type="text"
-                                        id="name"
-                                        name="name"
-                                        value={formData.name}
-                                        onChange={handleChange}
-                                        required
-                                        className="w-full p-3 rounded-lg bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:border-amber-600 dark:focus:border-amber-400 transition text-gray-900 dark:text-white"
-                                        aria-required="true"
-                                    />
-                                </div>
-                                <div>
-                                    <label htmlFor="email" className="block text-sm font-medium dark:text-gray-300">Correo Electrónico</label>
-                                    <input
-                                        type="email"
-                                        id="email"
-                                        name="email"
-                                        value={formData.email}
-                                        onChange={handleChange}
-                                        required
-                                        className="w-full p-3 rounded-lg bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:border-amber-600 dark:focus:border-amber-400 transition text-gray-900 dark:text-white"
-                                        aria-required="true"
-                                    />
-                                </div>
-                                <div>
-                                    <label htmlFor="phone" className="block text-sm font-medium dark:text-gray-300">Teléfono</label>
-                                    <input
-                                        type="tel"
-                                        id="phone"
-                                        name="phone"
-                                        value={formData.phone}
-                                        onChange={handleChange}
-                                        required
-                                        className="w-full p-3 rounded-lg bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:border-amber-600 dark:focus:border-amber-400 transition text-gray-900 dark:text-white"
-                                        aria-required="true"
-                                    />
-                                </div>
-                                <div>
-                                    <label htmlFor="date" className="block text-sm font-medium dark:text-gray-300">Fecha</label>
-                                    <input
-                                        type="date"
-                                        id="date"
-                                        name="date"
-                                        value={formData.date}
-                                        onChange={handleChange}
-                                        required
-                                        className="w-full p-3 rounded-lg bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:border-amber-600 dark:focus:border-amber-400 transition text-gray-900 dark:text-white"
-                                        aria-required="true"
-                                    />
-                                </div>
-                                <div>
-                                    <label htmlFor="time" className="block text-sm font-medium dark:text-gray-300">Hora</label>
-                                    <input
-                                        type="time"
-                                        id="time"
-                                        name="time"
-                                        value={formData.time}
-                                        onChange={handleChange}
-                                        required
-                                        className="w-full p-3 rounded-lg bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:border-amber-600 dark:focus:border-amber-400 transition text-gray-900 dark:text-white"
-                                        aria-required="true"
-                                    />
-                                </div>
-                                <div>
-                                    <label htmlFor="guests" className="block text-sm font-medium dark:text-gray-300">Número de Personas</label>
-                                    <select
-                                        id="guests"
-                                        name="guests"
-                                        value={formData.guests}
-                                        onChange={handleChange}
-                                        className="w-full p-3 rounded-lg bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:border-amber-600 dark:focus:border-amber-400 transition text-gray-900 dark:text-white"
-                                        aria-required="true"
-                                    >
-                                        {[...Array(10).keys()].map(i => (
-                                            <option key={i + 1} value={i + 1}>{i + 1}</option>
-                                        ))}
-                                    </select>
-                                </div>
-                                <button
-                                    type="submit"
-                                    className="w-full bg-amber-600 text-white p-3 rounded-lg font-semibold hover:bg-amber-700 transition button-primary"
-                                    aria-label="Enviar reserva"
-                                >
-                                    Enviar Reserva
-                                </button>
-                            </form>
-                        )}
-                    </div>
-                </div>
-            );
-        }
-
-        // Dart Game
-        function DartGame() {
-            const canvasRef = React.useRef(null);
-            const [score, setScore] = React.useState(0);
-            const [dartsLeft, setDartsLeft] = React.useState(3);
-            const [leaderboard, setLeaderboard] = React.useState(JSON.parse(localStorage.getItem('leaderboard')) || []);
-            const [playerName, setPlayerName] = React.useState('');
-            const [gameOver, setGameOver] = React.useState(false);
-
-            React.useEffect(() => {
-                try {
-                    const canvas = canvasRef.current;
-                    if (!canvas) return;
-                    const ctx = canvas.getContext('2d');
-                    if (!ctx) return;
-
-                    const drawBoard = () => {
-                        ctx.clearRect(0, 0, canvas.width, canvas.height);
-                        const centerX = canvas.width / 2;
-                        const centerY = canvas.height / 2;
-                        const radii = [20, 40, 80, 120, 160];
-                        const colors = ['#dc2626', '#16a34a', '#000000', '#16a34a', '#dc2626'];
-
-                        radii.forEach((r, idx) => {
-                            ctx.beginPath();
-                            ctx.arc(centerX, centerY, r, 0, Math.PI * 2);
-                            ctx.fillStyle = colors[idx];
-                            ctx.fill();
-                            ctx.strokeStyle = '#ffffff';
-                            ctx.stroke();
-                            ctx.closePath();
-                        });
-
-                        ctx.fillStyle = '#ffffff';
-                        ctx.font = '16px Montserrat';
-                        ctx.fillText('50', centerX - 10, centerY + 5);
-                        ctx.fillText('25', centerX - 10, centerY - 30);
-                        ctx.fillText('10', centerX - 10, centerY - 70);
-                        ctx.fillText('5', centerX - 10, centerY - 110);
-                        ctx.fillText('1', centerX - 10, centerY - 150);
-                    };
-
-                    drawBoard();
-
-                    const handleClick = (e) => {
-                        if (dartsLeft <= 0 || gameOver) return;
-                        const rect = canvas.getBoundingClientRect();
-                        const x = e.clientX - rect.left - canvas.width / 2;
-                        const y = e.clientY - rect.top - canvas.height / 2;
-                        const distance = Math.sqrt(x * x + y * y);
-
-                        let points = 0;
-                        if (distance < 20) points = 50;
-                        else if (distance < 40) points = 25;
-                        else if (distance < 80) points = 10;
-                        else if (distance < 120) points = 5;
-                        else if (distance < 160) points = 1;
-
-                        setScore(prev => prev + points);
-                        setDartsLeft(prev => prev - 1);
-
-                        if (window.sounds) {
-                            window.sounds.dart.play();
-                            if (points >= 25) window.sounds.cheer.play();
-                        }
-
-                        if (dartsLeft === 1) {
-                            setGameOver(true);
-                        }
-                    };
-
-                    canvas.addEventListener('click', handleClick);
-                    return () => canvas.removeEventListener('click', handleClick);
-                } catch (error) {
-                    console.error('Dart Game Error:', error);
-                }
-            }, [dartsLeft, gameOver]);
-
-            const submitScore = () => {
-                if (!playerName.trim()) return;
-                const newLeaderboard = [...leaderboard, { name: playerName, score }].sort((a, b) => b.score - a.score).slice(0, 5);
-                setLeaderboard(newLeaderboard);
-                localStorage.setItem('leaderboard', JSON.stringify(newLeaderboard));
-                setPlayerName('');
-                setScore(0);
-                setDartsLeft(3);
-                setGameOver(false);
-            };
-
-            const resetGame = () => {
-                setScore(0);
-                setDartsLeft(3);
-                setGameOver(false);
-                setPlayerName('');
-            };
-
-            return (
-                <section id="games" className="py-24 text-center bg-gray-900 light:bg-gray-100 animate-section">
-                    <h2 className="text-4xl md:text-5xl font-bold mb-8 text-amber-400 light:text-amber-600 font-['Dancing Script']">Juego de Dardos 🎯</h2>
-                    <p className="text-lg md:text-xl max-w-3xl mx-auto mb-10 light-text">
-                        ¡Apunta y lanza! Consigue la mayor puntuación con tres dardos.
-                    </p>
-                    <div className="flex flex-col md:flex-row justify-center items-center gap-10">
-                        <canvas
-                            ref={canvasRef}
-                            width={400}
-                            height={400}
-                            className="game-canvas"
-                            aria-label="Juego de dardos interactivo"
-                        ></canvas>
-                        <div className="flex flex-col gap-4 max-w-sm">
-                            <h3 className="text-xl font-semibold light-text">Puntuación: {score}</h3>
-                            <p className="text-lg light-text">Dardos restantes: {dartsLeft}</p>
-                            {gameOver && (
-                                <div className="space-y-4">
-                                    <input
-                                        type="text"
-                                        placeholder="Tu nombre"
-                                        value={playerName}
-                                        onChange={(e) => setPlayerName(e.target.value)}
-                                        className="w-full p-3 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600"
-                                        aria-label="Ingresa tu nombre para la clasificación"
-                                    />
-                                    <button
-                                        onClick={submitScore}
-                                        className="bg-amber-600 text-white px-4 py-2 rounded-xl font-semibold transition hover:bg-amber-700 button-primary"
-                                        aria-label="Enviar puntuación"
-                                    >
-                                        Guardar Puntuación
-                                    </button>
-                                    <button
-                                        onClick={resetGame}
-                                        className="bg-gray-600 text-white px-4 py-2 rounded-xl font-semibold transition hover:bg-gray-700"
-                                        aria-label="Jugar de nuevo"
-                                    >
-                                        Jugar de Nuevo
-                                    </button>
-                                </div>
-                            )}
-                            <h3 className="text-xl font-semibold light-text mt-6">Clasificación:</h3>
-                            <ul className="text-left light-text">
-                                {leaderboard.map((entry, idx) => (
-                                    <li key={idx} className="text-lg">{entry.name}: {entry.score} pts</li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-            );
-        }
-
-        // Map
-        function Map() {
-            const mapContainerRef = React.useRef(null);
-
-            React.useEffect(() => {
-                try {
-                    mapboxgl.accessToken = 'pk.eyJ1Ijoid2hpdGl4ZCIsImEiOiJjbHFmNHMwMTYwM2M4MmtuemM5aG9sb3VhIn0.Nw-2b3yE5Q2m6R4YJn3bEA';
-                    const map = new mapboxgl.Map({
-                        container: mapContainerRef.current,
-                        style: 'mapbox://styles/mapbox/dark-v11',
-                        center: [-5.974863, 37.390415],
-                        zoom: 15
-                    });
-
-                    map.on('load', () => {
-                        new mapboxgl.Marker({ color: '#f59f00' })
-                            .setLngLat([-5.974863, 37.390415])
-                            .setPopup(new mapboxgl.Popup().setHTML('<h3>Envidia Copas</h3><p>C. Juan Antonio Cavestany, 25</p>'))
-                            .addTo(map);
-
-                        new mapboxgl.Marker({ color: '#16a34a' })
-                            .setLngLat([-5.9755, 37.3910])
-                            .setPopup(new mapboxgl.Popup().setHTML('<h3>Plaza de Santa Justa</h3>'))
-                            .addTo(map);
-                    });
-
-                    return () => map.remove();
-                } catch (error) {
-                    console.error('Map Error:', error);
-                }
-            }, []);
-
-            return (
-                <section id="location" className="py-24 text-center bg-gray-800 light:bg-gray-200 animate-section">
-                    <h2 className="text-4xl md:text-5xl font-bold mb-8 text-amber-400 light:text-amber-600 font-['Dancing Script']">Encuéntranos 📍</h2>
-                    <p className="text-lg md:text-xl max-w-3xl mx-auto mb-10 light-text">
-                        Estamos frente a la estación de Santa Justa, en el corazón de Sevilla.
-                    </p>
-                    <div ref={mapContainerRef} className="w-full max-w-4xl mx-auto h-[500px] rounded-xl overflow-hidden"></div>
-                </section>
-            );
-        }
-
-        // Instagram Feed
-        function InstagramFeed() {
-            return (
-                <section id="social" className="py-24 text-center bg-gray-900 light:bg-gray-100 animate-section">
-                    <h2 className="text-4xl md:text-5xl font-bold mb-8 text-amber-400 light:text-amber-600 font-['Dancing Script']">Síguenos en Instagram 📸</h2>
-                    <p className="text-lg md:text-xl max-w-3xl mx-auto mb-10 light-text">
-                        Descubre nuestras últimas novedades y momentos especiales.
-                    </p>
-                    <div className="max-w-4xl mx-auto">
-                        <iframe
-                            src="https://snapwidget.com/embed/123456" // Replace with actual SnapWidget URL
-                            className="w-full h-[600px] border-none"
-                            allowtransparency="true"
-                            frameBorder="0"
-                            scrolling="no"
-                            title="Instagram Feed"
-                        ></iframe>
-                    </div>
-                </section>
-            );
-        }
-
-        // Footer
-        function Footer() {
-            return (
-                <footer className="py-12 bg-gray-800 light:bg-gray-200 text-center">
-                    <div className="max-w-6xl mx-auto px-4">
-                        <h3 className="text-2xl font-bold text-amber-400 light:text-amber-600 font-['Dancing Script'] mb-4">Envidia Copas</h3>
-                        <p className="text-lg light-text mb-4">C. Juan Antonio Cavestany, 25, 41003 Sevilla, España</p>
-                        <p className="text-lg light-text mb-4">Tel: +34-123-456-789 | Email: info@envidiacopas.com</p>
-                        <div className="flex justify-center gap-6 mb-6">
-                            <a href="https://instagram.com/envidiacopas" target="_blank" rel="noopener noreferrer" className="text-2xl light-text hover:text-amber-400 transition" aria-label="Instagram">
-                                <i className="fab fa-instagram"></i>
-                            </a>
-                            <a href="https://facebook.com/envidiacopas" target="_blank" rel="noopener noreferrer" className="text-2xl light-text hover:text-amber-400 transition" aria-label="Facebook">
-                                <i className="fab fa-facebook"></i>
-                            </a>
-                            <a href="https://twitter.com/envidiacopas" target="_blank" rel="noopener noreferrer" className="text-2xl light-text hover:text-amber-400 transition" aria-label="Twitter">
-                                <i className="fab fa-twitter"></i>
-                            </a>
-                        </div>
-                        <p className="text-sm light-text">&copy; 2025 Envidia Copas. Todos los derechos reservados.</p>
-                    </div>
-                </footer>
-            );
-        }
-
-        // Main App Component
-        function App() {
-            const [menuModalOpen, setMenuModalOpen] = React.useState(false);
-            const [reservationModalOpen, setReservationModalOpen] = React.useState(false);
-            const [isDarkMode, setIsDarkMode] = React.useState(localStorage.getItem('darkMode') !== 'false');
-            const [isAudioPlaying, setIsAudioPlaying] = React.useState(false);
-            const [expandedImage, setExpandedImage] = React.useState(null);
-            const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
-
-            React.useEffect(() => {
-                // Theme Toggle
-                document.body.classList.toggle('light-mode', !isDarkMode);
-                localStorage.setItem('darkMode', isDarkMode);
-
-                // Audio Ambiance
-                window.sounds = {
-                    ambiance: new Howl({
-                        src: ['https://cdn.pixabay.com/audio/2022/03/15/bar_ambiance.mp3'], // Sample URL
-                        loop: true,
-                        volume: 0.5
-                    }),
-                    pour: new Howl({
-                        src: ['https://cdn.pixabay.com/audio/2022/03/15/pour.mp3'], // Sample URL
-                        volume: 0.8
-                    }),
-                    dart: new Howl({
-                        src: ['https://cdn.pixabay.com/audio/2022/03/15/dart.mp3'], // Sample URL
-                        volume: 0.8
-                    }),
-                    cheer: new Howl({
-                        src: ['https://cdn.pixabay.com/audio/2022/03/15/cheer.mp3'], // Sample URL
-                        volume: 0.6
-                    })
-                };
-
-                if (isAudioPlaying) {
-                    window.sounds.ambiance.play();
-                }
-
-                return () => {
-                    window.sounds.ambiance.stop();
-                };
-            }, [isDarkMode, isAudioPlaying]);
-
-            React.useEffect(() => {
-                // Parallax Effect
-                const handleScroll = () => {
-                    const scrollY = window.scrollY;
-                    const bg = document.querySelector('.parallax-bg');
-                    const cocktail = document.querySelector('.parallax-cocktail');
-                    const smoke = document.querySelector('.parallax-smoke');
-                    if (bg) bg.style.transform = `translateY(${scrollY * 0.5}px)`;
-                    if (cocktail) cocktail.style.transform = `translateY(${scrollY * 0.3 + 20}px)`;
-                    if (smoke) smoke.style.transform = `translateY(${scrollY * 0.2 + 10}px)`;
-                };
-
-                window.addEventListener('scroll', handleScroll);
-                return () => window.removeEventListener('scroll', handleScroll);
-            }, []);
-
-            React.useEffect(() => {
-                // Fireflies
-                const createFirefly = () => {
-                    const firefly = document.createElement('div');
-                    firefly.className = 'firefly';
-                    firefly.style.left = `${Math.random() * 100}vw`;
-                    firefly.style.top = `${Math.random() * 100}vh`;
-                    firefly.style.animationDelay = `${Math.random() * 2}s`;
-                    document.querySelector('.parallax-hero').appendChild(firefly);
-                    setTimeout(() => firefly.remove(), 5000);
-                };
-
-                const fireflyInterval = setInterval(createFirefly, 500);
-                return () => clearInterval(fireflyInterval);
-            }, []);
-
-            React.useEffect(() => {
-                // Animate Sections
-                const sections = document.querySelectorAll('.animate-section');
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('visible');
-                        }
-                    });
-                }, { threshold: 0.2 });
-
-                sections.forEach(section => observer.observe(section));
-                return () => sections.forEach(section => observer.unobserve(section));
-            }, []);
-
-            const toggleTheme = () => {
-                setIsDarkMode(!isDarkMode);
-            };
-
-            const toggleAudio = () => {
-                setIsAudioPlaying(!isAudioPlaying);
-            };
-
-            const expandImage = (image) => {
-                setExpandedImage(image);
-            };
-
-            const closeExpandedImage = () => {
-                setExpandedImage(null);
-            };
-
-            const toggleMobileMenu = () => {
-                setIsMobileMenuOpen(!isMobileMenuOpen);
-            };
-
-            window.expandImage = expandImage; // Global function for MenuModal
-
-            return (
-                <ErrorBoundary>
-                    <div className="relative">
-                        {/* Theme Toggle */}
-                        <button
-                            onClick={toggleTheme}
-                            className="theme-toggle bg-amber-600 text-white p-3 rounded-full shadow-lg hover:bg-amber-700 transition"
-                            aria-label={isDarkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
-                        >
-                            <i className={isDarkMode ? 'fas fa-sun' : 'fas fa-moon'}></i>
-                        </button>
-
-                        {/* Audio Toggle */}
-                        <button
-                            onClick={toggleAudio}
-                            className="audio-toggle bg-amber-600 text-white p-3 rounded-full shadow-lg hover:bg-amber-700 transition"
-                            aria-label={isAudioPlaying ? 'Pausar audio' : 'Reproducir audio'}
-                        >
-                            <i className={isAudioPlaying ? 'fas fa-pause' : 'fas fa-play'}></i>
-                        </button>
-
-                        {/* Navigation */}
-                        <nav className="fixed top-0 left-0 w-full bg-gray-900 bg-opacity-90 dark:bg-gray-100 dark:bg-opacity-90 z-40">
-                            <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-                                <a href="#" className="text-2xl font-bold text-amber-400 dark:text-amber-600 font-['Dancing Script']">Envidia Copas</a>
-                                <div className="hamburger md:hidden" onClick={toggleMobileMenu}>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </div>
-                                <div className={`nav-links md:flex gap-6 ${isMobileMenuOpen ? 'active' : ''}`}>
-                                    <a href="#home" className="nav-link text-lg light-text hover:text-amber-400 transition" onClick={toggleMobileMenu}>Inicio</a>
-                                    <a href="#menu" className="nav-link text-lg light-text hover:text-amber-400 transition" onClick={() => { setMenuModalOpen(true); toggleMobileMenu(); }}>Menú</a>
-                                    <a href="#tour" className="nav-link text-lg light-text hover:text-amber-400 transition" onClick={toggleMobileMenu}>Tour Virtual</a>
-                                    <a href="#mixer" className="nav-link text-lg light-text hover:text-amber-400 transition" onClick={toggleMobileMenu}>Crea Tu Cóctel</a>
-                                    <a href="#events" className="nav-link text-lg light-text hover:text-amber-400 transition" onClick={toggleMobileMenu}>Eventos</a>
-                                    <a href="#reservation" className="nav-link text-lg light-text hover:text-amber-400 transition" onClick={() => { setReservationModalOpen(true); toggleMobileMenu(); }}>Reserva</a>
-                                    <a href="#games" className="nav-link text-lg light-text hover:text-amber-400 transition" onClick={toggleMobileMenu}>Juegos</a>
-                                    <a href="#location" className="nav-link text-lg light-text hover:text-amber-400 transition" onClick={toggleMobileMenu}>Ubicación</a>
-                                    <a href="#social" className="nav-link text-lg light-text hover:text-amber-400 transition" onClick={toggleMobileMenu}>Social</a>
-                                </div>
-                            </div>
-                        </nav>
-
-                        {/* Hero Section */}
-                        <section id="home" className="parallax-hero">
-                            <div className="parallax-layer parallax-bg"></div>
-                            <div className="parallax-layer parallax-cocktail"></div>
-                            <div className="parallax-layer parallax-smoke"></div>
-                            <div className="absolute inset-0 flex flex-col justify-center items-center text-center">
-                                <h1 className="text-5xl md:text-7xl font-bold text-white font-['Dancing Script'] mb-4">Envidia Copas</h1>
-                                <p className="text-xl md:text-2xl text-white max-w-2xl mx-auto mb-8">Vive la noche sevillana con cócteles, tapas y eventos únicos frente a Santa Justa.</p>
-                                <div className="flex gap-4">
-                                    <button
-                                        onClick={() => setMenuModalOpen(true)}
-                                        className="bg-amber-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-amber-700 transition button-primary"
-                                        aria-label="Ver menú"
-                                    >
-                                        Ver Menú
-                                    </button>
-                                    <button
-                                        onClick={() => setReservationModalOpen(true)}
-                                        className="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-gray-900 transition"
-                                        aria-label="Reservar mesa"
-                                    >
-                                        Reservar
-                                    </button>
-                                </div>
-                            </div>
-                        </section>
-
-                        {/* Menu Stories */}
-                        <MenuStories />
-
-                        {/* Virtual Tour */}
-                        <VirtualTour />
-
-                        {/* Cocktail Mixer */}
-                        <CocktailMixer />
-
-                        {/* Event Calendar */}
-                        <EventCalendar />
-
-                        {/* Reservation Form */}
-                        <ReservationForm isOpen={reservationModalOpen} onClose={() => setReservationModalOpen(false)} />
-
-                        {/* Dart Game */}
-                        <DartGame />
-
-                        {/* Map */}
-                        <Map />
-
-                        {/* Instagram Feed */}
-                        <InstagramFeed />
-
-                        {/* Footer */}
-                        <Footer />
-
-                        {/* Menu Modal */}
-                        <MenuModal isOpen={menuModalOpen} onClose={() => setMenuModalOpen(false)} />
-
-                        {/* Expanded Image */}
-                        {expandedImage && (
-                            <div className="expanded-image-container" onClick={closeExpandedImage}>
-                                <img src={expandedImage.src} alt="Expanded view" className="expanded-image" />
-                            </div>
-                        )}
-                    </div>
-                </ErrorBoundary>
-            );
-        }
-
-        // Render App
-        ReactDOM.render(<App />, document.getElementById('root'));
-    </script>
+    <header>
+        <img src="https://raw.githubusercontent.com/WhitiXD/Whiti/master/envidia_copas-ia2.png" alt="Logo Envidia Copas" class="logo">
+        <p>¡Tu lugar para disfrutar de buenas copas y buen ambiente en Sevilla!.</p>
+    </header>
+    <section id="inicio">
+        <h2>Bienvenidos a Envidia</h2>
+        <p>Nos encontramos en C. Juan Antonio Cavestany, 25, 41003 Sevilla <br>Somos tu bar de confianza para disfrutar de las mejores bebidas en un ambiente único. ¡Ven y únete a la diversión!</p>
+    </section>
+    <section id="menu">
+        <h2>Nuestro Menú 🍸</h2>
+        <p>Ofrecemos una amplia selección de bebidas alcohólicas y no alcohólicas para todos los gustos. Desde cócteles clásicos hasta creaciones especiales de nuestra carta, tenemos algo para todos.</p>
+        <div class="container flex">
+            <div class="menu-item flex-item">
+                <h1 class="item">Bebidas</h1>
+            </div>
+            <div class="menu-item2 flex-item">  
+                <h1 class="item2">Meriendas</h1>
+            </div>
+            <div class="menu-item3 flex-item">
+                <h1 class="item3">Copas</h1>
+            </div>
+        </div>
+        <div class="container">
+            <img class="carta1 flex-item" src="https://lh3.googleusercontent.com/p/AF1QipNF6nCs5RboR0C1PcMTvaO6nApbxoaT1LdrkIwe=s1360-w1360-h1020" alt="Bebidas" onclick="expandImage(this)">
+            <img class="carta2 flex-item" src="https://lh3.googleusercontent.com/p/AF1QipOnTvNro8FFMECzazdpYexcBuyJ2sSIHicQhX5m=s1360-w1360-h1020" alt="Meriendas" onclick="expandImage(this)">
+            <img class="carta3 flex-item" src="https://lh3.googleusercontent.com/p/AF1QipPbFcbpea2fv5K19PXykU4HMLG96_Y-5yys-MVW=s1360-w1360-h1020" alt="Copas" onclick="expandImage(this)">
+        </div>
+    </section>
+    <section id="instagram-feed">
+    <h2>Nuestro Instagram 📷</h2>
+    <iframe src="https://www.instagram.com/envidia_cafeycopas/embed/" class="snapwidget-widget" allowtransparency="true" frameborder="1" scrolling="yes" style="border:none; width: 100%; height: auto; min-height: 400px;"></iframe>
+</section>
+
+    <section id="contacto">
+        <h2>Contacto</h2>
+        <p>Puedes contactarnos mediante <a class="instalink" href="https://www.instagram.com/envidia_cafeycopas" target="_blank"> Nuestro Instagram </a></p>
+        <p>Síguenos en redes sociales para estar al tanto de nuestras promociones y eventos especiales</p>
+        <p>Nuestro horario:</p>
+        <p>Martes - Sábado: 16:00pm - 2:00am</p>
+        <p>Domingo: 16:00pm - 21:00pm</p>
+    </section>
+    <footer>
+        <p>&copy; 2025 Envidia Copas. Todos los derechos reservados.</p>
+    </footer>
 </body>
 </html>
