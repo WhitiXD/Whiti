@@ -15,13 +15,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Lora:wght@700&display=swap" rel="stylesheet">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- React and ReactDOM -->
-    <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    <!-- React and ReactDOM (latest stable versions) -->
+    <script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
     <!-- Babel for JSX -->
-    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.20.15/babel.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.25.7/babel.min.js"></script>
     <!-- GSAP for animations -->
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+    <script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
     <style>
         body {
             background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
@@ -130,9 +130,10 @@
         }
         .button-primary {
             background-color: #d97706;
-            transform: background-color 0.3s ease, transform 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
         .button-primary:hover {
+            background-color: #b45309;
             transform: translateY(-3px);
         }
         .tapas-plate {
@@ -143,8 +144,17 @@
             animation: slidePlate 1.5s ease-in-out;
         }
         @keyframes slidePlate {
-            from { transform: 0 translateX(-100%); opacity: 0; }
-            to { transform: 0 translateX(0); opacity: 1; to; }
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .error-boundary {
+            padding: 20px;
+            background: #7f1d1d;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            margin: 20px auto;
+            max-width: 600px;
         }
     </style>
 </head>
@@ -155,8 +165,8 @@
             "Desayunos y Otros": [
                 { name: "A.O.V. - Tulupón (Media)", price: 1.20, note: "", image: "https://images.unsplash.com/photo-1528731708534-81627959f071?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
                 { name: "A.O.V. - Tulupón (Entera)", price: 1.50, note: "", image: "https://images.unsplash.com/photo-1528731708534-81627959f071?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Pan con Sobrasada", price: 1.20, note: "https://images.unsplash.com/photo-1599948128020-39c3b3a222d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-                { name: "Pan con Jamón York", price: 1.30, note: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto"=format&fit=crop&w=800&q=80" },
+                { name: "Pan con Sobrasada", price: 1.20, note: "", image: "https://images.unsplash.com/photo-1599948128020-39c3b3a222d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Pan con Jamón York", price: 1.30, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
                 { name: "Manteca de Lomo Colorá", price: 1.70, note: "", image: "https://images.unsplash.com/photo-1606851134945-9667bf058c79?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
                 { name: "A.O.V. y Tomate", price: 1.30, note: "", image: "https://images.unsplash.com/photo-1541518763669-2fefb165afcc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
                 { name: "A.O.V. y Salmorejo", price: 1.70, note: "", image: "https://images.unsplash.com/photo-1627308594196-4b0f180aec63?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
@@ -228,6 +238,28 @@
                 { name: "Cóctel sin Alcohol", price: 7.50, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" }
             ]
         };
+
+        // Error Boundary Component
+        class ErrorBoundary extends React.Component {
+            state = { hasError: false, error: null };
+
+            static getDerivedStateFromError(error) {
+                return { hasError: true, error };
+            }
+
+            render() {
+                if (this.state.hasError) {
+                    return (
+                        <div className="error-boundary">
+                            <h2>Algo salió mal.</h2>
+                            <p>{this.state.error?.message || 'Error desconocido.'}</p>
+                            <p>Por favor, recarga la página o contacta con soporte.</p>
+                        </div>
+                    );
+                }
+                return this.props.children;
+            }
+        }
 
         function MenuModal({ isOpen, onClose }) {
             const [selectedCategory, setSelectedCategory] = React.useState("all");
@@ -302,62 +334,75 @@
 
         function GameCanvas() {
             const canvasRef = React.useRef(null);
-            const [gameState, setGameState] = React.useState("idle");
             const [score, setScore] = React.useState(0);
 
             React.useEffect(() => {
-                const canvas = canvasRef.current;
-                const ctx = canvas.getContext('2d');
-                let dart = { x: 50, y: 250, vx: 0, vy: 0, radius: 10 };
-                let target = { x: 350, y: 150, radius: 50 };
-                let animationFrame;
+                try {
+                    const canvas = canvasRef.current;
+                    if (!canvas) return;
+                    const ctx = canvas.getContext('2d');
+                    if (!ctx) return;
 
-                const draw = () => {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    // Draw target
-                    ctx.beginPath();
-                    ctx.arc(target.x, target.y, target.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = '#dc2626';
-                    ctx.fill();
-                    ctx.beginPath();
-                    ctx.arc(target.x, target.y, target.radius * 0.3, 0, Math.PI * 2);
-                    ctx.fillStyle = '#ffffff';
-                    ctx.fill();
-                    // Draw dart
-                    ctx.beginPath();
-                    ctx.arc(dart.x, dart.y, dart.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = '#f59f00';
-                    ctx.fill();
+                    let dart = { x: 50, y: 250, vx: 5, vy: -5, radius: 10 };
+                    let target = { x: 350, y: 150, radius: 50 };
+                    let isPlaying = false;
+                    let animationFrame;
 
-                    if (gameState === "playing") {
-                        dart.x += dart.vx;
-                        dart.y += dart.vy;
-                        dart.vy += 0.1; // Gravity
-                        if (dart.x > canvas.width || dart.y > canvas.height) {
-                            setGameState("idle");
-                            setScore(prev => prev + (Math.hypot(dart.x - target.x, dart.y - target.y) < target.radius ? 10 : 0));
+                    const draw = () => {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        // Draw target
+                        ctx.beginPath();
+                        ctx.arc(target.x, target.y, target.radius, 0, Math.PI * 2);
+                        ctx.fillStyle = '#dc2626';
+                        ctx.fill();
+                        ctx.beginPath();
+                        ctx.arc(target.x, target.y, target.radius * 0.3, 0, Math.PI * 2);
+                        ctx.fillStyle = '#ffffff';
+                        ctx.fill();
+                        // Draw dart
+                        ctx.beginPath();
+                        ctx.arc(dart.x, dart.y, dart.radius, 0, Math.PI * 2);
+                        ctx.fillStyle = '#f59f00';
+                        ctx.fill();
+
+                        if (isPlaying) {
+                            dart.x += dart.vx;
+                            dart.y += dart.vy;
+                            dart.vy += 0.1; // Gravity
+                            if (dart.x > canvas.width || dart.y > canvas.height || dart.x < 0 || dart.y < 0) {
+                                isPlaying = false;
+                                dart.x = 50;
+                                dart.y = 250;
+                                dart.vx = 5;
+                                dart.vy = -5;
+                                const distance = Math.hypot(dart.x - target.x, dart.y - target.y);
+                                if (distance < target.radius) {
+                                    setScore(prev => prev + 10);
+                                }
+                            }
                         }
-                    }
 
-                    animationFrame = requestAnimationFrame(draw);
-                };
+                        animationFrame = requestAnimationFrame(draw);
+                    };
 
-                draw();
+                    draw();
 
-                return () => cancelAnimationFrame(animationFrame);
-            }, [gameState]);
+                    const handleClick = () => {
+                        if (!isPlaying) {
+                            isPlaying = true;
+                        }
+                    };
 
-            const handleClick = (e) => {
-                if (gameState === "idle") {
-                    const rect = canvasRef.current.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    setGameState("playing");
-                    setTimeout(() => {
-                        setGameState("idle");
-                    }, 1000);
+                    canvas.addEventListener('click', handleClick);
+
+                    return () => {
+                        canvas.removeEventListener('click', handleClick);
+                        cancelAnimationFrame(animationFrame);
+                    };
+                } catch (error) {
+                    console.error('GameCanvas Error:', error);
                 }
-            };
+            }, []);
 
             return (
                 <div className="text-center">
@@ -366,7 +411,6 @@
                         width={400}
                         height={300}
                         className="game-canvas"
-                        onClick={handleClick}
                         aria-label="Juego interactivo de dardos"
                     ></canvas>
                     <p className="text-lg mt-4">Puntuación: {score}</p>
@@ -379,173 +423,192 @@
             const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
             React.useEffect(() => {
-                // Parallax effect
-                const handleScroll = () => {
-                    const scrollY = window.scrollY;
-                    document.querySelector('.parallax-bg').style.transform = `translateY(${scrollY * 0.5}px)`;
-                    document.querySelector('.parallax-cocktail').style.transform = `translateY(${scrollY * 0.3}px)`;
-                    document.querySelector('.parallax-smoke').style.transform = `translateY(${scrollY * 0.2}px)`;
+                try {
+                    const handleScroll = () => {
+                        const scrollY = window.scrollY;
+                        const bg = document.querySelector('.parallax-bg');
+                        const cocktail = document.querySelector('.parallax-cocktail');
+                        const smoke = document.querySelector('.parallax-smoke');
+                        if (bg) bg.style.transform = `translateY(${scrollY * 0.5}px)`;
+                        if (cocktail) cocktail.style.transform = `translateY(${scrollY * 0.3}px)`;
+                        if (smoke) smoke.style.transform = `translateY(${scrollY * 0.2}px)`;
 
-                    // Section animations
-                    document.querySelectorAll('.animate-section').forEach(el => {
-                        const rect = el.getBoundingClientRect();
-                        if (rect.top < window.innerHeight * 0.8) {
-                            el.classList.add('visible');
-                        }
-                    });
-                };
-                window.addEventListener('scroll', handleScroll);
-                handleScroll();
+                        document.querySelectorAll('.animate-section').forEach(el => {
+                            const rect = el.getBoundingClientRect();
+                            if (rect.top < window.innerHeight * 0.8) {
+                                el.classList.add('visible');
+                            }
+                        });
+                    };
+                    window.addEventListener('scroll', handleScroll);
+                    handleScroll();
 
-                // GSAP animations
-                gsap.from('.tapas-plate', {
-                    x: -200,
-                    opacity: 0,
-                    duration: 1,
-                    scrollTrigger: { trigger: '#menu', start: 'top 80%' }
-                });
-                gsap.from('.game-canvas', {
-                    scale: 0.8,
-                    opacity: 0,
-                    duration: 1,
-                    scrollTrigger: { trigger: '#ocio', start: 'top 80%' }
-                });
+                    if (typeof gsap !== 'undefined') {
+                        gsap.from('.tapas-plate', {
+                            x: -200,
+                            opacity: 0,
+                            duration: 1,
+                            scrollTrigger: { trigger: '#menu', start: 'top 80%' }
+                        });
+                        gsap.from('.game-canvas', {
+                            scale: 0.8,
+                            opacity: 0,
+                            duration: 1,
+                            scrollTrigger: { trigger: '#ocio', start: 'top 80%' }
+                        });
+                    }
 
-                return () => window.removeEventListener('scroll', handleScroll);
+                    return () => window.removeEventListener('scroll', handleScroll);
+                } catch (error) {
+                    console.error('App Effect Error:', error);
+                }
             }, []);
 
             const featuredItems = [
-                menuData["Cócteles con Alcohol"].find(item => item.name === "Mojito"),
-                menuData["Desayunos y Otros"].find(item => item.name === "Torta del Casar"),
-                menuData["Postres y Helados"].find(item => item.name === "Pancakes con Sirope, Nata y Helado")
+                menuData["Cócteles con Alcohol"]?.find(item => item.name === "Mojito"),
+                menuData["Desayunos y Otros"]?.find(item => item.name === "Torta del Casar"),
+                menuData["Postres y Helados"]?.find(item => item.name === "Pancakes con Sirope, Nata y Helado")
             ].filter(Boolean);
 
             return (
-                <div>
-                    <header className="parallax-hero flex items-center justify-center text-center">
-                        <div className="parallax-layer parallax-bg"></div>
-                        <div className="parallax-layer parallax-cocktail"></div>
-                        <div className="parallax-layer parallax-smoke"></div>
-                        <div className="relative z-10">
-                            <img
-                                src="https://raw.githubusercontent.com/WhitiXD/Whiti/master/envidia_copas-ia2.png"
-                                alt="Logo Envidia Copas"
-                                className="mx-auto w-full max-w-xs mb-6"
-                            />
-                            <h1 className="text-5xl md:text-7xl font-bold text-amber-400 font-['Lora'] drop-shadow-2xl">Envidia Copas</h1>
-                            <p className="text-xl md:text-2xl mt-4 max-w-2xl mx-auto drop-shadow-lg">
-                                Frente a Santa Justa, Sevilla: Cócteles, tapas, desayunos y diversión sin fin
-                            </p>
-                            <button
-                                onClick={() => setIsMenuOpen(true)}
-                                className="mt-8 bg-amber-400 text-gray-900 px-10 py-4 rounded-full font-semibold text-lg button-primary"
-                                aria-label="Ver la carta"
-                            >
-                                Ver Carta
-                            </button>
-                        </div>
-                    </header>
-                    <nav className="bg-gray-800 py-6 sticky top-0 z-40 shadow-lg">
-                        <div className="container mx-auto flex justify-center gap-8">
-                            <a href="#inicio" className="text-white hover:text-amber-400 font-semibold text-lg nav-link transition" aria-label="Inicio">Inicio</a>
-                            <a href="#menu" className="text-white hover:text-amber-400 font-semibold text-lg nav-link transition" aria-label="Menú">Menú</a>
-                            <a href="#ocio" className="text-white hover:text-amber-400 font-semibold text-lg nav-link transition" aria-label="Ocio">Ocio</a>
-                            <a href="#contacto" className="text-white hover:text-amber-400 font-semibold text-lg nav-link transition" aria-label="Contacto">Contacto</a>
-                        </div>
-                    </nav>
-                    <main>
-                        <section id="inicio" className="py-24 text-center bg-gray-900 animate-section">
-                            <h2 className="text-4xl md:text-5xl font-bold mb-8 text-amber-400 font-['Lora']">Vive Envidia Copas</h2>
-                            <p className="text-lg md:text-xl max-w-3xl mx-auto">
-                                En el corazón de Sevilla, frente a la estación Santa Justa, Envidia Copas es más que un bar: es un destino. Disfruta de cócteles artesanales, desayunos caseros, tapas sevillanas y meriendas dulces, todo en un ambiente vibrante con juegos como futbolín y dardos.
-                            </p>
-                        </section>
-                        <section id="menu" className="py-24 text-center bg-gray-800 animate-section">
-                            <div className="tapas-plate h-32 mb-8"></div>
-                            <h2 className="text-4xl md:text-5xl font-bold mb-8 text-amber-400 font-['Lora']">Nuestra Carta 🍹</h2>
-                            <p className="text-lg md:text-xl max-w-3xl mx-auto mb-10">
-                                Saborea nuestra selección de cócteles, tapas, postres y más, creada con pasión y los mejores ingredientes.
-                            </p>
-                            <div className="flex flex-wrap justify-center gap-6 mb-12">
-                                {featuredItems.map((item, index) => (
-                                    <div key={index} className="carousel-item bg-gray-700 rounded-xl overflow-hidden w-72">
-                                        <img src={item.image} alt={item.name} className="w-full h-48 object-cover" />
-                                        <div className="p-4">
-                                            <h3 className="text-lg font-semibold text-white">{item.name}</h3>
-                                            <p className="text-amber-400 font-bold">{item.price.toFixed(2)}€</p>
-                                        </div>
-                                    </div>
-                                ))}
+                <ErrorBoundary>
+                    <div>
+                        <header className="parallax-hero flex items-center justify-center text-center">
+                            <div className="parallax-layer parallax-bg"></div>
+                            <div className="parallax-layer parallax-cocktail"></div>
+                            <div className="parallax-layer parallax-smoke"></div>
+                            <div className="relative z-10">
+                                <img
+                                    src="https://raw.githubusercontent.com/WhitiXD/Whiti/master/envidia_copas-ia2.png"
+                                    alt="Logo Envidia Copas"
+                                    className="mx-auto w-full max-w-xs mb-6"
+                                />
+                                <h1 className="text-5xl md:text-7xl font-bold text-amber-400 font-['Lora'] drop-shadow-2xl">Envidia Copas</h1>
+                                <p className="text-xl md:text-2xl mt-4 max-w-2xl mx-auto drop-shadow-lg">
+                                    Frente a Santa Justa, Sevilla: Cócteles, tapas, desayunos y diversión sin fin
+                                </p>
+                                <button
+                                    onClick={() => setIsMenuOpen(true)}
+                                    className="mt-8 bg-amber-400 text-gray-900 px-10 py-4 rounded-full font-semibold text-lg button-primary"
+                                    aria-label="Ver la carta"
+                                >
+                                    Ver Carta
+                                </button>
                             </div>
-                            <button
-                                onClick={() => setIsMenuOpen(true)}
-                                className="bg-amber-400 text-gray-900 px-10 py-4 rounded-full font-semibold text-lg button-primary"
-                                aria-label="Ver carta completa"
-                            >
-                                Ver Carta Completa
-                            </button>
-                            <MenuModal isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
-                        </section>
-                        <section id="ocio" className="py-24 text-center bg-gray-900 animate-section">
-                            <h2 className="text-4xl md:text-5xl font-bold mb-8 text-amber-400 font-['Lora']">Diversión sin Límites 🎯</h2>
-                            <p className="text-lg md:text-xl max-w-3xl mx-auto mb-10">
-                                Nuestra zona de ocio es el alma de Envidia Copas. Juega al futbolín, apunta con los dardos o relájate con amigos en un ambiente único.
-                            </p>
-                            <GameCanvas />
-                        </section>
-                        <section id="contacto" className="py-24 text-center bg-gray-800 animate-section">
-                            <h2 className="text-4xl md:text-5xl font-bold mb-8 text-amber-400 font-['Lora']">Encuéntranos</h2>
-                            <p className="text-lg md:text-xl max-w-3xl mx-auto mb-10">
-                                Estamos en <strong>C. Juan Antonio Cavestany, 25, 41003 Sevilla</strong>, frente a Santa Justa. Síguenos en <a href="https://www.instagram.com/envidia_cafeycopas" target="_blank" className="text-amber-400 hover:text-amber-300" aria-label="Instagram de Envidia Copas">Instagram</a> o visítanos.
-                            </p>
-                            <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3170.071441073104!2d-5.974863684689042!3d37.39041587983084!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd126c2b7f7f7b1b%3A0x8b3c1e7f7f7f7f7f!2sC.%20Juan%20Antonio%20Cavestany%2C%2025%2C%2041003%20Sevilla%2C%20Spain!5e0!3m2!1sen!2sus!4v1697051234567!5m2!1sen!2sus"
-                                className="w-full max-w-4xl h-96 mx-auto rounded-xl shadow-lg"
-                                allowFullScreen=""
-                                loading="lazy"
-                                referrerPolicy="no-referrer-when-downgrade"
-                                aria-label="Mapa de Envidia Copas"
-                            ></iframe>
-                            <p className="text-lg mt-8 font-semibold">Horario:</p>
-                            <p className="text-base">Martes - Sábado: 16:00 - 02:00</p>
-                            <p className="text-base">Domingo: 15:00 - 22:00</p>
-                        </section>
-                        <section id="instagram-feed" className="py-24 text-center bg-gray-900 animate-section">
-                            <h2 className="text-4xl md:text-5xl font-bold mb-8 text-amber-400 font-['Lora']">Nuestro Instagram 📸</h2>
-                            <p className="text-lg md:text-xl max-w-3xl mx-auto mb-10">
-                                Descubre la magia de Envidia Copas en Instagram: cócteles, eventos y más.
-                            </p>
-                            <iframe
-                                src="https://www.instagram.com/envidia_cafeycopas/embed/"
-                                className="w-full max-w-4xl mx-auto h-[600px] border-none"
-                                allowTransparency="true"
-                                frameBorder="0"
-                                scrolling="auto"
-                                aria-label="Feed de Instagram"
-                            ></iframe>
-                        </section>
-                    </main>
-                    <footer className="bg-gray-800 py-12 text-center">
-                        <p className="text-base">© 2025 Envidia Copas. Todos los derechos reservados.</p>
-                        <div className="mt-4 flex justify-center gap-6">
-                            <a href="https://www.instagram.com/envidia_cafeycopas" target="_blank" className="text-amber-400 hover:text-amber-300 font-semibold" aria-label="Instagram">Instagram</a>
-                            <a href="#contacto" className="text-amber-400 hover:text-amber-300 font-semibold" aria-label="Contacto">Contacto</a>
-                        </div>
-                    </footer>
-                </div>
+                        </header>
+                        <nav className="bg-gray-800 py-6 sticky top-0 z-40 shadow-lg">
+                            <div className="container mx-auto flex justify-center gap-8">
+                                <a href="#inicio" className="text-white hover:text-amber-400 font-semibold text-lg nav-link transition" aria-label="Inicio">Inicio</a>
+                                <a href="#menu" className="text-white hover:text-amber-400 font-semibold text-lg nav-link transition" aria-label="Menú">Menú</a>
+                                <a href="#ocio" className="text-white hover:text-amber-400 font-semibold text-lg nav-link transition" aria-label="Ocio">Ocio</a>
+                                <a href="#contacto" className="text-white hover:text-amber-400 font-semibold text-lg nav-link transition" aria-label="Contacto">Contacto</a>
+                            </div>
+                        </nav>
+                        <main>
+                            <section id="inicio" className="py-24 text-center bg-gray-900 animate-section">
+                                <h2 className="text-4xl md:text-5xl font-bold mb-8 text-amber-400 font-['Lora']">Vive Envidia Copas</h2>
+                                <p className="text-lg md:text-xl max-w-3xl mx-auto">
+                                    En el corazón de Sevilla, frente a la estación Santa Justa, Envidia Copas es más que un bar: es un destino. Disfruta de cócteles artesanales, desayunos caseros, tapas sevillanas y meriendas dulces, todo en un ambiente vibrante con juegos como futbolín y dardos.
+                                </p>
+                            </section>
+                            <section id="menu" className="py-24 text-center bg-gray-800 animate-section">
+                                <div className="tapas-plate h-32 mb-8"></div>
+                                <h2 className="text-4xl md:text-5xl font-bold mb-8 text-amber-400 font-['Lora']">Nuestra Carta 🍹</h2>
+                                <p className="text-lg md:text-xl max-w-3xl mx-auto mb-10">
+                                    Saborea nuestra selección de cócteles, tapas, postres y más, creada con pasión y los mejores ingredientes.
+                                </p>
+                                <div className="flex flex-wrap justify-center gap-6 mb-12">
+                                    {featuredItems.map((item, index) => (
+                                        <div key={index} className="carousel-item bg-gray-700 rounded-xl overflow-hidden w-72">
+                                            <img src={item.image} alt={item.name} className="w-full h-48 object-cover" />
+                                            <div className="p-4">
+                                                <h3 className="text-lg font-semibold text-white">{item.name}</h3>
+                                                <p className="text-amber-400 font-bold">{item.price.toFixed(2)}€</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                                <button
+                                    onClick={() => setIsMenuOpen(true)}
+                                    className="bg-amber-400 text-gray-900 px-10 py-4 rounded-full font-semibold text-lg button-primary"
+                                    aria-label="Ver carta completa"
+                                >
+                                    Ver Carta Completa
+                                </button>
+                                <MenuModal isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+                            </section>
+                            <section id="ocio" className="py-24 text-center bg-gray-900 animate-section">
+                                <h2 className="text-4xl md:text-5xl font-bold mb-8 text-amber-400 font-['Lora']">Diversión sin Límites 🎯</h2>
+                                <p className="text-lg md:text-xl max-w-3xl mx-auto mb-10">
+                                    Nuestra zona de ocio es el alma de Envidia Copas. Juega al futbolín, apunta con los dardos o relájate con amigos en un ambiente único.
+                                </p>
+                                <GameCanvas />
+                            </section>
+                            <section id="contacto" className="py-24 text-center bg-gray-800 animate-section">
+                                <h2 className="text-4xl md:text-5xl font-bold mb-8 text-amber-400 font-['Lora']">Encuéntranos</h2>
+                                <p className="text-lg md:text-xl max-w-3xl mx-auto mb-10">
+                                    Estamos en <strong>C. Juan Antonio Cavestany, 25, 41003 Sevilla</strong>, frente a Santa Justa. Síguenos en <a href="https://www.instagram.com/envidia_cafeycopas" target="_blank" className="text-amber-400 hover:text-amber-300" aria-label="Instagram de Envidia Copas">Instagram</a> o visítanos.
+                                </p>
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3170.071441073104!2d-5.974863684689042!3d37.39041587983084!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd126c2b7f7f7b1b%3A0x8b3c1e7f7f7f7f7f!2sC.%20Juan%20Antonio%20Cavestany%2C%2025%2C%2041003%20Sevilla%2C%20Spain!5e0!3m2!1sen!2sus!4v1697051234567!5m2!1sen!2sus"
+                                    className="w-full max-w-4xl h-96 mx-auto rounded-xl shadow-lg"
+                                    allowFullScreen=""
+                                    loading="lazy"
+                                    referrerPolicy="no-referrer-when-downgrade"
+                                    aria-label="Mapa de Envidia Copas"
+                                ></iframe>
+                                <p className="text-lg mt-8 font-semibold">Horario:</p>
+                                <p className="text-base">Martes - Sábado: 16:00 - 02:00</p>
+                                <p className="text-base">Domingo: 15:00 - 22:00</p>
+                            </section>
+                            <section id="instagram-feed" className="py-24 text-center bg-gray-900 animate-section">
+                                <h2 className="text-4xl md:text-5xl font-bold mb-8 text-amber-400 font-['Lora']">Nuestro Instagram 📸</h2>
+                                <p className="text-lg md:text-xl max-w-3xl mx-auto mb-10">
+                                    Descubre la magia de Envidia Copas en Instagram: cócteles, eventos y más.
+                                </p>
+                                <iframe
+                                    src="https://www.instagram.com/envidia_cafeycopas/embed/"
+                                    className="w-full max-w-4xl mx-auto h-[600px] border-none"
+                                    allowTransparency="true"
+                                    frameBorder="0"
+                                    scrolling="auto"
+                                    aria-label="Feed de Instagram"
+                                ></iframe>
+                            </section>
+                        </main>
+                        <footer className="bg-gray-800 py-12 text-center">
+                            <p className="text-base">© 2025 Envidia Copas. Todos los derechos reservados.</p>
+                            <div className="mt-4 flex justify-center gap-6">
+                                <a href="https://www.instagram.com/envidia_cafeycopas" target="_blank" className="text-amber-400 hover:text-amber-300 font-semibold" aria-label="Instagram">Instagram</a>
+                                <a href="#contacto" className="text-amber-400 hover:text-amber-300 font-semibold" aria-label="Contacto">Contacto</a>
+                            </div>
+                        </footer>
+                    </div>
+                </ErrorBoundary>
             );
         }
 
         function expandImage(img) {
-            const expandedContainer = document.createElement('div');
-            expandedContainer.classList.add('expanded-image-container');
-            const expandedImg = document.createElement('img');
-            expandedImg.src = img.src;
-            expandedImg.classList.add('expanded-image');
-            expandedContainer.appendChild(expandedImg);
-            document.body.appendChild(expandedContainer);
-            expandedContainer.addEventListener('click', () => document.body.removeChild(expandedContainer));
+            try {
+                const expandedContainer = document.createElement('div');
+                expandedContainer.classList.add('expanded-image-container');
+                const expandedImg = document.createElement('img');
+                expandedImg.src = img.src;
+                expandedImg.classList.add('expanded-image');
+                expandedContainer.appendChild(expandedImg);
+                document.body.appendChild(expandedContainer);
+                expandedContainer.addEventListener('click', () => document.body.removeChild(expandedContainer));
+            } catch (error) {
+                console.error('Expand Image Error:', error);
+            }
         }
+
+        // Fallback for CDN failure
+        window.addEventListener('error', (event) => {
+            if (event.message.includes('Script error')) {
+                console.error('Script loading error. Ensure CDNs are accessible or use local scripts.');
+            }
+        });
 
         ReactDOM.render(<App />, document.getElementById('root'));
     </script>
