@@ -1,569 +1,368 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <link rel="icon" href="https://raw.githubusercontent.com/WhitiXD/Whiti/master/copa1-ia.png">
     <meta charset="UTF-8">
-    <meta name="google-site-verification" content="IMiWiXjV0qaBBoJareXafpb0CY_7Zq3PzrZMufjHQBA" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:title" content="Bar Eenvidia Copas">
-    <meta property="og:description" content="Envidia Copas - Carta interactiva de productos">
+    <meta name="google-site-verification" content="IMiWiXjV0qaBBoJareXafpb0CY_7Zq3PzrZMufjHQBA" />
+    <meta property="og:title" content="Envidia Copas - Sevilla">
+    <meta property="og:description" content="Disfruta de cócteles artesanales, desayunos deliciosos y postres irresistibles en el corazón de Sevilla.">
     <meta property="og:type" content="website">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">
     <meta name="author" content="Bar Envidia">
-    <title>Envidia Copas - Carta Interactiva</title>
+    <title>Envidia Copas - Sevilla</title>
+    <link rel="icon" href="https://raw.githubusercontent.com/WhitiXD/Whiti/master/copa1-ia.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
+            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80");
             background-size: cover;
-            background-image: url("https://github.com/WhitiXD/Whiti/blob/master/fondo_web2.webp?raw=true");
             background-position: center;
             background-attachment: fixed;
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
             color: #fff;
         }
-
-        .logo {
-            width: 100%;
-            max-width: 600px;
-            height: auto;
-            margin: 0 auto;
-            animation: aparecer 3s forwards, neon 2s infinite alternate;
-        }
-
-        @keyframes aparecer {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes neon {
-            from { filter: brightness(1); }
-            to { filter: brightness(1.5); }
-        }
-
         .expanded-image-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.95);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 9999;
+            cursor: zoom-out;
         }
-
         .expanded-image {
-            max-width: 90%;
-            max-height: 90%;
+            max-width: 95%;
+            max-height: 95%;
             object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         }
-
-        .product-card {
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .category-btn {
-            transition: all 0.3s ease;
-        }
-
-        .category-btn:hover, .category-btn.active {
-            transform: translateY(-2px);
-        }
-
         .modal {
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            animation: slideIn 0.4s ease-in-out;
         }
-
-        .modal-enter {
-            opacity: 0;
-            transform: scale(0.9);
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
-        .modal-enter-active {
-            opacity: 1;
-            transform: scale(1);
+        .logo {
+            transition: transform 0.3s ease, filter 0.3s ease;
         }
-
-        .modal-exit {
-            opacity: 1;
-            transform: scale(1);
+        .logo:hover {
+            transform: scale(1.05);
+            filter: brightness(1.2);
         }
-
-        .modal-exit-active {
-            opacity: 0;
-            transform: scale(0.9);
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
-        .instalink {
-            color: tan;
-            transition: color 0.3s ease;
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
         }
-
-        .instalink:hover {
-            color: aqua;
+        .nav-link {
+            position: relative;
         }
-
-        /* Scroll personalizado */
-        ::-webkit-scrollbar {
-            width: 8px;
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #facc15;
+            transition: width 0.3s ease;
         }
-
-        ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
+        .nav-link:hover::after {
+            width: 100%;
         }
-
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.5);
-        }
-
-        .text-shadow {
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .backdrop-blur {
-            backdrop-filter: blur(10px);
+        .hero-section {
+            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6)), url("https://images.unsplash.com/photo-1555244162-8037d8a0e30f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80");
+            background-size: cover;
+            background-position: center;
         }
     </style>
 </head>
-<body class="min-h-screen">
-    <!-- Header -->
-    <header class="py-5 text-center relative z-10">
-        <div class="container mx-auto px-4">
-            <img src="https://raw.githubusercontent.com/WhitiXD/Whiti/master/envidia_copas-ia2.png" alt="Logo Envidia Copas" class="logo mx-auto">
-            <p class="text-xl mt-4 text-shadow">¡Tu lugar para disfrutar de buenas copas y buen ambiente en Sevilla!</p>
-        </div>
-    </header>
+<body>
+    <div id="root"></div>
 
-    <!-- Navigation -->
-    <nav class="bg-gray-800 py-3 backdrop-blur sticky top-0 z-20">
-        <div class="container mx-auto px-4 flex justify-center space-x-6">
-            <a href="#inicio" class="text-white hover:text-amber-300 transition">Inicio</a>
-            <a href="#menu" class="text-white hover:text-amber-300 transition">Menú</a>
-            <a href="#instagram-feed" class="text-white hover:text-amber-300 transition">Instagram</a>
-            <a href="#contacto" class="text-white hover:text-amber-300 transition">Contacto</a>
-            <button id="open-menu-btn" class="text-white hover:text-amber-300 transition bg-amber-600 hover:bg-amber-700 px-4 py-1 rounded-lg font-medium">
-                Ver Carta <i class="fas fa-book ml-1"></i>
-            </button>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
-    <main>
-        <!-- Inicio Section -->
-        <section id="inicio" class="py-16 text-center">
-            <div class="container mx-auto px-4 max-w-4xl">
-                <h2 class="text-3xl font-bold mb-6 text-shadow">Bienvenidos a Envidia</h2>
-                <p class="text-lg mb-6 text-shadow">
-                    Nos encontramos en C. Juan Antonio Cavestany, 25, 41003 Sevilla<br>
-                    Somos tu bar de confianza para disfrutar de las mejores bebidas en un ambiente único. ¡Ven y únete a la diversión!
-                </p>
-            </div>
-        </section>
-
-        <!-- Menú Section -->
-        <section id="menu" class="py-16 bg-black bg-opacity-50">
-            <div class="container mx-auto px-4">
-                <h2 class="text-3xl font-bold text-center mb-8 text-shadow">Nuestro Menú 🍸</h2>
-                <p class="text-center mb-12 max-w-3xl mx-auto text-shadow">
-                    Ofrecemos una amplia selección de bebidas alcohólicas y no alcohólicas para todos los gustos. 
-                    Desde cócteles clásicos hasta creaciones especiales de nuestra carta, tenemos algo para todos.
-                </p>
-                
-                <div class="flex flex-wrap justify-center gap-6 mb-12">
-                    <div class="text-center">
-                        <h3 class="text-xl font-semibold mb-2 text-shadow">Bebidas</h3>
-                        <img class="w-64 h-64 object-cover rounded-lg cursor-pointer hover:scale-105 transition" 
-                             src="https://lh3.googleusercontent.com/p/AF1QipNF6nCs5RboR0C1PcMTvaO6nApbxoaT1LdrkIwe=s1360-w1360-h1020" 
-                             alt="Bebidas" 
-                             onclick="expandImage(this)">
-                    </div>
-                    <div class="text-center">
-                        <h3 class="text-xl font-semibold mb-2 text-shadow">Meriendas</h3>
-                        <img class="w-64 h-64 object-cover rounded-lg cursor-pointer hover:scale-105 transition" 
-                             src="https://lh3.googleusercontent.com/p/AF1QipOnTvNro8FFMECzazdpYexcBuyJ2sSIHicQhX5m=s1360-w1360-h1020" 
-                             alt="Meriendas" 
-                             onclick="expandImage(this)">
-                    </div>
-                    <div class="text-center">
-                        <h3 class="text-xl font-semibold mb-2 text-shadow">Copas</h3>
-                        <img class="w-64 h-64 object-cover rounded-lg cursor-pointer hover:scale-105 transition" 
-                             src="https://lh3.googleusercontent.com/p/AF1QipPbFcbpea2fv5K19PXykU4HMLG96_Y-5yys-MVW=s1360-w1360-h1020" 
-                             alt="Copas" 
-                             onclick="expandImage(this)">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Instagram Section -->
-        <section id="instagram-feed" class="py-16 bg-black bg-opacity-30">
-            <div class="container mx-auto px-4">
-                <h2 class="text-3xl font-bold text-center mb-8 text-shadow">Nuestro Instagram 📷</h2>
-                <div class="max-w-4xl mx-auto">
-                    <iframe src="https://www.instagram.com/envidia_cafeycopas/embed/" 
-                            class="w-full h-96 border-none rounded-lg" 
-                            allowtransparency="true" 
-                            frameborder="0" 
-                            scrolling="no"></iframe>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contacto Section -->
-        <section id="contacto" class="py-16">
-            <div class="container mx-auto px-4 max-w-4xl text-center">
-                <h2 class="text-3xl font-bold mb-6 text-shadow">Contacto</h2>
-                <p class="mb-4 text-shadow">
-                    Puedes contactarnos mediante <a class="instalink font-semibold" href="https://www.instagram.com/envidia_cafeycopas" target="_blank">Nuestro Instagram</a>
-                </p>
-                <p class="mb-6 text-shadow">
-                    Síguenos en redes sociales para estar al tanto de nuestras promociones y eventos especiales
-                </p>
-                <div class="bg-black bg-opacity-50 rounded-lg p-6 inline-block">
-                    <h3 class="text-xl font-semibold mb-4 text-shadow">Nuestro horario:</h3>
-                    <p class="mb-2 text-shadow">Martes - Sábado: 16:00pm - 2:00am</p>
-                    <p class="text-shadow">Domingo: 16:00pm - 21:00pm</p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 bg-opacity-80 py-6 text-center">
-        <div class="container mx-auto px-4">
-            <p>&copy; 2025 Envidia Copas. Todos los derechos reservados.</p>
-        </div>
-    </footer>
-
-    <!-- Carta Modal -->
-    <div id="menu-modal" class="fixed inset-0 z-50 hidden overflow-y-auto">
-        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <!-- Background overlay -->
-            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
-                <div class="absolute inset-0 bg-black bg-opacity-75"></div>
-            </div>
-
-            <!-- Modal content -->
-            <div class="inline-block align-bottom bg-gray-900 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-6xl sm:w-full">
-                <div class="px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                    <div class="sm:flex sm:items-start">
-                        <div class="w-full">
-                            <div class="flex justify-between items-center mb-4">
-                                <h3 class="text-2xl leading-6 font-bold text-white">Carta de Productos</h3>
-                                <button id="close-menu-btn" class="text-gray-400 hover:text-white">
-                                    <i class="fas fa-times text-2xl"></i>
-                                </button>
-                            </div>
-                            
-                            <!-- Search and Filter -->
-                            <div class="mb-6">
-                                <div class="flex flex-col sm:flex-row gap-4">
-                                    <div class="relative flex-grow">
-                                        <input type="text" id="search-input" placeholder="Buscar productos..." 
-                                               class="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-amber-500">
-                                        <i class="fas fa-search absolute right-3 top-3 text-gray-400"></i>
-                                    </div>
-                                    <div class="flex overflow-x-auto pb-2 sm:pb-0 gap-2">
-                                        <button class="category-btn px-4 py-2 rounded-lg bg-amber-600 text-white font-medium whitespace-nowrap" data-category="all">Todos</button>
-                                        <button class="category-btn px-4 py-2 rounded-lg bg-gray-700 text-white font-medium whitespace-nowrap" data-category="postres">Postres y Helados</button>
-                                        <button class="category-btn px-4 py-2 rounded-lg bg-gray-700 text-white font-medium whitespace-nowrap" data-category="smoothies">Smoothies</button>
-                                        <button class="category-btn px-4 py-2 rounded-lg bg-gray-700 text-white font-medium whitespace-nowrap" data-category="helados">Helados - Formatos</button>
-                                        <button class="category-btn px-4 py-2 rounded-lg bg-gray-700 text-white font-medium whitespace-nowrap" data-category="alcohol">Cócteles con Alcohol</button>
-                                        <button class="category-btn px-4 py-2 rounded-lg bg-gray-700 text-white font-medium whitespace-nowrap" data-category="no-alcohol">Cócteles sin Alcohol</button>
-                                        <button class="category-btn px-4 py-2 rounded-lg bg-gray-700 text-white font-medium whitespace-nowrap" data-category="desayunos">Desayunos y Otros</button>
-                                        <button class="category-btn px-4 py-2 rounded-lg bg-gray-700 text-white font-medium whitespace-nowrap" data-category="bebidas">Bebidas</button>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Products Grid -->
-                            <div id="products-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-h-[70vh] overflow-y-auto p-2">
-                                <!-- Products will be loaded here from JSON -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Expanded Image Container -->
-    <div id="expanded-image-container" class="expanded-image-container hidden">
-        <img id="expanded-image" class="expanded-image" src="" alt="Imagen ampliada">
-    </div>
-
-    <script>
-        // Product data (would typically be loaded from an external JSON file)
-        const productsData = {
-            "products": [
-                {
-                    "id": 1,
-                    "name": "Tarta de Queso",
-                    "price": "4.50€",
-                    "category": "postres",
-                    "note": "",
-                    "image": "https://images.unsplash.com/photo-1571115177098-24ec42ed204d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                },
-                {
-                    "id": 2,
-                    "name": "Helado Artesanal",
-                    "price": "3.50€",
-                    "category": "postres",
-                    "note": "+1€ con toppings",
-                    "image": "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                },
-                {
-                    "id": 3,
-                    "name": "Brownie con Helado",
-                    "price": "5.00€",
-                    "category": "postres",
-                    "note": "",
-                    "image": "https://images.unsplash.com/photo-1564355808539-22fda35bed7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                },
-                {
-                    "id": 4,
-                    "name": "Smoothie de Frutas",
-                    "price": "4.50€",
-                    "category": "smoothies",
-                    "note": "",
-                    "image": "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                },
-                {
-                    "id": 5,
-                    "name": "Smoothie Verde",
-                    "price": "4.50€",
-                    "category": "smoothies",
-                    "note": "",
-                    "image": "https://images.unsplash.com/photo-1519996529931-28324d5a630e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                },
-                {
-                    "id": 6,
-                    "name": "Helado 1 Sabor",
-                    "price": "2.50€",
-                    "category": "helados",
-                    "note": "",
-                    "image": "https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                },
-                {
-                    "id": 7,
-                    "name": "Helado 2 Sabores",
-                    "price": "3.50€",
-                    "category": "helados",
-                    "note": "",
-                    "image": "https://images.unsplash.com/photo-1488900128323-21503983a07e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                },
-                {
-                    "id": 8,
-                    "name": "Mojito",
-                    "price": "6.50€",
-                    "category": "alcohol",
-                    "note": "",
-                    "image": "https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                },
-                {
-                    "id": 9,
-                    "name": "Piña Colada",
-                    "price": "7.00€",
-                    "category": "alcohol",
-                    "note": "",
-                    "image": "https://images.unsplash.com/photo-1608270586620-248524c67de9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                },
-                {
-                    "id": 10,
-                    "name": "Daiquiri de Fresa",
-                    "price": "6.50€",
-                    "category": "alcohol",
-                    "note": "",
-                    "image": "https://images.unsplash.com/photo-1606921231181-eb0a9e5bcf41?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                },
-                {
-                    "id": 11,
-                    "name": "Limonada de Fresa",
-                    "price": "4.50€",
-                    "category": "no-alcohol",
-                    "note": "",
-                    "image": "https://images.unsplash.com/photo-1551751299-1b51cab2694c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                },
-                {
-                    "id": 12,
-                    "name": "Granizado de Limón",
-                    "price": "3.50€",
-                    "category": "no-alcohol",
-                    "note": "",
-                    "image": "https://images.unsplash.com/photo-1603569283847-aa295f0d016a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                },
-                {
-                    "id": 13,
-                    "name": "Tostada con Tomate",
-                    "price": "3.00€",
-                    "category": "desayunos",
-                    "note": "",
-                    "image": "https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                },
-                {
-                    "id": 14,
-                    "name": "Café con Leche",
-                    "price": "1.80€",
-                    "category": "desayunos",
-                    "note": "",
-                    "image": "https://images.unsplash.com/photo-1445116572660-236099ec97a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                },
-                {
-                    "id": 15,
-                    "name": "Refrescos",
-                    "price": "2.50€",
-                    "category": "bebidas",
-                    "note": "",
-                    "image": "https://images.unsplash.com/photo-1554866585-cd94860890b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                },
-                {
-                    "id": 16,
-                    "name": "Agua Mineral",
-                    "price": "1.50€",
-                    "category": "bebidas",
-                    "note": "",
-                    "image": "https://images.unsplash.com/photo-1561047029-3000c68339ca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                }
+    <script type="text/babel">
+        const menuData = {
+            "Desayunos y Otros": [
+                { name: "Tostada A.O.V. - Tulupón (Media)", price: 1.20, note: "", image: "https://images.unsplash.com/photo-1528731708534-81627959f071?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Tostada A.O.V. - Tulupón (Entera)", price: 1.50, note: "", image: "https://images.unsplash.com/photo-1528731708534-81627959f071?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Pan con Sobrasada", price: 1.20, note: "", image: "https://images.unsplash.com/photo-1599948128020-39c3b3a222d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Pan con Jamón York", price: 1.30, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Manteca de Lomo Colorá", price: 1.70, note: "", image: "https://images.unsplash.com/photo-1606851134945-9667bf058c79?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Tostada A.O.V. y Tomate", price: 1.30, note: "", image: "https://images.unsplash.com/photo-1541518763669-2fefb165afcc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Tostada A.O.V. y Salmorejo", price: 1.70, note: "", image: "https://images.unsplash.com/photo-1627308594196-4b0f180aec63?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Porción Mantequilla y Mermelada", price: 1.60, note: "", image: "https://images.unsplash.com/photo-1559561843-297a373e4142?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Tostada A.O.V. y Pavo", price: 1.60, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Tostada A.O.V. y Jamón York", price: 1.90, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Tostada Jamón, A.O.V. y Tomate (Media)", price: 1.60, note: "", image: "https://images.unsplash.com/photo-1541518763669-2fefb165afcc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Tostada Jamón, A.O.V. y Tomate (Entera)", price: 1.90, note: "", image: "https://images.unsplash.com/photo-1541518763669-2fefb165afcc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Tostada Jamón con A.O.V.", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Tostada Lomo Asado con Sal y Miel", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1606851134945-9667bf058c79?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Tostada Tortilla de Patatas (sin Whisky)", price: 2.60, note: "", image: "https://images.unsplash.com/photo-1551326844-4f64c879b9c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Tostada Pringá", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1606851134945-9667bf058c79?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Tostada Torta del Casar", price: 2.50, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Tostada Jamón y Queso Curado", price: 2.50, note: "", image: "https://images.unsplash.com/photo-1506976785307-8738b0575631?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Tostada Chorizo y Queso Curado", price: 3.00, note: "", image: "https://images.unsplash.com/photo-1606851134945-9667bf058c79?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Desayuno Completo: Huevos, Bacon, Lomo, Queso, Zumo y Café", price: 6.00, note: "", image: "https://images.unsplash.com/photo-1525351484163-7522494f2660?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Café o Infusiones", price: 1.30, note: "", image: "https://images.unsplash.com/photo-1512568400610-5978aa9e263b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Infusiones Especiales", price: 1.70, note: "", image: "https://images.unsplash.com/photo-1512568400610-5978aa9e263b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Carajillo", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1512568400610-5978aa9e263b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Café Bombón", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1512568400610-5978aa9e263b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Zumo Minute Maid", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1613478223719-2e78e2a78e24?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Batidos Normales", price: 1.80, note: "", image: "https://images.unsplash.com/photo-1504382262782-5b4ece78642b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Zumo Natural de Naranja", price: 1.80, note: "", image: "https://images.unsplash.com/photo-1613478223719-2e78e2a78e24?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Refrescos (Aquarius, Nestea)", price: 2.50, note: "", image: "https://images.unsplash.com/photo-1603991482950-796833f0dd87?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Agua", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1603991482950-796833f0dd87?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Chupitos (Terry, Magno, Anís / 'Jani')", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1514361109680-d8b5626f6723?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Madreño", price: 2.00, note: "", image: "https://images.unsplash.com/photo-1514361109680-d8b5626f6723?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" }
+            ],
+            "Postres y Helados": [
+                { name: "Copa Tricolor (3 Bolas a Elegir)", price: 7.50, note: "", image: "https://images.unsplash.com/photo-1516043827470-1f2e8e7b1d08?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Copa 3 Bolas a Elegir", price: 5.50, note: "", image: "https://images.unsplash.com/photo-1516043827470-1f2e8e7b1d08?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Copa 1 Bola a Elegir", price: 3.50, note: "", image: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Batidos Normales", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1504382262782-5b4ece78642b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Gofre con Chocolate y Nata", price: 4.00, note: "+1€ con helado", image: "https://images.unsplash.com/photo-1507325655130-3f744cd86d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Crepe con Chocolate y Nata", price: 5.00, note: "+1€ con helado", image: "https://images.unsplash.com/photo-1484982498542-8f0f6f08d1c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Pancakes con Sirope, Nata y Helado", price: 6.50, note: "", image: "https://images.unsplash.com/photo-1528207776546-365bb710ee93?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Pancakes con Sirope de Nutella y Nata", price: 5.00, note: "", image: "https://images.unsplash.com/photo-1528207776546-365bb710ee93?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" }
+            ],
+            "Smoothies": [
+                { name: "Peach Paradise (Melocotón, Papaya y Fresa)", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1505252585461-04db1eb84625?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Triple M (Mango, Melón y Maracuyá)", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1504382262782-5b4ece78642b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Berry Dream (Fresa, Frambuesa y Arándanos)", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1505252585461-04db1eb84625?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Piña Colada (Piña y Coco)", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Red Banana (Fresa y Plátano)", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1505252585461-04db1eb84625?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Tropic Mix (Piña, Papaya, Mango)", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1504382262782-5b4ece78642b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Smoothie Para Llevar", price: 5.00, note: "Listo para llevar", image: "https://images.unsplash.com/photo-1504382262782-5b4ece78642b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" }
+            ],
+            "Helados - Formatos": [
+                { name: "Vasito Grande (Artesano)", price: 5.50, note: "", image: "https://images.unsplash.com/photo-1560008581-09826d1de4f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Cono Grande (Artesano)", price: 4.50, note: "", image: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Cono Mediano (Segunda Opción)", price: 3.50, note: "", image: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Vasito Pequeño", price: 3.00, note: "", image: "https://images.unsplash.com/photo-1560008581-09826d1de4f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" }
+            ],
+            "Cócteles con Alcohol": [
+                { name: "Bloody Mary", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1561131526-f791888a83b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "San Francisco", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Mojito", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1551538827-44c3755b8532?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Caipirinha", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1551538827-44c3755b8532?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Martini Dry", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1588650432184-64b8a90e09b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Red Lion", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Piña Colada", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Gin Gimlet", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1514361109680-d8b5626f6723?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Gin Fizz", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1514361109680-d8b5626f6723?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Margarita", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1588650432184-64b8a90e09b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Daiquiri", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Cosmopolitan", price: 9.00, note: "", image: "https://images.unsplash.com/photo-1588650432184-64b8a90e09b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" }
+            ],
+            "Cócteles sin Alcohol": [
+                { name: "Virgin Bloody Mary", price: 7.50, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Virgin San Francisco", price: 7.50, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Virgin Mojito", price: 7.50, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Virgin Caipirinha", price: 7.50, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Virgin Piña Colada", price: 7.50, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+                { name: "Virgin Cosmopolitan", price: 7.50, note: "", image: "https://images.unsplash.com/photo-1600700931-4dd932f87119?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" }
             ]
         };
 
-        // DOM Elements
-        const menuModal = document.getElementById('menu-modal');
-        const openMenuBtn = document.getElementById('open-menu-btn');
-        const closeMenuBtn = document.getElementById('close-menu-btn');
-        const productsContainer = document.getElementById('products-container');
-        const categoryBtns = document.querySelectorAll('.category-btn');
-        const searchInput = document.getElementById('search-input');
-        const expandedImageContainer = document.getElementById('expanded-image-container');
-        const expandedImage = document.getElementById('expanded-image');
-
-        // Modal functions
-        function openModal() {
-            menuModal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-            loadProducts();
+        // Helper function to expand images
+        function expandImage(src) {
+            const expandedContainer = document.createElement('div');
+            expandedContainer.classList.add('expanded-image-container');
+            const expandedImg = document.createElement('img');
+            expandedImg.src = src;
+            expandedImg.classList.add('expanded-image');
+            expandedContainer.appendChild(expandedImg);
+            document.body.appendChild(expandedContainer);
+            expandedContainer.addEventListener('click', () => document.body.removeChild(expandedContainer));
         }
 
-        function closeModal() {
-            menuModal.classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
-
-        // Load products into the grid
-        function loadProducts(filter = 'all', searchTerm = '') {
-            productsContainer.innerHTML = '';
-            
-            productsData.products.forEach(product => {
-                // Apply filters
-                if ((filter === 'all' || product.category === filter) && 
-                    (searchTerm === '' || product.name.toLowerCase().includes(searchTerm.toLowerCase()))) {
-                    
-                    const productCard = document.createElement('div');
-                    productCard.className = 'product-card rounded-lg overflow-hidden shadow-lg transition-all duration-300 hover:shadow-xl';
-                    
-                    productCard.innerHTML = `
-                        <div class="h-full flex flex-col">
-                            <div class="h-48 overflow-hidden">
-                                <img src="${product.image}" alt="${product.name}" 
-                                     class="w-full h-full object-cover hover:scale-105 transition duration-300 cursor-pointer"
-                                     onclick="expandImage(this)">
-                            </div>
-                            <div class="p-4 flex-grow flex flex-col">
-                                <div class="flex-grow">
-                                    <h3 class="text-xl font-bold text-white mb-1">${product.name}</h3>
-                                    ${product.note ? `<p class="text-amber-300 text-sm mb-2">${product.note}</p>` : ''}
-                                </div>
-                                <div class="flex justify-between items-center mt-2">
-                                    <span class="text-lg font-bold text-amber-400">${product.price}</span>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    
-                    productsContainer.appendChild(productCard);
-                }
-            });
-            
-            // Show message if no products found
-            if (productsContainer.children.length === 0) {
-                productsContainer.innerHTML = `
-                    <div class="col-span-3 text-center py-10">
-                        <i class="fas fa-search text-4xl text-gray-400 mb-4"></i>
-                        <p class="text-xl text-gray-300">No se encontraron productos</p>
+        // MenuItem Component
+        function MenuItem({ item, expandImage }) {
+            return (
+                <div className="bg-gray-800 rounded-xl overflow-hidden card">
+                    <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-full h-64 object-cover cursor-pointer"
+                        onClick={() => expandImage(item.image)}
+                    />
+                    <div className="p-6">
+                        <h3 className="text-xl font-semibold text-white mb-2">{item.name}</h3>
+                        <p className="text-yellow-400 font-bold text-lg">{item.price.toFixed(2)}€</p>
+                        {item.note && <p className="text-sm text-gray-400 mt-2">{item.note}</p>}
+                        <p className="text-xs text-gray-500 mt-3 capitalize">{item.category}</p>
                     </div>
-                `;
-            }
+                </div>
+            );
         }
 
-        // Expand image function
-        window.expandImage = function(img) {
-            expandedImage.src = img.src;
-            expandedImageContainer.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
+        // MenuModal Component
+        function MenuModal({ isOpen, onClose }) {
+            const [selectedCategory, setSelectedCategory] = React.useState("all");
+            const [searchTerm, setSearchTerm] = React.useState("");
+
+            if (!isOpen) return null;
+
+            const categories = ["all", ...Object.keys(menuData)];
+            const filteredItems = Object.entries(menuData).flatMap(([category, items]) =>
+                (selectedCategory === "all" || selectedCategory === category)
+                    ? items.filter(item =>
+                        item.name.toLowerCase().includes(searchTerm.toLowerCase())
+                    ).map(item => ({ ...item, category }))
+                    : []
+            );
+
+            return (
+                <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 p-4">
+                    <div className="bg-gray-900 rounded-2xl p-8 w-full max-w-6xl h-[90vh] overflow-y-auto modal shadow-2xl">
+                        <div className="flex justify-between items-center mb-8">
+                            <h2 className="text-4xl font-bold text-yellow-400 font-['Playfair_Display']">Nuestra Carta</h2>
+                            <button onClick={onClose} className="text-gray-300 hover:text-white text-4xl transition duration-300">×</button>
+                        </div>
+                        <div className="mb-8">
+                            <input
+                                type="text"
+                                placeholder="Buscar producto..."
+                                className="w-full p-4 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-yellow-400 transition duration-300 text-lg"
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                        </div>
+                        <div className="flex flex-wrap gap-3 sm:gap-4 mb-8 justify-center">
+                            {categories.map(category => (
+                                <button
+                                    key={category}
+                                    onClick={() => setSelectedCategory(category)}
+                                    className={`px-5 py-2.5 sm:px-6 sm:py-3 rounded-full font-semibold text-sm sm:text-base transition duration-300 ${selectedCategory === category ? 'bg-yellow-400 text-gray-900 shadow-md' : 'bg-gray-800 text-gray-200 hover:bg-gray-700'}`}
+                                >
+                                    {category === "all" ? "Todos" : category}
+                                </button>
+                            ))}
+                        </div>
+                        {filteredItems.length === 0 ? (
+                            <p className="text-center text-gray-400 text-lg mt-10">No se encontraron productos que coincidan con su búsqueda.</p>
+                        ) : (
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                                {filteredItems.map((item, index) => (
+                                    <MenuItem key={index} item={item} expandImage={expandImage} />
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                </div>
+            );
         }
 
-        // Close expanded image
-        expandedImageContainer.addEventListener('click', function() {
-            expandedImageContainer.classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        });
+        // Main App Component
+        function App() {
+            const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
-        // Event listeners
-        openMenuBtn.addEventListener('click', openModal);
-        closeMenuBtn.addEventListener('click', closeModal);
+            return (
+                <div>
+                    <header className="hero-section py-24 text-center">
+                        <img
+                            src="https://raw.githubusercontent.com/WhitiXD/Whiti/master/envidia_copas-ia2.png"
+                            alt="Logo Envidia Copas"
+                            className="mx-auto w-full max-w-md logo"
+                        />
+                        <h1 className="text-5xl md:text-6xl font-bold mt-6 text-yellow-400 font-['Playfair_Display'] drop-shadow-lg">Envidia Copas</h1>
+                        <p className="text-xl md:text-2xl mt-4 max-w-2xl mx-auto drop-shadow-lg px-4">El lugar perfecto en Sevilla para cócteles artesanales, desayunos y postres únicos</p>
+                        <button
+                            onClick={() => setIsMenuOpen(true)}
+                            className="mt-8 bg-yellow-400 text-gray-900 px-10 py-4 rounded-full font-semibold text-lg hover:bg-yellow-500 transition duration-300 shadow-lg"
+                        >
+                            Ver Carta
+                        </button>
+                    </header>
 
-        // Category filter buttons
-        categoryBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const category = this.dataset.category;
-                
-                // Update active button
-                categoryBtns.forEach(b => b.classList.remove('active', 'bg-amber-600'));
-                categoryBtns.forEach(b => b.classList.add('bg-gray-700'));
-                
-                this.classList.add('active', 'bg-amber-600');
-                this.classList.remove('bg-gray-700');
-                
-                loadProducts(category === 'all' ? 'all' : category, searchInput.value);
-            });
-        });
+                    <nav className="bg-gray-900 py-6 sticky top-0 z-40 shadow-lg">
+                        <div className="container mx-auto flex flex-wrap justify-center gap-6 px-4">
+                            <a href="#inicio" className="text-white hover:text-yellow-400 font-semibold text-lg nav-link transition duration-300">Inicio</a>
+                            <a href="#menu" className="text-white hover:text-yellow-400 font-semibold text-lg nav-link transition duration-300">Menú</a>
+                            <a href="#contacto" className="text-white hover:text-yellow-400 font-semibold text-lg nav-link transition duration-300">Contacto</a>
+                        </div>
+                    </nav>
 
-        // Search functionality
-        searchInput.addEventListener('input', function() {
-            const activeCategory = document.querySelector('.category-btn.active');
-            const category = activeCategory ? activeCategory.dataset.category : 'all';
-            loadProducts(category, this.value);
-        });
+                    <main>
+                        <section id="inicio" className="py-24 text-center bg-gray-900/80 px-4">
+                            <h2 className="text-4xl md:text-5xl font-bold mb-8 text-yellow-400 font-['Playfair_Display'] drop-shadow-lg">Bienvenidos a Envidia Copas</h2>
+                            <p className="text-lg md:text-xl max-w-4xl mx-auto drop-shadow-lg">
+                                Ubicados en **C. Juan Antonio Cavestany, 25, 41003 Sevilla**, somos tu destino para disfrutar de una experiencia gastronómica única. Desde cócteles artesanales hasta desayunos y postres irresistibles, nuestro ambiente acogedor te invita a compartir momentos inolvidables.
+                            </p>
+                            <button
+                                onClick={() => setIsMenuOpen(true)}
+                                className="mt-8 bg-yellow-400 text-gray-900 px-10 py-4 rounded-full font-semibold text-lg hover:bg-yellow-500 transition duration-300 shadow-lg"
+                            >
+                                Ver Carta
+                            </button>
+                        </section>
 
-        // Close modal when clicking outside
-        menuModal.addEventListener('click', function(e) {
-            if (e.target === menuModal) {
-                closeModal();
-            }
-        });
+                        <section id="menu" className="py-24 text-center bg-gray-900/60 px-4">
+                            <h2 className="text-4xl md:text-5xl font-bold mb-8 text-yellow-400 font-['Playfair_Display'] drop-shadow-lg">Nuestra Carta 🍸</h2>
+                            <p className="text-lg md:text-xl max-w-4xl mx-auto mb-10 drop-shadow-lg">
+                                Descubre nuestra selección de desayunos, cócteles, smoothies, helados y postres, elaborados con pasión y los mejores ingredientes.
+                            </p>
+                            <button
+                                onClick={() => setIsMenuOpen(true)}
+                                className="bg-yellow-400 text-gray-900 px-10 py-4 rounded-full font-semibold text-lg hover:bg-yellow-500 transition duration-300 shadow-lg"
+                            >
+                                Ver Carta
+                            </button>
+                            <MenuModal isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+                        </section>
 
-        // Initialize with all products
-        document.addEventListener('DOMContentLoaded', function() {
-            // Set first category button as active
-            document.querySelector('.category-btn[data-category="all"]').classList.add('active', 'bg-amber-600');
-            document.querySelector('.category-btn[data-category="all"]').classList.remove('bg-gray-700');
-        });
+                        <section id="instagram-feed" className="py-24 text-center bg-gray-900/80 px-4">
+                            <h2 className="text-4xl md:text-5xl font-bold mb-8 text-yellow-400 font-['Playfair_Display'] drop-shadow-lg">Nuestro Instagram 📷</h2>
+                            <p className="text-lg md:text-xl max-w-4xl mx-auto mb-10 drop-shadow-lg">
+                                Síguenos en Instagram para estar al día con nuestras creaciones, eventos y promociones especiales.
+                            </p>
+                            <iframe
+                                src="https://www.instagram.com/envidia_cafeycopas/embed/"
+                                className="w-full max-w-5xl mx-auto h-[700px] border-none rounded-lg shadow-xl"
+                                allowTransparency="true"
+                                frameBorder="0"
+                                scrolling="auto"
+                                title="Instagram Feed Envidia Copas"
+                            ></iframe>
+                        </section>
+
+                        <section id="contacto" className="py-24 text-center bg-gray-900/60 px-4">
+                            <h2 className="text-4xl md:text-5xl font-bold mb-8 text-yellow-400 font-['Playfair_Display'] drop-shadow-lg">Contacto</h2>
+                            <p className="text-lg md:text-xl max-w-4xl mx-auto drop-shadow-lg">
+                                ¡Estamos deseando conocerte! Contáctanos a través de <a href="https://www.instagram.com/envidia_cafeycopas" target="_blank" rel="noopener noreferrer" className="text-yellow-400 hover:text-yellow-300 font-semibold">Instagram</a> para reservas, eventos o cualquier consulta.
+                            </p>
+                            <p className="text-xl mt-6 font-semibold">Horario:</p>
+                            <p className="text-lg">Martes - Sábado: 16:00 - 02:00</p>
+                            <p className="text-lg">Domingo: 15:00 - 22:00</p>
+                            <p className="text-lg mt-4">**Dirección:** C. Juan Antonio Cavestany, 25, 41003 Sevilla</p>
+                        </section>
+                    </main>
+
+                    <footer className="bg-gray-900 py-12 text-center">
+                        <p className="text-lg">© 2025 Envidia Copas. Todos los derechos reservados.</p>
+                        <div className="mt-6 flex justify-center gap-8">
+                            <a href="https://www.instagram.com/envidia_cafeycopas" target="_blank" rel="noopener noreferrer" className="text-yellow-400 hover:text-yellow-300 font-semibold transition duration-300">Instagram</a>
+                            <a href="#contacto" className="text-yellow-400 hover:text-yellow-300 font-semibold transition duration-300">Contacto</a>
+                        </div>
+                    </footer>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
     </script>
 </body>
 </html>
