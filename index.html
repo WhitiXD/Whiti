@@ -6,286 +6,564 @@
     <meta name="google-site-verification" content="IMiWiXjV0qaBBoJareXafpb0CY_7Zq3PzrZMufjHQBA" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta property="og:title" content="Bar Eenvidia Copas">
-    <meta property="og:description" content="Envidia Copas">
+    <meta property="og:description" content="Envidia Copas - Carta interactiva de productos">
     <meta property="og:type" content="website">
     <meta name="author" content="Bar Envidia">
-    <title>Envidia Copas</title>
+    <title>Envidia Copas - Carta Interactiva</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
             background-size: cover;
             background-image: url("https://github.com/WhitiXD/Whiti/blob/master/fondo_web2.webp?raw=true");
             background-position: center;
-            color: #fff; /* Color del texto */
-        }
-
-        header {
-            padding: 20px 0;
-            text-align: center;
-            position: relative;
-            margin-top: -6%;
-            z-index: 1; /* Asegura que el encabezado esté sobre el contenido */
-            background: linear-gradient(to top, transparent, rgba(10, 10, 10, 1)); /* Degradado desde transparente a gris con media opacidad */
-        }
-
-        h1, h2, h3, h4, h5, h6, p {
-            text-shadow: 3px 3px 3px rgba(0, 0, 0, 3); /* Ajuste de sombra de texto */
+            background-attachment: fixed;
+            color: #fff;
         }
 
         .logo {
             width: 100%;
-            max-width: 600px; /* Limitar el ancho del logo */
+            max-width: 600px;
             height: auto;
-            margin: 0 auto 20px; /* Centrar el logo y añadir margen inferior */
-            position: relative;
-            z-index: -1; /* Asegura que el logo esté sobre el contenido */
-            margin-bottom: -10%;
-            margin-top: -8%;
-            animation: aparecer 3s forwards, neon 2s infinite alternate; /* Animación de aparición y efecto de neón */
+            margin: 0 auto;
+            animation: aparecer 3s forwards, neon 2s infinite alternate;
         }
 
         @keyframes aparecer {
-            from {
-                opacity: 0; /* Empieza completamente transparente */
-            }
-            to {
-                opacity: 1; /* Termina completamente visible */
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         @keyframes neon {
-            from {
-                filter: brightness(1); /* Brillo inicial */
-            }
-            to {
-                filter: brightness(1.5); /* Brillo máximo */
-            }
+            from { filter: brightness(1); }
+            to { filter: brightness(1.5); }
         }
 
-        nav {
-            background-color: #444;
-            padding: 10px 0;
-            text-align: center;
-            position: relative;
-            z-index: 3; /* Asegura que los enlaces de navegación estén sobre el encabezado */
-        }
-
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            padding: 0 15px;
-        }
-
-        section {
-            padding: 50px 20px;
-            text-align: center;
-        }
-
-        section h2 {
-            margin-bottom: 20px;
-        }
-
-        .container {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-
-        .container img:hover {
-            transform: translateY(-5px); /* Eleva la imagen 5px al pasar el cursor */
-        }
-
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 20px 0;
-        }
-
-        p {
-            z-index: 2; 
-        }
-
-        /* Agrega este estilo para el contenedor que aparecerá al hacer clic */
         .expanded-image-container {
-            position: fixed; /* Fija la posición del contenedor */
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro semi-transparente */
+            background-color: rgba(0, 0, 0, 0.9);
             display: flex;
-            justify-content: center; /* Centra horizontalmente */
-            align-items: center; /* Centra verticalmente */
-            z-index: 9999; /* Asegura que esté por encima de otros elementos */
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
         }
 
-        /* Agrega este estilo para la imagen agrandada */
         .expanded-image {
-            max-width: 90%; /* Ajusta el ancho máximo */
-            max-height: 90%; /* Ajusta la altura máxima */
-            object-fit: contain; /* Ajusta el tamaño de la imagen manteniendo la relación de aspecto */
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
         }
 
-        #instagram-feed iframe {
-            width: 200%; 
-            height: auto; 
+        .product-card {
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .instalink:hover{
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .category-btn {
+            transition: all 0.3s ease;
+        }
+
+        .category-btn:hover, .category-btn.active {
+            transform: translateY(-2px);
+        }
+
+        .modal {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .modal-enter {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        .modal-enter-active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .modal-exit {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .modal-exit-active {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        .instalink {
+            color: tan;
+            transition: color 0.3s ease;
+        }
+
+        .instalink:hover {
             color: aqua;
         }
 
-        .instalink{
-            color: tan;
+        /* Scroll personalizado */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
 
-        @media only screen and (min-width: 600px) {
-            .carta1,
-            .carta2,
-            .carta3 {
-                object-fit: cover;
-                transition: transform 0.3s ease; /* Transición suave de la transformación */
-                width: calc(26% - 4%); /* Ajustar el ancho para considerar el margen */
-                margin: 0%; /* Agregar margen uniforme */
-            }
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
         }
 
-
-        .carta1 {
-            margin-left: 5%;
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
         }
 
-        .carta3 {
-            margin-right:5%;
-        }
-        .menu-item {
-                margin-left:4%;
-            }
-
-            .menu-item3 {
-                margin-right:4%;
-            }
-
-            #instagram-feed iframe {
-            width: 100%; 
-            height: auto; 
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
         }
 
-        footer {
-            background: linear-gradient(to top, rgba(10, 10, 10, 1), rgba(10, 10, 10, 0.7));
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
-                .flex-item {
-          display: flex;
-          justify-content: center;
-          align-items: center;
+        .backdrop-blur {
+            backdrop-filter: blur(10px);
         }
-        .container-flex {
-          display: flex;
-          justify-content: space-around;
-          align-items: center;
-        }
-
-        /* Media Query para dispositivos móviles */
-        @media only screen and (max-width: 600px) {
-            header {
-                margin-top: -20%; /* Ajustar el margen superior */
-            }
-            .logo {
-                margin-bottom: -30%; /* Eliminar margen inferior */
-            }
-            nav {
-                margin-top: 20px; /* Ajustar margen superior del menú de navegación */
-            }
-            .menu-item h1,
-            .menu-item2 h1,
-            .menu-item3 h1 {
-                font-size: 19px; /* Ajusta el tamaño de fuente para dispositivos móviles */
-                text-align: center;
-            }
-
-            .carta1,
-            .carta2,
-            .carta3 {
-                width: calc(30% - 4%); /* Ajustar el ancho para considerar el margen */
-            }
-        }
-
-        
     </style>
-    <script>
-        function expandImage(img) {
-            // Crea un nuevo contenedor para la imagen agrandada
-            var expandedContainer = document.createElement('div');
-            expandedContainer.classList.add('expanded-image-container');
-
-            // Crea la imagen agrandada
-            var expandedImg = document.createElement('img');
-            expandedImg.src = img.src;
-            expandedImg.classList.add('expanded-image');
-
-            // Agrega la imagen agrandada al contenedor
-            expandedContainer.appendChild(expandedImg);
-
-            // Agrega el contenedor al cuerpo del documento
-            document.body.appendChild(expandedContainer);
-
-            // Elimina el contenedor al hacer clic en la imagen agrandada
-            expandedContainer.addEventListener('click', function() {
-                document.body.removeChild(expandedContainer);
-            });
-        }
-    </script>
 </head>
-<body>
-    <header>
-        <img src="https://raw.githubusercontent.com/WhitiXD/Whiti/master/envidia_copas-ia2.png" alt="Logo Envidia Copas" class="logo">
-        <p>¡Tu lugar para disfrutar de buenas copas y buen ambiente en Sevilla!.</p>
+<body class="min-h-screen">
+    <!-- Header -->
+    <header class="py-5 text-center relative z-10">
+        <div class="container mx-auto px-4">
+            <img src="https://raw.githubusercontent.com/WhitiXD/Whiti/master/envidia_copas-ia2.png" alt="Logo Envidia Copas" class="logo mx-auto">
+            <p class="text-xl mt-4 text-shadow">¡Tu lugar para disfrutar de buenas copas y buen ambiente en Sevilla!</p>
+        </div>
     </header>
-    <section id="inicio">
-        <h2>Bienvenidos a Envidia</h2>
-        <p>Nos encontramos en C. Juan Antonio Cavestany, 25, 41003 Sevilla <br>Somos tu bar de confianza para disfrutar de las mejores bebidas en un ambiente único. ¡Ven y únete a la diversión!</p>
-    </section>
-    <section id="menu">
-        <h2>Nuestro Menú 🍸</h2>
-        <p>Ofrecemos una amplia selección de bebidas alcohólicas y no alcohólicas para todos los gustos. Desde cócteles clásicos hasta creaciones especiales de nuestra carta, tenemos algo para todos.</p>
-        <div class="container flex">
-            <div class="menu-item flex-item">
-                <h1 class="item">Bebidas</h1>
-            </div>
-            <div class="menu-item2 flex-item">  
-                <h1 class="item2">Meriendas</h1>
-            </div>
-            <div class="menu-item3 flex-item">
-                <h1 class="item3">Copas</h1>
-            </div>
-        </div>
-        <div class="container">
-            <img class="carta1 flex-item" src="https://lh3.googleusercontent.com/p/AF1QipNF6nCs5RboR0C1PcMTvaO6nApbxoaT1LdrkIwe=s1360-w1360-h1020" alt="Bebidas" onclick="expandImage(this)">
-            <img class="carta2 flex-item" src="https://lh3.googleusercontent.com/p/AF1QipOnTvNro8FFMECzazdpYexcBuyJ2sSIHicQhX5m=s1360-w1360-h1020" alt="Meriendas" onclick="expandImage(this)">
-            <img class="carta3 flex-item" src="https://lh3.googleusercontent.com/p/AF1QipPbFcbpea2fv5K19PXykU4HMLG96_Y-5yys-MVW=s1360-w1360-h1020" alt="Copas" onclick="expandImage(this)">
-        </div>
-    </section>
-    <section id="instagram-feed">
-    <h2>Nuestro Instagram 📷</h2>
-    <iframe src="https://www.instagram.com/envidia_cafeycopas/embed/" class="snapwidget-widget" allowtransparency="true" frameborder="1" scrolling="yes" style="border:none; width: 100%; height: auto; min-height: 400px;"></iframe>
-</section>
 
-    <section id="contacto">
-        <h2>Contacto</h2>
-        <p>Puedes contactarnos mediante <a class="instalink" href="https://www.instagram.com/envidia_cafeycopas" target="_blank"> Nuestro Instagram </a></p>
-        <p>Síguenos en redes sociales para estar al tanto de nuestras promociones y eventos especiales</p>
-        <p>Nuestro horario:</p>
-        <p>Martes - Sábado: 16:00pm - 2:00am</p>
-        <p>Domingo: 16:00pm - 21:00pm</p>
-    </section>
-    <footer>
-        <p>&copy; 2025 Envidia Copas. Todos los derechos reservados.</p>
+    <!-- Navigation -->
+    <nav class="bg-gray-800 py-3 backdrop-blur sticky top-0 z-20">
+        <div class="container mx-auto px-4 flex justify-center space-x-6">
+            <a href="#inicio" class="text-white hover:text-amber-300 transition">Inicio</a>
+            <a href="#menu" class="text-white hover:text-amber-300 transition">Menú</a>
+            <a href="#instagram-feed" class="text-white hover:text-amber-300 transition">Instagram</a>
+            <a href="#contacto" class="text-white hover:text-amber-300 transition">Contacto</a>
+            <button id="open-menu-btn" class="text-white hover:text-amber-300 transition bg-amber-600 hover:bg-amber-700 px-4 py-1 rounded-lg font-medium">
+                Ver Carta <i class="fas fa-book ml-1"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Inicio Section -->
+        <section id="inicio" class="py-16 text-center">
+            <div class="container mx-auto px-4 max-w-4xl">
+                <h2 class="text-3xl font-bold mb-6 text-shadow">Bienvenidos a Envidia</h2>
+                <p class="text-lg mb-6 text-shadow">
+                    Nos encontramos en C. Juan Antonio Cavestany, 25, 41003 Sevilla<br>
+                    Somos tu bar de confianza para disfrutar de las mejores bebidas en un ambiente único. ¡Ven y únete a la diversión!
+                </p>
+            </div>
+        </section>
+
+        <!-- Menú Section -->
+        <section id="menu" class="py-16 bg-black bg-opacity-50">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-8 text-shadow">Nuestro Menú 🍸</h2>
+                <p class="text-center mb-12 max-w-3xl mx-auto text-shadow">
+                    Ofrecemos una amplia selección de bebidas alcohólicas y no alcohólicas para todos los gustos. 
+                    Desde cócteles clásicos hasta creaciones especiales de nuestra carta, tenemos algo para todos.
+                </p>
+                
+                <div class="flex flex-wrap justify-center gap-6 mb-12">
+                    <div class="text-center">
+                        <h3 class="text-xl font-semibold mb-2 text-shadow">Bebidas</h3>
+                        <img class="w-64 h-64 object-cover rounded-lg cursor-pointer hover:scale-105 transition" 
+                             src="https://lh3.googleusercontent.com/p/AF1QipNF6nCs5RboR0C1PcMTvaO6nApbxoaT1LdrkIwe=s1360-w1360-h1020" 
+                             alt="Bebidas" 
+                             onclick="expandImage(this)">
+                    </div>
+                    <div class="text-center">
+                        <h3 class="text-xl font-semibold mb-2 text-shadow">Meriendas</h3>
+                        <img class="w-64 h-64 object-cover rounded-lg cursor-pointer hover:scale-105 transition" 
+                             src="https://lh3.googleusercontent.com/p/AF1QipOnTvNro8FFMECzazdpYexcBuyJ2sSIHicQhX5m=s1360-w1360-h1020" 
+                             alt="Meriendas" 
+                             onclick="expandImage(this)">
+                    </div>
+                    <div class="text-center">
+                        <h3 class="text-xl font-semibold mb-2 text-shadow">Copas</h3>
+                        <img class="w-64 h-64 object-cover rounded-lg cursor-pointer hover:scale-105 transition" 
+                             src="https://lh3.googleusercontent.com/p/AF1QipPbFcbpea2fv5K19PXykU4HMLG96_Y-5yys-MVW=s1360-w1360-h1020" 
+                             alt="Copas" 
+                             onclick="expandImage(this)">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Instagram Section -->
+        <section id="instagram-feed" class="py-16 bg-black bg-opacity-30">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-8 text-shadow">Nuestro Instagram 📷</h2>
+                <div class="max-w-4xl mx-auto">
+                    <iframe src="https://www.instagram.com/envidia_cafeycopas/embed/" 
+                            class="w-full h-96 border-none rounded-lg" 
+                            allowtransparency="true" 
+                            frameborder="0" 
+                            scrolling="no"></iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contacto Section -->
+        <section id="contacto" class="py-16">
+            <div class="container mx-auto px-4 max-w-4xl text-center">
+                <h2 class="text-3xl font-bold mb-6 text-shadow">Contacto</h2>
+                <p class="mb-4 text-shadow">
+                    Puedes contactarnos mediante <a class="instalink font-semibold" href="https://www.instagram.com/envidia_cafeycopas" target="_blank">Nuestro Instagram</a>
+                </p>
+                <p class="mb-6 text-shadow">
+                    Síguenos en redes sociales para estar al tanto de nuestras promociones y eventos especiales
+                </p>
+                <div class="bg-black bg-opacity-50 rounded-lg p-6 inline-block">
+                    <h3 class="text-xl font-semibold mb-4 text-shadow">Nuestro horario:</h3>
+                    <p class="mb-2 text-shadow">Martes - Sábado: 16:00pm - 2:00am</p>
+                    <p class="text-shadow">Domingo: 16:00pm - 21:00pm</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 bg-opacity-80 py-6 text-center">
+        <div class="container mx-auto px-4">
+            <p>&copy; 2025 Envidia Copas. Todos los derechos reservados.</p>
+        </div>
     </footer>
+
+    <!-- Carta Modal -->
+    <div id="menu-modal" class="fixed inset-0 z-50 hidden overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <!-- Background overlay -->
+            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div class="absolute inset-0 bg-black bg-opacity-75"></div>
+            </div>
+
+            <!-- Modal content -->
+            <div class="inline-block align-bottom bg-gray-900 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-6xl sm:w-full">
+                <div class="px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                        <div class="w-full">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="text-2xl leading-6 font-bold text-white">Carta de Productos</h3>
+                                <button id="close-menu-btn" class="text-gray-400 hover:text-white">
+                                    <i class="fas fa-times text-2xl"></i>
+                                </button>
+                            </div>
+                            
+                            <!-- Search and Filter -->
+                            <div class="mb-6">
+                                <div class="flex flex-col sm:flex-row gap-4">
+                                    <div class="relative flex-grow">
+                                        <input type="text" id="search-input" placeholder="Buscar productos..." 
+                                               class="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-amber-500">
+                                        <i class="fas fa-search absolute right-3 top-3 text-gray-400"></i>
+                                    </div>
+                                    <div class="flex overflow-x-auto pb-2 sm:pb-0 gap-2">
+                                        <button class="category-btn px-4 py-2 rounded-lg bg-amber-600 text-white font-medium whitespace-nowrap" data-category="all">Todos</button>
+                                        <button class="category-btn px-4 py-2 rounded-lg bg-gray-700 text-white font-medium whitespace-nowrap" data-category="postres">Postres y Helados</button>
+                                        <button class="category-btn px-4 py-2 rounded-lg bg-gray-700 text-white font-medium whitespace-nowrap" data-category="smoothies">Smoothies</button>
+                                        <button class="category-btn px-4 py-2 rounded-lg bg-gray-700 text-white font-medium whitespace-nowrap" data-category="helados">Helados - Formatos</button>
+                                        <button class="category-btn px-4 py-2 rounded-lg bg-gray-700 text-white font-medium whitespace-nowrap" data-category="alcohol">Cócteles con Alcohol</button>
+                                        <button class="category-btn px-4 py-2 rounded-lg bg-gray-700 text-white font-medium whitespace-nowrap" data-category="no-alcohol">Cócteles sin Alcohol</button>
+                                        <button class="category-btn px-4 py-2 rounded-lg bg-gray-700 text-white font-medium whitespace-nowrap" data-category="desayunos">Desayunos y Otros</button>
+                                        <button class="category-btn px-4 py-2 rounded-lg bg-gray-700 text-white font-medium whitespace-nowrap" data-category="bebidas">Bebidas</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Products Grid -->
+                            <div id="products-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-h-[70vh] overflow-y-auto p-2">
+                                <!-- Products will be loaded here from JSON -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Expanded Image Container -->
+    <div id="expanded-image-container" class="expanded-image-container hidden">
+        <img id="expanded-image" class="expanded-image" src="" alt="Imagen ampliada">
+    </div>
+
+    <script>
+        // Product data (would typically be loaded from an external JSON file)
+        const productsData = {
+            "products": [
+                {
+                    "id": 1,
+                    "name": "Tarta de Queso",
+                    "price": "4.50€",
+                    "category": "postres",
+                    "note": "",
+                    "image": "https://images.unsplash.com/photo-1571115177098-24ec42ed204d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                },
+                {
+                    "id": 2,
+                    "name": "Helado Artesanal",
+                    "price": "3.50€",
+                    "category": "postres",
+                    "note": "+1€ con toppings",
+                    "image": "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                },
+                {
+                    "id": 3,
+                    "name": "Brownie con Helado",
+                    "price": "5.00€",
+                    "category": "postres",
+                    "note": "",
+                    "image": "https://images.unsplash.com/photo-1564355808539-22fda35bed7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                },
+                {
+                    "id": 4,
+                    "name": "Smoothie de Frutas",
+                    "price": "4.50€",
+                    "category": "smoothies",
+                    "note": "",
+                    "image": "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                },
+                {
+                    "id": 5,
+                    "name": "Smoothie Verde",
+                    "price": "4.50€",
+                    "category": "smoothies",
+                    "note": "",
+                    "image": "https://images.unsplash.com/photo-1519996529931-28324d5a630e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                },
+                {
+                    "id": 6,
+                    "name": "Helado 1 Sabor",
+                    "price": "2.50€",
+                    "category": "helados",
+                    "note": "",
+                    "image": "https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                },
+                {
+                    "id": 7,
+                    "name": "Helado 2 Sabores",
+                    "price": "3.50€",
+                    "category": "helados",
+                    "note": "",
+                    "image": "https://images.unsplash.com/photo-1488900128323-21503983a07e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                },
+                {
+                    "id": 8,
+                    "name": "Mojito",
+                    "price": "6.50€",
+                    "category": "alcohol",
+                    "note": "",
+                    "image": "https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                },
+                {
+                    "id": 9,
+                    "name": "Piña Colada",
+                    "price": "7.00€",
+                    "category": "alcohol",
+                    "note": "",
+                    "image": "https://images.unsplash.com/photo-1608270586620-248524c67de9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                },
+                {
+                    "id": 10,
+                    "name": "Daiquiri de Fresa",
+                    "price": "6.50€",
+                    "category": "alcohol",
+                    "note": "",
+                    "image": "https://images.unsplash.com/photo-1606921231181-eb0a9e5bcf41?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                },
+                {
+                    "id": 11,
+                    "name": "Limonada de Fresa",
+                    "price": "4.50€",
+                    "category": "no-alcohol",
+                    "note": "",
+                    "image": "https://images.unsplash.com/photo-1551751299-1b51cab2694c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                },
+                {
+                    "id": 12,
+                    "name": "Granizado de Limón",
+                    "price": "3.50€",
+                    "category": "no-alcohol",
+                    "note": "",
+                    "image": "https://images.unsplash.com/photo-1603569283847-aa295f0d016a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                },
+                {
+                    "id": 13,
+                    "name": "Tostada con Tomate",
+                    "price": "3.00€",
+                    "category": "desayunos",
+                    "note": "",
+                    "image": "https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                },
+                {
+                    "id": 14,
+                    "name": "Café con Leche",
+                    "price": "1.80€",
+                    "category": "desayunos",
+                    "note": "",
+                    "image": "https://images.unsplash.com/photo-1445116572660-236099ec97a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                },
+                {
+                    "id": 15,
+                    "name": "Refrescos",
+                    "price": "2.50€",
+                    "category": "bebidas",
+                    "note": "",
+                    "image": "https://images.unsplash.com/photo-1554866585-cd94860890b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                },
+                {
+                    "id": 16,
+                    "name": "Agua Mineral",
+                    "price": "1.50€",
+                    "category": "bebidas",
+                    "note": "",
+                    "image": "https://images.unsplash.com/photo-1561047029-3000c68339ca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                }
+            ]
+        };
+
+        // DOM Elements
+        const menuModal = document.getElementById('menu-modal');
+        const openMenuBtn = document.getElementById('open-menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const productsContainer = document.getElementById('products-container');
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const searchInput = document.getElementById('search-input');
+        const expandedImageContainer = document.getElementById('expanded-image-container');
+        const expandedImage = document.getElementById('expanded-image');
+
+        // Modal functions
+        function openModal() {
+            menuModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            loadProducts();
+        }
+
+        function closeModal() {
+            menuModal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Load products into the grid
+        function loadProducts(filter = 'all', searchTerm = '') {
+            productsContainer.innerHTML = '';
+            
+            productsData.products.forEach(product => {
+                // Apply filters
+                if ((filter === 'all' || product.category === filter) && 
+                    (searchTerm === '' || product.name.toLowerCase().includes(searchTerm.toLowerCase()))) {
+                    
+                    const productCard = document.createElement('div');
+                    productCard.className = 'product-card rounded-lg overflow-hidden shadow-lg transition-all duration-300 hover:shadow-xl';
+                    
+                    productCard.innerHTML = `
+                        <div class="h-full flex flex-col">
+                            <div class="h-48 overflow-hidden">
+                                <img src="${product.image}" alt="${product.name}" 
+                                     class="w-full h-full object-cover hover:scale-105 transition duration-300 cursor-pointer"
+                                     onclick="expandImage(this)">
+                            </div>
+                            <div class="p-4 flex-grow flex flex-col">
+                                <div class="flex-grow">
+                                    <h3 class="text-xl font-bold text-white mb-1">${product.name}</h3>
+                                    ${product.note ? `<p class="text-amber-300 text-sm mb-2">${product.note}</p>` : ''}
+                                </div>
+                                <div class="flex justify-between items-center mt-2">
+                                    <span class="text-lg font-bold text-amber-400">${product.price}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    productsContainer.appendChild(productCard);
+                }
+            });
+            
+            // Show message if no products found
+            if (productsContainer.children.length === 0) {
+                productsContainer.innerHTML = `
+                    <div class="col-span-3 text-center py-10">
+                        <i class="fas fa-search text-4xl text-gray-400 mb-4"></i>
+                        <p class="text-xl text-gray-300">No se encontraron productos</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Expand image function
+        window.expandImage = function(img) {
+            expandedImage.src = img.src;
+            expandedImageContainer.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close expanded image
+        expandedImageContainer.addEventListener('click', function() {
+            expandedImageContainer.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Event listeners
+        openMenuBtn.addEventListener('click', openModal);
+        closeMenuBtn.addEventListener('click', closeModal);
+
+        // Category filter buttons
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const category = this.dataset.category;
+                
+                // Update active button
+                categoryBtns.forEach(b => b.classList.remove('active', 'bg-amber-600'));
+                categoryBtns.forEach(b => b.classList.add('bg-gray-700'));
+                
+                this.classList.add('active', 'bg-amber-600');
+                this.classList.remove('bg-gray-700');
+                
+                loadProducts(category === 'all' ? 'all' : category, searchInput.value);
+            });
+        });
+
+        // Search functionality
+        searchInput.addEventListener('input', function() {
+            const activeCategory = document.querySelector('.category-btn.active');
+            const category = activeCategory ? activeCategory.dataset.category : 'all';
+            loadProducts(category, this.value);
+        });
+
+        // Close modal when clicking outside
+        menuModal.addEventListener('click', function(e) {
+            if (e.target === menuModal) {
+                closeModal();
+            }
+        });
+
+        // Initialize with all products
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set first category button as active
+            document.querySelector('.category-btn[data-category="all"]').classList.add('active', 'bg-amber-600');
+            document.querySelector('.category-btn[data-category="all"]').classList.remove('bg-gray-700');
+        });
+    </script>
 </body>
 </html>
