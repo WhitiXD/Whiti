@@ -1,291 +1,2780 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <link rel="icon" href="https://raw.githubusercontent.com/WhitiXD/Whiti/master/copa1-ia.png">
     <meta charset="UTF-8">
-    <meta name="google-site-verification" content="IMiWiXjV0qaBBoJareXafpb0CY_7Zq3PzrZMufjHQBA" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:title" content="Bar Eenvidia Copas">
-    <meta property="og:description" content="Envidia Copas">
-    <meta property="og:type" content="website">
-    <meta name="author" content="Bar Envidia">
-    <title>Envidia Copas</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-size: cover;
-            background-image: url("https://github.com/WhitiXD/Whiti/blob/master/fondo_web2.webp?raw=true");
-            background-position: center;
-            color: #fff; /* Color del texto */
-        }
-
-        header {
-            padding: 20px 0;
-            text-align: center;
-            position: relative;
-            margin-top: -6%;
-            z-index: 1; /* Asegura que el encabezado esté sobre el contenido */
-            background: linear-gradient(to top, transparent, rgba(10, 10, 10, 1)); /* Degradado desde transparente a gris con media opacidad */
-        }
-
-        h1, h2, h3, h4, h5, h6, p {
-            text-shadow: 3px 3px 3px rgba(0, 0, 0, 3); /* Ajuste de sombra de texto */
-        }
-
-        .logo {
-            width: 100%;
-            max-width: 600px; /* Limitar el ancho del logo */
-            height: auto;
-            margin: 0 auto 20px; /* Centrar el logo y añadir margen inferior */
-            position: relative;
-            z-index: -1; /* Asegura que el logo esté sobre el contenido */
-            margin-bottom: -10%;
-            margin-top: -8%;
-            animation: aparecer 3s forwards, neon 2s infinite alternate; /* Animación de aparición y efecto de neón */
-        }
-
-        @keyframes aparecer {
-            from {
-                opacity: 0; /* Empieza completamente transparente */
-            }
-            to {
-                opacity: 1; /* Termina completamente visible */
-            }
-        }
-
-        @keyframes neon {
-            from {
-                filter: brightness(1); /* Brillo inicial */
-            }
-            to {
-                filter: brightness(1.5); /* Brillo máximo */
-            }
-        }
-
-        nav {
-            background-color: #444;
-            padding: 10px 0;
-            text-align: center;
-            position: relative;
-            z-index: 3; /* Asegura que los enlaces de navegación estén sobre el encabezado */
-        }
-
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            padding: 0 15px;
-        }
-
-        section {
-            padding: 50px 20px;
-            text-align: center;
-        }
-
-        section h2 {
-            margin-bottom: 20px;
-        }
-
-        .container {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-
-        .container img:hover {
-            transform: translateY(-5px); /* Eleva la imagen 5px al pasar el cursor */
-        }
-
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 20px 0;
-        }
-
-        p {
-            z-index: 2; 
-        }
-
-        /* Agrega este estilo para el contenedor que aparecerá al hacer clic */
-        .expanded-image-container {
-            position: fixed; /* Fija la posición del contenedor */
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro semi-transparente */
-            display: flex;
-            justify-content: center; /* Centra horizontalmente */
-            align-items: center; /* Centra verticalmente */
-            z-index: 9999; /* Asegura que esté por encima de otros elementos */
-        }
-
-        /* Agrega este estilo para la imagen agrandada */
-        .expanded-image {
-            max-width: 90%; /* Ajusta el ancho máximo */
-            max-height: 90%; /* Ajusta la altura máxima */
-            object-fit: contain; /* Ajusta el tamaño de la imagen manteniendo la relación de aspecto */
-        }
-
-        #instagram-feed iframe {
-            width: 200%; 
-            height: auto; 
-        }
-
-        .instalink:hover{
-            color: aqua;
-        }
-
-        .instalink{
-            color: tan;
-        }
-
-        @media only screen and (min-width: 600px) {
-            .carta1,
-            .carta2,
-            .carta3 {
-                object-fit: cover;
-                transition: transform 0.3s ease; /* Transición suave de la transformación */
-                width: calc(26% - 4%); /* Ajustar el ancho para considerar el margen */
-                margin: 0%; /* Agregar margen uniforme */
-            }
-        }
-
-
-        .carta1 {
-            margin-left: 5%;
-        }
-
-        .carta3 {
-            margin-right:5%;
-        }
-        .menu-item {
-                margin-left:4%;
-            }
-
-            .menu-item3 {
-                margin-right:4%;
-            }
-
-            #instagram-feed iframe {
-            width: 100%; 
-            height: auto; 
-        }
-
-        footer {
-            background: linear-gradient(to top, rgba(10, 10, 10, 1), rgba(10, 10, 10, 0.7));
-        }
-
-                .flex-item {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-        .container-flex {
-          display: flex;
-          justify-content: space-around;
-          align-items: center;
-        }
-
-        /* Media Query para dispositivos móviles */
-        @media only screen and (max-width: 600px) {
-            header {
-                margin-top: -20%; /* Ajustar el margen superior */
-            }
-            .logo {
-                margin-bottom: -30%; /* Eliminar margen inferior */
-            }
-            nav {
-                margin-top: 20px; /* Ajustar margen superior del menú de navegación */
-            }
-            .menu-item h1,
-            .menu-item2 h1,
-            .menu-item3 h1 {
-                font-size: 19px; /* Ajusta el tamaño de fuente para dispositivos móviles */
-                text-align: center;
-            }
-
-            .carta1,
-            .carta2,
-            .carta3 {
-                width: calc(30% - 4%); /* Ajustar el ancho para considerar el margen */
-            }
-        }
-
-        
-    </style>
+    <title>Bar Envidia | Santa Justa, Sevilla</title>
+    <meta name="description" content="Bar Envidia en Sevilla - Cócteles premium, ambiente único y diversión garantizada junto a Santa Justa">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        function expandImage(img) {
-            // Crea un nuevo contenedor para la imagen agrandada
-            var expandedContainer = document.createElement('div');
-            expandedContainer.classList.add('expanded-image-container');
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1DB954',
+                        secondary: '#FF2D55',
+                        accent: '#FFD700',
+                        dark: '#121212',
+                        night: '#0A0A0A',
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(10,10,10,0.9) 0%, rgba(29,185,84,0.3) 100%);
+        }
+        .cocktail-card:hover .cocktail-img {
+            transform: scale(1.05);
+        }
+        .game-card {
+            transition: all 0.3s ease;
+            perspective: 1000px;
+        }
+        .game-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+        .instagram-feed {
+            background: #f09433; 
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); 
+        }
+        .reservation-form input, 
+        .reservation-form textarea, 
+        .reservation-form select {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .reservation-form input:focus, 
+        .reservation-form textarea:focus, 
+        .reservation-form select:focus {
+            outline: none;
+            border-color: #FFD700;
+            box-shadow: 0 0 0 2px rgba(255,215,0,0.3);
+        }
+        .nav-link::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: #FFD700;
+            transition: width .3s;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .active-nav::after {
+            width: 100%;
+        }
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        @media (max-width: 768px) {
+            .parallax {
+                background-attachment: scroll;
+            }
+        }
+    </style>
+</head>
+<body class="bg-night text-white font-sans">
+    <!-- Header -->
+    <header class="fixed w-full z-50 bg-night bg-opacity-90 backdrop-blur-sm shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#" class="flex items-center">
+                <span class="text-3xl font-bold text-accent mr-2">ENVIDIA</span>
+                <span class="text-sm font-light italic">bar & cocktails</span>
+            </a>
+            
+            <nav class="hidden md:flex space-x-8">
+                <a href="#inicio" class="nav-link text-white hover:text-accent transition">Inicio</a>
+                <a href="#carta" class="nav-link text-white hover:text-accent transition">Carta</a>
+                <a href="#juegos" class="nav-link text-white hover:text-accent transition">Zona de Juegos</a>
+                <a href="#galeria" class="nav-link text-white hover:text-accent transition">Galería</a>
+                <a href="#eventos" class="nav-link text-white hover:text-accent transition">Eventos</a>
+                <a href="#contacto" class="nav-link text-white hover:text-accent transition">Contacto</a>
+            </nav>
+            
+            <div class="flex items-center space-x-4">
+                <a href="https://www.instagram.com/envidia_cafeycopas" target="_blank" class="text-white hover:text-secondary transition">
+                    <i class="fab fa-instagram text-xl"></i>
+                </a>
+                <a href="#" class="text-white hover:text-secondary transition">
+                    <i class="fab fa-tiktok text-xl"></i>
+                </a>
+                <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-night py-4 px-4">
+            <div class="flex flex-col space-y-4">
+                <a href="#inicio" class="text-white hover:text-accent transition">Inicio</a>
+                <a href="#carta" class="text-white hover:text-accent transition">Carta</a>
+                <a href="#juegos" class="text-white hover:text-accent transition">Zona de Juegos</a>
+                <a href="#galeria" class="text-white hover:text-accent transition">Galería</a>
+                <a href="#eventos" class="text-white hover:text-accent transition">Eventos</a>
+                <a href="#contacto" class="text-white hover:text-accent transition">Contacto</a>
+            </div>
+        </div>
+    </header>
 
-            // Crea la imagen agrandada
-            var expandedImg = document.createElement('img');
-            expandedImg.src = img.src;
-            expandedImg.classList.add('expanded-image');
+    <!-- Hero Section -->
+    <section id="inicio" class="pt-32 pb-20 md:pt-40 md:pb-32 hero-gradient relative overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://lh3.googleusercontent.com/gps-cs-s/AC9h4nr_YBO5A1136Et7thresYxqEAJRgX2PNm2DiTb8p1vtqPHv-k1_Hqd_YKL-I64HFGbBr1kdY2T4W88t-5aZSOut-PN_E8f2K695CvC2C7SC5tfUXcPN3uyFKaYMqONVRJlORhk5=s1360-w1360-h1020-rw" 
+             alt="Bar Envidia de noche" 
+             class="w-full h-full object-cover opacity-70">
+        </div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-2xl">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 font-serif drop-shadow-lg">
+                    <span class="text-accent drop-shadow-lg">¡Donde la envidia</span><br>
+                    <span class="drop-shadow-lg">se convierte en fiesta!</span>
+                </h1>
+                <p class="text-lg md:text-xl mb-8 text-gray-200">
+                    Descubre el mejor ambiente nocturno junto a Santa Justa. Cócteles premium, música y diversión en el corazón de Sevilla.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#carta" class="bg-secondary hover:bg-opacity-90 text-white px-6 py-3 rounded-full font-medium transition transform hover:scale-105 drop-shadow-lg">
+                        Ver nuestra carta
+                    </a>
+                    <a href="#contacto" class="border-2 border-accent text-accent hover:bg-accent hover:bg-opacity-10 px-6 py-3 rounded-full font-medium transition transform hover:scale-105 drop-shadow-lg">
+                        Reservar mesa
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-night to-transparent"></div>
+    </section>
 
-            // Agrega la imagen agrandada al contenedor
-            expandedContainer.appendChild(expandedImg);
+    <!-- About Section -->
+    <section class="py-16 bg-night">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6 font-serif">
+                        <span class="text-accent">Bar Envidia</span> -<br>
+                        Más que un bar
+                    </h2>
+                    <p class="text-gray-300 mb-6">
+                        Situado en el vibrante barrio de Santa Justa, Bar Envidia es el lugar perfecto para disfrutar de exquisitos cócteles artesanales, buena música y un ambiente inigualable.
+                    </p>
+                    <p class="text-gray-300 mb-6">
+                        Nuestro equipo de mixólogos crea experiencias únicas con ingredientes de primera calidad y presentaciones espectaculares que despertarán todos tus sentidos.
+                    </p>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-clock text-accent mr-2"></i>
+                            <span>Abierto hasta las 2:00 AM</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-map-marker-alt text-accent text-lg"></i>
+                            <div class="flex flex-col leading-tight">
+                                <span class="font-semibold">Frente a Estación Santa Justa</span>
+                                <span class="text-gray-400 text-sm">C. Juan Antonio Cavestany, 25 · Sevilla</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 relative">
+                    <div class="relative rounded-xl overflow-hidden shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" 
+                             alt="Interior del Bar Envidia" 
+                             class="w-full h-auto rounded-xl transform hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-night via-transparent to-transparent opacity-80"></div>
+                        <div class="absolute bottom-0 left-0 p-6">
+                            <h3 class="text-xl font-bold text-white">Ambiente exclusivo</h3>
+                            <p class="text-gray-200">Diseño moderno con toques andaluces</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            // Agrega el contenedor al cuerpo del documento
-            document.body.appendChild(expandedContainer);
+        <!-- Botón para abrir el modal de la carta -->
+    <div class="text-center mb-16" id="carta">
+        <button id="open-carta-modal" class="bg-accent hover:bg-opacity-90 text-night px-8 py-3 rounded-full font-medium transition transform hover:scale-105">
+            Ver Carta
+        </button>
+    </div>
 
-            // Elimina el contenedor al hacer clic en la imagen agrandada
-            expandedContainer.addEventListener('click', function() {
-                document.body.removeChild(expandedContainer);
+    <!-- Modal de la carta -->
+    <div id="carta-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center hidden">
+        <div class="bg-dark rounded-xl max-w-6xl w-full mx-4 overflow-y-auto max-h-[90vh] relative p-8">
+            <button id="close-carta-modal" class="absolute top-4 right-4 text-white text-3xl">&times;</button>
+            <!-- Carta Section -->
+            <section id="carta" class="py-4">
+                <div class="container mx-auto px-2">
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-4 font-serif">
+                            <span class="text-accent">Nuestra</span> Carta
+                        </h2>
+                        <p class="text-gray-300 max-w-2xl mx-auto">
+                            Descubre desayunos, postres, smoothies, helados y cócteles. Haz clic en cada producto para ver detalles.
+                        </p>
+                    </div>
+
+                    <!-- Categorías -->
+                    <div class="flex overflow-x-auto pb-4 mb-8 scrollbar-hide">
+                        <div class="flex space-x-2">
+                            <button class="category-btn active-cat px-6 py-2 rounded-full bg-accent text-night font-medium whitespace-nowrap transition-colors duration-300 ring-2 ring-accent" data-category="all">
+                                Todos
+                            </button>
+                            <button class="category-btn px-6 py-2 rounded-full bg-gray-700 hover:bg-gray-600 text-white font-medium whitespace-nowrap transition-colors duration-300" data-category="desayunos">
+                                Desayunos
+                            </button>
+                            <button class="category-btn px-6 py-2 rounded-full bg-gray-700 hover:bg-gray-600 text-white font-medium whitespace-nowrap transition-colors duration-300" data-category="postres">
+                                Postres
+                            </button>
+                            <button class="category-btn px-6 py-2 rounded-full bg-gray-700 hover:bg-gray-600 text-white font-medium whitespace-nowrap transition-colors duration-300" data-category="smoothies">
+                                Smoothies
+                            </button>
+                            <button class="category-btn px-6 py-2 rounded-full bg-gray-700 hover:bg-gray-600 text-white font-medium whitespace-nowrap transition-colors duration-300" data-category="helados">
+                                Helados
+                            </button>
+                            <button class="category-btn px-6 py-2 rounded-full bg-gray-700 hover:bg-gray-600 text-white font-medium whitespace-nowrap transition-colors duration-300" data-category="cocteles">
+                                Cócteles
+                            </button>
+                        </div>
+                    </div>
+
+                    <script>
+                      // Al hacer click, se resalta el botón seleccionado quitándole el estilo activo a los demás
+                      document.querySelectorAll('.category-btn').forEach(btn => {
+                          btn.addEventListener('click', function () {
+                              // Remueve el estilo activo de todos
+                              document.querySelectorAll('.category-btn').forEach(b => {
+                                  b.classList.remove('active-cat', 'bg-accent', 'text-night', 'ring-2', 'ring-accent');
+                                  // Vuelve a aplicar los estilos por defecto para los botones no activos
+                                  b.classList.add('bg-gray-700', 'text-white');
+                              });
+                              // Para el botón seleccionado, elimina las clases por defecto y agrega las de activo
+                              this.classList.remove('bg-gray-700', 'text-white');
+                              this.classList.add('active-cat', 'bg-accent', 'text-night', 'ring-2', 'ring-accent');
+                          });
+                      });
+                    </script>
+
+                    <style>
+                      /* Estilo opcional para realzar el botón activo */
+                      .active-cat {
+                          box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+                      }
+                    </style>
+
+                    <!-- Productos Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="menu-grid">
+                        <!-- ... (todo el contenido de productos igual que antes) ... -->
+                        <!-- Puedes pegar aquí todo el grid de productos de la carta sin cambios -->
+                             <!-- Carta Section -->
+            <!-- Productos Grid -->
+                <!-- Tostada A.O.V. -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="desayunos" data-modal="modal-tostada-aov">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80" alt="Tostada A.O.V." class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Tostada A.O.V.</h3>
+                            <span class="text-accent font-bold">1,20€ / 1,50€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Aceite de oliva virgen extra en pan a elegir (media/entera).</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Desayuno</span>
+                    </div>
+                </div>
+                <!-- Pan con sobrasada -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="desayunos">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=600&q=80" alt="Pan con sobrasada" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Pan con sobrasada</h3>
+                            <span class="text-accent font-bold">1,20€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Tostada de pan con sobrasada.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Desayuno</span>
+                    </div>
+                </div>
+                <!-- Pan con jamón york -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="desayunos">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=600&q=80" alt="Pan con jamón york" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Pan con jamón york</h3>
+                            <span class="text-accent font-bold">1,30€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Tostada de pan con jamón york.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Desayuno</span>
+                    </div>
+                </div>
+                <!-- Manteca de lomo colorá -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="desayunos">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=600&q=80" alt="Manteca de lomo colorá" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Manteca de lomo colorá</h3>
+                            <span class="text-accent font-bold">1,70€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Tostada con manteca de lomo colorá.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Desayuno</span>
+                    </div>
+                </div>
+                <!-- A.O.V. y tomate -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="desayunos">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=600&q=80" alt="A.O.V. y tomate" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">A.O.V. y tomate</h3>
+                            <span class="text-accent font-bold">1,30€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Aceite de oliva virgen extra y tomate.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Desayuno</span>
+                    </div>
+                </div>
+                <!-- A.O.V. y salmorejo -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="desayunos">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80" alt="A.O.V. y salmorejo" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">A.O.V. y salmorejo</h3>
+                            <span class="text-accent font-bold">1,70€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Aceite de oliva virgen extra y salmorejo.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Desayuno</span>
+                    </div>
+                </div>
+                <!-- Porción mantequilla y mermelada -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="desayunos">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=600&q=80" alt="Mantequilla y mermelada" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Mantequilla y mermelada</h3>
+                            <span class="text-accent font-bold">1,60€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Porción de mantequilla y mermelada.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Desayuno</span>
+                    </div>
+                </div>
+                <!-- A.O.V. y pavo -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="desayunos">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=600&q=80" alt="A.O.V. y pavo" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">A.O.V. y pavo</h3>
+                            <span class="text-accent font-bold">1,60€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Aceite de oliva virgen extra y pavo.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Desayuno</span>
+                    </div>
+                </div>
+                <!-- A.O.V. y jamón york -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="desayunos">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=600&q=80" alt="A.O.V. y jamón york" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">A.O.V. y jamón york</h3>
+                            <span class="text-accent font-bold">1,90€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Aceite de oliva virgen extra y jamón york.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Desayuno</span>
+                    </div>
+                </div>
+                <!-- Tostada Jamón, A.O.V. y Tomate -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="desayunos" data-modal="modal-tostada-jamon">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=600&q=80" alt="Tostada Jamón y Tomate" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Tostada Jamón, A.O.V. y Tomate</h3>
+                            <span class="text-accent font-bold">1,60€ / 1,90€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Jamón, aceite de oliva virgen extra y tomate (media/entera).</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Desayuno</span>
+                    </div>
+                </div>
+                <!-- Jamón con A.O.V. -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="desayunos">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80" alt="Jamón con A.O.V." class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Jamón con A.O.V.</h3>
+                            <span class="text-accent font-bold">2,00€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Jamón con aceite de oliva virgen extra.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Desayuno</span>
+                    </div>
+                </div>
+                <!-- Lomo asado con sal y miel -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="desayunos">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=600&q=80" alt="Lomo asado con sal y miel" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Lomo asado con sal y miel</h3>
+                            <span class="text-accent font-bold">2,00€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Tostada de lomo asado con sal y miel.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Desayuno</span>
+                    </div>
+                </div>
+                <!-- Tortilla de patatas (sin whisky) -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="desayunos">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=600&q=80" alt="Tortilla de patatas" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Tortilla de patatas</h3>
+                            <span class="text-accent font-bold">2,60€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Porción de tortilla de patatas (sin whisky).</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Desayuno</span>
+                    </div>
+                </div>
+                <!-- Pringá -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="desayunos">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=600&q=80" alt="Pringá" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Pringá</h3>
+                            <span class="text-accent font-bold">2,00€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Tostada de pringá tradicional.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Desayuno</span>
+                    </div>
+                </div>
+                <!-- Torta del Casar -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="desayunos">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80" alt="Torta del Casar" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Torta del Casar</h3>
+                            <span class="text-accent font-bold">2,50€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Tostada con Torta del Casar.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Desayuno</span>
+                    </div>
+                </div>
+                <!-- Jamón y queso curado -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="desayunos">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=600&q=80" alt="Jamón y queso curado" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Jamón y queso curado</h3>
+                            <span class="text-accent font-bold">2,50€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Tostada de jamón y queso curado.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Desayuno</span>
+                    </div>
+                </div>
+                <!-- Chorizo y queso curado -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="desayunos">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=600&q=80" alt="Chorizo y queso curado" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Chorizo y queso curado</h3>
+                            <span class="text-accent font-bold">3,00€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Tostada de chorizo y queso curado.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Desayuno</span>
+                    </div>
+                </div>
+                <!-- Desayuno completo -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="desayunos">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=600&q=80" alt="Desayuno completo" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Desayuno completo</h3>
+                            <span class="text-accent font-bold">6,00€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Huevos, bacon, lomo, queso, zumo y café.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Desayuno</span>
+                    </div>
+                </div>
+                <!-- Copa Tricolor -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="postres" data-modal="modal-copa-tricolor">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=600&q=80" alt="Copa Tricolor" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Copa Tricolor</h3>
+                            <span class="text-accent font-bold">7,50€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">3 bolas de helado a elegir, presentación especial.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Postre</span>
+                    </div>
+                </div>
+                <!-- Copa 3 bolas a elegir -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="postres">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80" alt="Copa 3 bolas" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Copa 3 bolas a elegir</h3>
+                            <span class="text-accent font-bold">5,50€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Copa con 3 bolas de helado a elegir.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Postre</span>
+                    </div>
+                </div>
+                <!-- Copa 1 bola a elegir -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="postres">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=600&q=80" alt="Copa 1 bola" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Copa 1 bola a elegir</h3>
+                            <span class="text-accent font-bold">3,50€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Copa con 1 bola de helado a elegir.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Postre</span>
+                    </div>
+                </div>
+                <!-- Batido normal -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="postres">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=600&q=80" alt="Batido normal" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Batido normal</h3>
+                            <span class="text-accent font-bold">4,50€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Batido clásico de sabores variados.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Postre</span>
+                    </div>
+                </div>
+                <!-- Gofre con chocolate y nata -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="postres">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80" alt="Gofre con chocolate y nata" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Gofre con chocolate y nata</h3>
+                            <span class="text-accent font-bold">4,00€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">+1€ con helado.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Postre</span>
+                    </div>
+                </div>
+                <!-- Crepe con chocolate y nata -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="postres">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=600&q=80" alt="Crepe con chocolate y nata" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Crepe con chocolate y nata</h3>
+                            <span class="text-accent font-bold">5,00€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">+1€ con helado.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Postre</span>
+                    </div>
+                </div>
+                <!-- Pancakes con sirope, nata y helado -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="postres">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=600&q=80" alt="Pancakes con sirope, nata y helado" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Pancakes con sirope, nata y helado</h3>
+                            <span class="text-accent font-bold">6,50€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Pancakes con sirope, nata y helado.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Postre</span>
+                    </div>
+                </div>
+                <!-- Pancakes con sirope de Nutella y nata -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="postres">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80" alt="Pancakes con sirope de Nutella y nata" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Pancakes con sirope de Nutella y nata</h3>
+                            <span class="text-accent font-bold">5,00€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Pancakes con sirope de Nutella y nata.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Postre</span>
+                    </div>
+                </div>
+                <!-- Smoothie Peach Paradise -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="smoothies" data-modal="modal-smoothie-peach">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=600&q=80" alt="Peach Paradise" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Peach Paradise</h3>
+                            <span class="text-accent font-bold">4,50€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Melocotón, papaya y fresa. Refrescante y natural.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Smoothie</span>
+                    </div>
+                </div>
+                <!-- Smoothie Triple M -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="smoothies">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=600&q=80" alt="Triple M" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Triple M</h3>
+                            <span class="text-accent font-bold">4,50€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Mango, melón y maracuyá.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Smoothie</span>
+                    </div>
+                </div>
+                <!-- Smoothie Berry Dream -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="smoothies">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=600&q=80" alt="Berry Dream" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Berry Dream</h3>
+                            <span class="text-accent font-bold">4,50€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Fresa, frambuesa y arándanos.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Smoothie</span>
+                    </div>
+                </div>
+                <!-- Smoothie Piña Colada -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="smoothies">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=600&q=80" alt="Piña Colada" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Piña Colada</h3>
+                            <span class="text-accent font-bold">4,50€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Piña y coco.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Smoothie</span>
+                    </div>
+                </div>
+                <!-- Smoothie Red Banana -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="smoothies">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=600&q=80" alt="Red Banana" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Red Banana</h3>
+                            <span class="text-accent font-bold">4,50€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Fresa y plátano.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Smoothie</span>
+                    </div>
+                </div>
+                <!-- Smoothie Tropic Mix -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="smoothies">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=600&q=80" alt="Tropic Mix" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Tropic Mix</h3>
+                            <span class="text-accent font-bold">4,50€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Piña, papaya y mango.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Smoothie</span>
+                    </div>
+                </div>
+                <!-- Smoothie para llevar -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="smoothies">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=600&q=80" alt="Smoothie para llevar" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Smoothie para llevar</h3>
+                            <span class="text-accent font-bold">5,00€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Listos para llevar.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Smoothie</span>
+                    </div>
+                </div>
+                <!-- Helado Vasito grande -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="helados" data-modal="modal-helado-vasito">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80" alt="Helado Vasito Grande" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Helado Vasito Grande</h3>
+                            <span class="text-accent font-bold">5,50€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Helado artesano en vasito grande. Elige tu sabor favorito.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Helado</span>
+                    </div>
+                </div>
+                <!-- Helado Cono grande -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="helados">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=600&q=80" alt="Helado Cono Grande" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Helado Cono Grande</h3>
+                            <span class="text-accent font-bold">4,50€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Helado artesano en cono grande.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Helado</span>
+                    </div>
+                </div>
+                <!-- Helado Cono mediano -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="helados">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=600&q=80" alt="Helado Cono Mediano" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Helado Cono Mediano</h3>
+                            <span class="text-accent font-bold">3,50€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Helado en cono mediano.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Helado</span>
+                    </div>
+                </div>
+                <!-- Helado Vasito pequeño -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="helados">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=600&q=80" alt="Helado Vasito Pequeño" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Helado Vasito Pequeño</h3>
+                            <span class="text-accent font-bold">3,00€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Helado en vasito pequeño.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Helado</span>
+                    </div>
+                </div>
+                <!-- Cóctel Bloody Mary -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="cocteles" data-modal="modal-coctel-bloodymary">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80" alt="Bloody Mary" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Bloody Mary</h3>
+                            <span class="text-accent font-bold">9,00€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Cóctel clásico con vodka, zumo de tomate y especias.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Cóctel</span>
+                    </div>
+                </div>
+                <!-- Cóctel San Francisco -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="cocteles">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=600&q=80" alt="San Francisco" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">San Francisco</h3>
+                            <span class="text-accent font-bold">9,00€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Cóctel clásico con zumos y licor.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Cóctel</span>
+                    </div>
+                </div>
+                <!-- Cóctel Mojito -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="cocteles">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=600&q=80" alt="Mojito" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Mojito</h3>
+                            <span class="text-accent font-bold">9,00€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Ron, lima, hierbabuena y soda.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Cóctel</span>
+                    </div>
+                </div>
+                <!-- Cóctel Caipirinha -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="cocteles">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=600&q=80" alt="Caipirinha" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Caipirinha</h3>
+                            <span class="text-accent font-bold">9,00€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Cachaça, lima y azúcar.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Cóctel</span>
+                    </div>
+                </div>
+                <!-- Cóctel Martini Dry -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="cocteles">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80" alt="Martini Dry" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Martini Dry</h3>
+                            <span class="text-accent font-bold">9,00€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Ginebra y vermut seco.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Cóctel</span>
+                    </div>
+                </div>
+                <!-- Cóctel Red Lion -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="cocteles">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=600&q=80" alt="Red Lion" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Red Lion</h3>
+                            <span class="text-accent font-bold">9,00€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Ginebra, naranja y licor.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Cóctel</span>
+                    </div>
+                </div>
+                <!-- Cóctel Piña Colada -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="cocteles">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=600&q=80" alt="Piña Colada" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Piña Colada</h3>
+                            <span class="text-accent font-bold">9,00€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Ron, piña y coco.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Cóctel</span>
+                    </div>
+                </div>
+                <!-- Cóctel Gin Gimlet -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="cocteles">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=600&q=80" alt="Gin Gimlet" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Gin Gimlet</h3>
+                            <span class="text-accent font-bold">9,00€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Ginebra y lima.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Cóctel</span>
+                    </div>
+                </div>
+                <!-- Cóctel Gin Fizz -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="cocteles">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80" alt="Gin Fizz" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Gin Fizz</h3>
+                            <span class="text-accent font-bold">9,00€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Ginebra, limón y soda.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Cóctel</span>
+                    </div>
+                </div>
+                <!-- Cóctel Margarita -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="cocteles">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=600&q=80" alt="Margarita" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Margarita</h3>
+                            <span class="text-accent font-bold">9,00€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Tequila, triple sec y lima.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Cóctel</span>
+                    </div>
+                </div>
+                <!-- Cóctel Daiquiri -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="cocteles">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=600&q=80" alt="Daiquiri" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Daiquiri</h3>
+                            <span class="text-accent font-bold">9,00€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Ron, lima y azúcar.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Cóctel</span>
+                    </div>
+                </div>
+                <!-- Cóctel Cosmopolitan -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="cocteles">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=600&q=80" alt="Cosmopolitan" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Cosmopolitan</h3>
+                            <span class="text-accent font-bold">9,00€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Vodka, triple sec, lima y arándanos.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Cóctel</span>
+                    </div>
+                </div>
+                <!-- Cóctel sin alcohol -->
+                <div class="menu-card bg-night rounded-xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer" data-category="cocteles" data-modal="modal-coctel-sinalcohol">
+                    <div class="relative overflow-hidden h-48 flex items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=600&q=80" alt="Cóctel sin alcohol" class="w-32 h-32 object-cover rounded-full shadow-lg">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Cóctel sin alcohol</h3>
+                            <span class="text-accent font-bold">7,50€</span>
+                        </div>
+                        <p class="text-gray-300 mb-2 text-sm">Cócteles refrescantes y frutales, sin alcohol.</p>
+                        <span class="px-3 py-1 bg-gray-800 rounded-full text-xs text-gray-300">Cóctel</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="mt-16 text-center">
+                <h3 class="text-2xl font-bold mb-4">¿Quieres crear tu propio cóctel?</h3>
+                <p class="text-gray-300 mb-6 max-w-2xl mx-auto">
+                    Nuestros mixólogos pueden preparar una bebida personalizada según tus gustos. ¡Déjate sorprender!
+                </p>
+                <a href="#contacto" class="inline-block bg-accent hover:bg-opacity-90 text-night px-8 py-3 rounded-full font-medium transition transform hover:scale-105">
+                    Pide tu cóctel personalizado
+                </a>
+            </div>
+        </div>
+
+        <!-- Modales de producto -->
+        <!-- Modal Tostada A.O.V. -->
+        <div id="modal-tostada-aov" class="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center hidden">
+            <div class="bg-night rounded-xl p-8 max-w-md w-full relative">
+                <button class="close-modal absolute top-4 right-4 text-white text-2xl">&times;</button>
+                <h3 class="text-2xl font-bold mb-2 text-accent">Tostada A.O.V.</h3>
+                <p class="text-gray-300 mb-4">Pan a elegir con aceite de oliva virgen extra. Disponible en media (1,20€) o entera (1,50€).</p>
+                <ul class="text-gray-400 text-sm mb-2">
+                    <li>Pan crujiente</li>
+                    <li>Aceite de oliva virgen extra</li>
+                    <li>Ideal para empezar el día</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Modal Tostada Jamón y Tomate -->
+        <div id="modal-tostada-jamon" class="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center hidden">
+            <div class="bg-night rounded-xl p-8 max-w-md w-full relative">
+                <button class="close-modal absolute top-4 right-4 text-white text-2xl">&times;</button>
+                <h3 class="text-2xl font-bold mb-2 text-accent">Tostada Jamón, A.O.V. y Tomate</h3>
+                <p class="text-gray-300 mb-4">Tostada con jamón, aceite de oliva virgen extra y tomate. Media (1,60€) o entera (1,90€).</p>
+                <ul class="text-gray-400 text-sm mb-2">
+                    <li>Jamón de calidad</li>
+                    <li>Tomate fresco triturado</li>
+                    <li>Perfecta para desayunos completos</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Modal Copa Tricolor -->
+        <div id="modal-copa-tricolor" class="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center hidden">
+            <div class="bg-night rounded-xl p-8 max-w-md w-full relative">
+                <button class="close-modal absolute top-4 right-4 text-white text-2xl">&times;</button>
+                <h3 class="text-2xl font-bold mb-2 text-accent">Copa Tricolor</h3>
+                <p class="text-gray-300 mb-4">Tres bolas de helado a elegir, servidas en copa grande con toppings a tu gusto.</p>
+                <ul class="text-gray-400 text-sm mb-2">
+                    <li>Helado artesano</li>
+                    <li>Elige tus sabores favoritos</li>
+                    <li>Presentación especial</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Modal Smoothie Peach Paradise -->
+        <div id="modal-smoothie-peach" class="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center hidden">
+            <div class="bg-night rounded-xl p-8 max-w-md w-full relative">
+                <button class="close-modal absolute top-4 right-4 text-white text-2xl">&times;</button>
+                <h3 class="text-2xl font-bold mb-2 text-accent">Smoothie Peach Paradise</h3>
+                <p class="text-gray-300 mb-4">Melocotón, papaya y fresa. Refrescante, natural y lleno de vitaminas.</p>
+                <ul class="text-gray-400 text-sm mb-2">
+                    <li>Fruta natural</li>
+                    <li>Sin azúcares añadidos</li>
+                    <li>Ideal para llevar</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Modal Helado Vasito grande -->
+        <div id="modal-helado-vasito" class="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center hidden">
+            <div class="bg-night rounded-xl p-8 max-w-md w-full relative">
+                <button class="close-modal absolute top-4 right-4 text-white text-2xl">&times;</button>
+                <h3 class="text-2xl font-bold mb-2 text-accent">Helado Vasito Grande</h3>
+                <p class="text-gray-300 mb-4">Helado artesano en vasito grande. Elige entre nuestros sabores disponibles.</p>
+                <ul class="text-gray-400 text-sm mb-2">
+                    <li>Formato grande</li>
+                    <li>Helado cremoso</li>
+                    <li>Perfecto para los más golosos</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Modal Cóctel Bloody Mary -->
+        <div id="modal-coctel-bloodymary" class="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center hidden">
+            <div class="bg-night rounded-xl p-8 max-w-md w-full relative">
+                <button class="close-modal absolute top-4 right-4 text-white text-2xl">&times;</button>
+                <h3 class="text-2xl font-bold mb-2 text-accent">Bloody Mary</h3>
+                <p class="text-gray-300 mb-4">Cóctel clásico con vodka, zumo de tomate, salsa Worcestershire, tabasco, sal y pimienta.</p>
+                <ul class="text-gray-400 text-sm mb-2">
+                    <li>Intenso y especiado</li>
+                    <li>Perfecto para el brunch</li>
+                    <li>Decorado con apio</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Modal Cóctel sin alcohol -->
+        <div id="modal-coctel-sinalcohol" class="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center hidden">
+            <div class="bg-night rounded-xl p-8 max-w-md w-full relative">
+                <button class="close-modal absolute top-4 right-4 text-white text-2xl">&times;</button>
+                <h3 class="text-2xl font-bold mb-2 text-accent">Cóctel sin alcohol</h3>
+                <p class="text-gray-300 mb-4">Cócteles refrescantes y frutales, sin alcohol. Pregunta por nuestras combinaciones del día.</p>
+                <ul class="text-gray-400 text-sm mb-2">
+                    <li>Frutas naturales</li>
+                    <li>Opciones dulces y cítricas</li>
+                    <li>Ideal para todos los públicos</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // Modal de la carta
+        const openCartaModal = document.getElementById('open-carta-modal');
+        const closeCartaModal = document.getElementById('close-carta-modal');
+        const cartaModal = document.getElementById('carta-modal');
+        if (openCartaModal && closeCartaModal && cartaModal) {
+            openCartaModal.addEventListener('click', () => {
+                cartaModal.classList.remove('hidden');
+                document.body.classList.add('overflow-hidden');
+                // Agregar una clase para resaltar que está seleccionado
+                openCartaModal.classList.add('active');
+            });
+            closeCartaModal.addEventListener('click', () => {
+                cartaModal.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+                // Quitar el resaltado al cerrar
+                openCartaModal.classList.remove('active');
+            });
+            cartaModal.addEventListener('click', (e) => {
+                if (e.target === cartaModal) {
+                    cartaModal.classList.add('hidden');
+                    document.body.classList.remove('overflow-hidden');
+                    openCartaModal.classList.remove('active');
+                }
             });
         }
     </script>
-</head>
-<body>
-    <header>
-        <img src="https://raw.githubusercontent.com/WhitiXD/Whiti/master/envidia_copas-ia2.png" alt="Logo Envidia Copas" class="logo">
-        <p>¡Tu lugar para disfrutar de buenas copas y buen ambiente en Sevilla!.</p>
-    </header>
-    <section id="inicio">
-        <h2>Bienvenidos a Envidia</h2>
-        <p>Nos encontramos en C. Juan Antonio Cavestany, 25, 41003 Sevilla <br>Somos tu bar de confianza para disfrutar de las mejores bebidas en un ambiente único. ¡Ven y únete a la diversión!</p>
-    </section>
-    <section id="menu">
-        <h2>Nuestro Menú 🍸</h2>
-        <p>Ofrecemos una amplia selección de bebidas alcohólicas y no alcohólicas para todos los gustos. Desde cócteles clásicos hasta creaciones especiales de nuestra carta, tenemos algo para todos.</p>
-        <div class="container flex">
-            <div class="menu-item flex-item">
-                <h1 class="item">Bebidas</h1>
+    <script>
+        // Modal funcionalidad con indicación visual de la selección
+        document.querySelectorAll('.menu-card').forEach(card => {
+            card.addEventListener('click', function () {
+                const modalId = this.getAttribute('data-modal');
+                if (modalId) {
+                    // Marcar la tarjeta seleccionada para visualizarla (por ejemplo, añadiendo una clase de borde)
+                    document.querySelectorAll('.menu-card').forEach(c => c.classList.remove('active-menu-card'));
+                    this.classList.add('active-menu-card');
+                    document.getElementById(modalId).classList.remove('hidden');
+                }
+            });
+        });
+        document.querySelectorAll('.close-modal').forEach(btn => {
+            btn.addEventListener('click', function () {
+                // Cerrar el modal y quitar la indicación de selección de la tarjeta asociada
+                this.closest('.fixed').classList.add('hidden');
+                document.querySelectorAll('.menu-card').forEach(c => c.classList.remove('active-menu-card'));
+            });
+        });
+        // Cerrar modal al hacer click fuera del contenido y quitar la selección
+        document.querySelectorAll('[id^="modal-"]').forEach(modal => {
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal) {
+                    modal.classList.add('hidden');
+                    document.querySelectorAll('.menu-card').forEach(c => c.classList.remove('active-menu-card'));
+                }
+            });
+        });
+        // Filtro de categorías
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const cat = this.getAttribute('data-category');
+                // Resaltar el botón seleccionado
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('bg-accent', 'text-night'));
+                this.classList.add('bg-accent', 'text-night');
+                // Mostrar/ocultar tarjetas según la categoría
+                document.querySelectorAll('.menu-card').forEach(card => {
+                    if (cat === 'all' || card.getAttribute('data-category') === cat) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!-- Cocktail Creator Section -->
+    <section class="py-20 bg-gradient-to-r from-dark to-night">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 font-serif">
+                    <span class="text-accent">Creador</span> de Cócteles
+                </h2>
+                <p class="text-gray-300 max-w-2xl mx-auto">
+                    Selecciona tus ingredientes favoritos y te sugeriremos una mezcla perfecta. ¡Pruébalo en nuestro bar!
+                </p>
             </div>
-            <div class="menu-item2 flex-item">  
-                <h1 class="item2">Meriendas</h1>
-            </div>
-            <div class="menu-item3 flex-item">
-                <h1 class="item3">Copas</h1>
+            
+            <div class="bg-night rounded-xl shadow-2xl overflow-hidden max-w-4xl mx-auto">
+                <div class="flex flex-col md:flex-row">
+                    <div class="md:w-1/2 p-8">
+                        <h3 class="text-xl font-bold mb-6">Elige tus ingredientes</h3>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-medium mb-3 text-gray-300">Base alcohólica:</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <button class="ingredient-btn px-4 py-2 rounded-full bg-gray-700 hover:bg-gray-600 text-white transition" data-type="base" data-value="gin">
+                                    Gin
+                                </button>
+                                <button class="ingredient-btn px-4 py-2 rounded-full bg-gray-700 hover:bg-gray-600 text-white transition" data-type="base" data-value="ron">
+                                    Ron
+                                </button>
+                                <button class="ingredient-btn px-4 py-2 rounded-full bg-gray-700 hover:bg-gray-600 text-white transition" data-type="base" data-value="vodka">
+                                    Vodka
+                                </button>
+                                <button class="ingredient-btn px-4 py-2 rounded-full bg-gray-700 hover:bg-gray-600 text-white transition" data-type="base" data-value="whisky">
+                                    Whisky
+                                </button>
+                                <button class="ingredient-btn px-4 py-2 rounded-full bg-gray-700 hover:bg-gray-600 text-white transition" data-type="base" data-value="none">
+                                    Sin alcohol
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-medium mb-3 text-gray-300">Sabor principal:</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <button class="ingredient-btn px-4 py-2 rounded-full bg-gray-700 hover:bg-gray-600 text-white transition" data-type="flavor" data-value="citrico">
+                                    Cítrico
+                                </button>
+                                <button class="ingredient-btn px-4 py-2 rounded-full bg-gray-700 hover:bg-gray-600 text-white transition" data-type="flavor" data-value="frutal">
+                                    Frutal
+                                </button>
+                                <button class="ingredient-btn px-4 py-2 rounded-full bg-gray-700 hover:bg-gray-600 text-white transition" data-type="flavor" data-value="tropical">
+                                    Tropical
+                                </button>
+                                <button class="ingredient-btn px-4 py-2 rounded-full bg-gray-700 hover:bg-gray-600 text-white transition" data-type="flavor" data-value="herbal">
+                                    Herbal
+                                </button>
+                                <button class="ingredient-btn px-4 py-2 rounded-full bg-gray-700 hover:bg-gray-600 text-white transition" data-type="flavor" data-value="dulce">
+                                    Dulce
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-medium mb-3 text-gray-300">Textura:</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <button class="ingredient-btn px-4 py-2 rounded-full bg-gray-700 hover:bg-gray-600 text-white transition" data-type="texture" data-value="fresco">
+                                    Fresco
+                                </button>
+                                <button class="ingredient-btn px-4 py-2 rounded-full bg-gray-700 hover:bg-gray-600 text-white transition" data-type="texture" data-value="cremoso">
+                                    Cremoso
+                                </button>
+                                <button class="ingredient-btn px-4 py-2 rounded-full bg-gray-700 hover:bg-gray-600 text-white transition" data-type="texture" data-value="espumoso">
+                                    Espumoso
+                                </button>
+                                <button class="ingredient-btn px-4 py-2 rounded-full bg-gray-700 hover:bg-gray-600 text-white transition" data-type="texture" data-value="fuerte">
+                                    Fuerte
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <button id="generate-btn" class="w-full bg-accent hover:bg-opacity-90 text-night py-3 rounded-full font-medium transition transform hover:scale-[1.02]">
+                            Crear mi cóctel
+                        </button>
+                    </div>
+                    
+                    <div class="md:w-1/2 bg-gray-800 p-8 flex flex-col justify-center">
+                        <div id="cocktail-result" class="text-center">
+                            <div class="mb-6">
+                                <img src="https://cdn-icons-png.flaticon.com/512/3081/3081985.png" 
+                                     alt="Cóctel" 
+                                     class="w-32 h-32 mx-auto mb-4 opacity-50">
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">Tu cóctel perfecto</h3>
+                            <p class="text-gray-300">Selecciona tus preferencias para generar una recomendación personalizada.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="container">
-            <img class="carta1 flex-item" src="https://lh3.googleusercontent.com/p/AF1QipNF6nCs5RboR0C1PcMTvaO6nApbxoaT1LdrkIwe=s1360-w1360-h1020" alt="Bebidas" onclick="expandImage(this)">
-            <img class="carta2 flex-item" src="https://lh3.googleusercontent.com/p/AF1QipOnTvNro8FFMECzazdpYexcBuyJ2sSIHicQhX5m=s1360-w1360-h1020" alt="Meriendas" onclick="expandImage(this)">
-            <img class="carta3 flex-item" src="https://lh3.googleusercontent.com/p/AF1QipPbFcbpea2fv5K19PXykU4HMLG96_Y-5yys-MVW=s1360-w1360-h1020" alt="Copas" onclick="expandImage(this)">
-        </div>
     </section>
-    <section id="instagram-feed">
-    <h2>Nuestro Instagram 📷</h2>
-    <iframe src="https://www.instagram.com/envidia_cafeycopas/embed/" class="snapwidget-widget" allowtransparency="true" frameborder="1" scrolling="yes" style="border:none; width: 100%; height: auto; min-height: 400px;"></iframe>
+
+    <script>
+        // Objeto para almacenar la selección de ingredientes
+        const selectedIngredients = {
+            base: null,
+            flavor: null,
+            texture: null
+        };
+
+        // Base de datos de cocteles reales con foto, nombre y descripción
+        const cocktailDatabase = [
+            {
+                base: "gin",
+                flavor: "citrico",
+                texture: "fresco",
+                name: "Gin Tonic Citric",
+                description: "Un refrescante Gin Tonic con un toque cítrico, perfecto para cualquier ocasión.",
+                photo: "https://images.unsplash.com/photo-1565927146414-4b3c6c6589fa?fit=crop&w=600&q=80"
+            },
+            {
+                base: "ron",
+                flavor: "tropical",
+                texture: "cremoso",
+                name: "Piña Colada Deluxe",
+                description: "La clásica Piña Colada con ron, con una textura cremosa y un sabor tropical intensivo.",
+                photo: "https://images.unsplash.com/photo-1613604551226-9bee2e7c161d?fit=crop&w=600&q=80"
+            },
+            {
+                base: "vodka",
+                flavor: "frutal",
+                texture: "espumoso",
+                name: "Vodka Fizz Berry",
+                description: "Un Vodka Fizz refrescante con frutos rojos y una textura espumosa.",
+                photo: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?fit=crop&w=600&q=80"
+            },
+            {
+                base: "whisky",
+                flavor: "dulce",
+                texture: "fuerte",
+                name: "Whisky Sour Doble",
+                description: "Un Whisky Sour con notas dulces y una presencia fuerte, ideal para los paladares exigentes.",
+                photo: "https://images.unsplash.com/photo-1581534468265-bddfbc1ec0a9?fit=crop&w=600&q=80"
+            }
+        ];
+
+        // Funcionalidad del selector de ingredientes
+        document.querySelectorAll('.ingredient-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const type = this.getAttribute('data-type');
+                // Remover estilo activo de otros botones de la misma categoría
+                document.querySelectorAll(`.ingredient-btn[data-type="${type}"]`).forEach(btn => {
+                    btn.classList.remove('bg-accent', 'text-night');
+                    btn.classList.add('bg-gray-700', 'text-white');
+                });
+                // Agregar estilo activo al botón seleccionado
+                this.classList.remove('bg-gray-700', 'text-white');
+                this.classList.add('bg-accent', 'text-night');
+                // Actualizar la selección
+                selectedIngredients[type] = this.getAttribute('data-value');
+            });
+        });
+
+        // Funcionalidad del botón para generar el cóctel
+        document.getElementById('generate-btn').addEventListener('click', function() {
+            // Verificar que se haya seleccionado una opción para cada categoría
+            if (!selectedIngredients.base || !selectedIngredients.flavor || !selectedIngredients.texture) {
+                alert('Por favor, selecciona una opción para cada categoría.');
+                return;
+            }
+            
+            // Buscar un cóctel que coincida exactamente con la selección
+            const cocktail = cocktailDatabase.find(item =>
+                item.base === selectedIngredients.base &&
+                item.flavor === selectedIngredients.flavor &&
+                item.texture === selectedIngredients.texture
+            );
+
+            const resultDiv = document.getElementById('cocktail-result');
+            if (cocktail) {
+                resultDiv.innerHTML = `
+                    <div class="mb-6">
+                        <img src="${cocktail.photo}" 
+                             alt="${cocktail.name}" 
+                             class="w-32 h-32 mx-auto mb-4 rounded-full shadow-lg">
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">${cocktail.name}</h3>
+                    <p class="text-gray-300">${cocktail.description}</p>
+                `;
+            } else {
+                // Si no se encontró una coincidencia exacta, se muestra un mensaje alternativo
+                resultDiv.innerHTML = `
+                    <div class="mb-6">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3081/3081985.png" 
+                             alt="Cóctel" 
+                             class="w-32 h-32 mx-auto mb-4 opacity-50">
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">No se encontró un cóctel real</h3>
+                    <p class="text-gray-300">Prueba otra combinación para ver una recomendación personalizada.</p>
+                `;
+            }
+        });
+    </script>
+
+    <!-- Zona de Juegos Mejorada y Adictiva -->
+<section id="juegos" class="py-20 bg-night">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 font-serif">
+                <span class="text-accent">Futbolín</span> Profesional HD
+            </h2>
+            <p class="text-gray-300 max-w-2xl mx-auto">
+                Experimenta el futbolín más realista en digital. Física avanzada, controles precisos y efectos visuales espectaculares que te harán sentir en una mesa real.
+            </p>
+        </div>
+        
+        <div class="game-card bg-dark rounded-xl overflow-hidden shadow-lg cursor-pointer group" data-modal="modal-futbolin">
+            <div class="relative overflow-hidden h-96 flex items-center justify-center">
+                <canvas id="foosball-preview" width="600" height="360" class="bg-green-900 rounded-lg shadow-lg border-4 border-gold-500"></canvas>
+                <div class="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-70 pointer-events-none"></div>
+                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                    <span class="bg-accent text-night px-6 py-3 rounded-full font-bold shadow-lg text-xl animate-pulse">JUGAR AHORA</span>
+                </div>
+                <div class="absolute bottom-4 left-4 bg-black bg-opacity-70 text-white px-3 py-1 rounded-full text-sm">
+                    <i class="fas fa-trophy mr-2 text-yellow-400"></i>TOP SCORE: <span id="top-score-preview">0</span>
+                </div>
+            </div>
+            <div class="p-6">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-1">Futbolín Pro HD</h3>
+                        <div class="flex items-center text-sm text-gray-400 mb-2">
+                            <span class="mr-3"><i class="fas fa-users mr-1"></i> 1-2 jugadores</span>
+                            <span><i class="fas fa-stopwatch mr-1"></i> 5 goles</span>
+                        </div>
+                    </div>
+                    <div class="bg-accent text-night px-3 py-1 rounded-full text-sm font-bold">1€/partida</div>
+                </div>
+                <p class="text-gray-300 mb-6">Control preciso con física realista, efectos de sonido auténticos y múltiples modos de juego. ¡Siente la emoción del futbolín como nunca antes!</p>
+                
+                <div class="grid grid-cols-3 gap-4 text-center">
+                    <div class="bg-gray-800 p-2 rounded-lg">
+                        <div class="text-accent font-bold text-lg">3D</div>
+                        <div class="text-xs text-gray-400">Física</div>
+                    </div>
+                    <div class="bg-gray-800 p-2 rounded-lg">
+                        <div class="text-accent font-bold text-lg">4K</div>
+                        <div class="text-xs text-gray-400">Gráficos</div>
+                    </div>
+                    <div class="bg-gray-800 p-2 rounded-lg">
+                        <div class="text-accent font-bold text-lg">60FPS</div>
+                        <div class="text-xs text-gray-400">Fluido</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Futbolín Mejorado -->
+        <div id="modal-futbolin" class="fixed inset-0 bg-black bg-opacity-95 z-50 flex items-center justify-center hidden">
+            <div class="relative w-full max-w-5xl h-full max-h-[90vh] bg-dark rounded-xl overflow-hidden shadow-2xl">
+                <button class="close-modal absolute top-4 right-4 text-white text-3xl z-50 bg-black bg-opacity-50 rounded-full w-10 h-10 flex items-center justify-center hover:bg-accent transition">×</button>
+                
+                <!-- Game UI -->
+                <div class="absolute top-0 left-0 right-0 z-10 p-4 bg-gradient-to-b from-black to-transparent flex justify-between items-center">
+                    <div class="flex items-center space-x-6">
+                        <div class="text-white font-bold text-xl">
+                            <span class="text-accent">Jugador 1</span> <span id="score-left">0</span> - <span id="score-right">0</span> <span class="text-accent">Jugador 2 (IA)</span>
+                        </div>
+                        <div class="hidden md:block text-gray-300">
+                            <span class="text-accent font-bold">Controles:</span> W/S (J1: Portero), E/D (Defensa), R/F (Centros) y T/G (Delantero) | ▲/▼ (AI) | ESPACIO (sacar)
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button id="sound-toggle" class="text-white bg-gray-800 bg-opacity-50 rounded-full p-2 hover:bg-accent transition">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                        <button id="fullscreen-btn" class="text-white bg-gray-800 bg-opacity-50 rounded-full p-2 hover:bg-accent transition">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                        <!-- Botón para reiniciar la bola con una dirección aleatoria -->
+                        <button id="random-kick-btn" class="text-white bg-gray-800 bg-opacity-50 rounded-full p-2 hover:bg-accent transition">
+                            <i class="fas fa-random"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Game Canvas -->
+                <canvas id="foosball-canvas" width="1200" height="720" class="w-full h-full" tabindex="0"></canvas>
+                
+                <!-- Game Messages -->
+                <div id="game-message" class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div class="bg-black bg-opacity-70 text-white text-4xl md:text-6xl font-bold px-8 py-4 rounded-lg transform scale-0 transition-transform duration-300">
+                        PRESIONA ESPACIO
+                    </div>
+                </div>
+                
+                <!-- Celebration Effects -->
+                <div id="celebration" class="absolute inset-0 overflow-hidden pointer-events-none hidden">
+                    <div class="confetti"></div>
+                    <div class="confetti"></div>
+                    <div class="confetti"></div>
+                    <div class="confetti"></div>
+                    <div class="confetti"></div>
+                    <div class="confetti"></div>
+                    <div class="confetti"></div>
+                    <div class="confetti"></div>
+                </div>
+                
+                <!-- Game Over Screen -->
+                <div id="game-over" class="absolute inset-0 bg-black bg-opacity-80 flex flex-col items-center justify-center hidden">
+                    <div class="text-center max-w-md px-4">
+                        <h3 class="text-4xl font-bold mb-2 text-accent" id="result-title">¡VICTORIA!</h3>
+                        <p class="text-xl text-white mb-6" id="result-message">Has ganado 5-3</p>
+                        <div class="grid grid-cols-2 gap-4 mb-8">
+                            <div class="bg-gray-900 p-4 rounded-lg">
+                                <div class="text-3xl font-bold text-accent" id="final-score-left">5</div>
+                                <div class="text-gray-400">Jugador 1</div>
+                            </div>
+                            <div class="bg-gray-900 p-4 rounded-lg">
+                                <div class="text-3xl font-bold text-accent" id="final-score-right">3</div>
+                                <div class="text-gray-400">Jugador 2 (IA)</div>
+                            </div>
+                        </div>
+                        <button id="play-again-btn" class="bg-accent text-night px-8 py-3 rounded-full font-bold text-lg hover:bg-opacity-90 transition">
+                            JUGAR DE NUEVO
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Sound Effects
+        const sounds = {
+            kick: new Audio('https://www.soundjay.com/button/button-10.mp3'),
+            goal: new Audio('https://www.soundjay.com/button/button-4.mp3'),
+            crowd: new Audio('https://www.soundjay.com/nature/sounds/crowd-murmur-2.mp3'),
+            hit: new Audio('https://www.soundjay.com/button/button-16.mp3'),
+            cheer: new Audio('https://www.soundjay.com/human/sounds/applause-12.mp3'),
+            success: new Audio('https://www.soundjay.com/button/button-3.mp3')
+        };
+
+        // Set sound volumes
+        Object.values(sounds).forEach(sound => {
+            sound.volume = 0.5; // Slightly increased for better audibility
+        });
+        sounds.crowd.loop = true;
+        sounds.goal.volume = 0.8; // Louder goal sound for emphasis
+        sounds.cheer.volume = 0.7;
+
+        // --- Ultra Realistic Foosball Game ---
+        (function() {
+            const canvas = document.getElementById('foosball-canvas');
+            const ctx = canvas.getContext('2d');
+            const previewCanvas = document.getElementById('foosball-preview');
+            const previewCtx = previewCanvas.getContext('2d');
+            const gameMessage = document.getElementById('game-message');
+            const celebration = document.getElementById('celebration');
+            const gameOverScreen = document.getElementById('game-over');
+            const scoreLeftEl = document.getElementById('score-left');
+            const scoreRightEl = document.getElementById('score-right');
+            const finalScoreLeft = document.getElementById('final-score-left');
+            const finalScoreRight = document.getElementById('final-score-right');
+            const resultTitle = document.getElementById('result-title');
+            const resultMessage = document.getElementById('result-message');
+            const playAgainBtn = document.getElementById('play-again-btn');
+            const soundToggle = document.getElementById('sound-toggle');
+            const fullscreenBtn = document.getElementById('fullscreen-btn');
+            const randomKickBtn = document.getElementById('random-kick-btn');
+            const topScorePreview = document.getElementById('top-score-preview');
+            
+            // Load best score
+            let bestScore = localStorage.getItem('foosballBestScore') || 0;
+            topScorePreview.textContent = bestScore;
+            
+            // Sound control
+            let soundEnabled = true;
+            soundToggle.addEventListener('click', () => {
+                soundEnabled = !soundEnabled;
+                soundToggle.innerHTML = soundEnabled ? '<i class="fas fa-volume-up"></i>' : '<i class="fas fa-volume-mute"></i>';
+                Object.values(sounds).forEach(sound => {
+                    sound.muted = !soundEnabled;
+                });
+            });
+            
+            // Fullscreen control
+            fullscreenBtn.addEventListener('click', () => {
+                if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+                    if (canvas.requestFullscreen) {
+                        canvas.requestFullscreen().catch(err => console.error(`Fullscreen error: ${err.message}`));
+                    } else if (canvas.webkitRequestFullscreen) {
+                        canvas.webkitRequestFullscreen();
+                    }
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    } else if (document.webkitExitFullscreen) {
+                        document.webkitExitFullscreen();
+                    }
+                }
+            });
+            
+            // Random Kick Button
+            randomKickBtn.addEventListener('click', () => {
+                const centerX = WIDTH / 2;
+                const centerY = HEIGHT / 2;
+                const dx = ball.x - centerX;
+                const dy = ball.y - centerY;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 50 && gameActive) {
+                    const randomAngle = Math.random() * 2 * Math.PI;
+                    const speed = 10; // Faster for lighter ball
+                    ball.vx = Math.cos(randomAngle) * speed;
+                    ball.vy = Math.sin(randomAngle) * speed;
+                    if (soundEnabled) {
+                        sounds.kick.currentTime = 0;
+                        sounds.kick.play();
+                    }
+                }
+            });
+            
+            // Game constants
+            const WIDTH = canvas.width, HEIGHT = canvas.height;
+            const TABLE_COLOR = '#1a3a1a';
+            const TABLE_BORDER = '#8B5A2B';
+            const PLAYER_COLORS = ['#FFD700', '#C0C0C0', '#CD7F32', '#FFD700', '#C0C0C0', '#CD7F32', '#FFD700', '#C0C0C0'];
+            const BALL_RADIUS = 15;
+            const GOAL_COLOR = '#E11D48';
+            const GOAL_GRADIENT = '#450A0A';
+            
+            // Physics constants
+            const FRICTION = 0.995; // Reduced friction for faster movement
+            const BALL_FRICTION = 0.99; // Lighter ball
+            const RESTITUTION = 0.9; // Higher for bouncier collisions
+            const SPIN_DECAY = 0.96;
+            const MAX_SPIN = 5;
+            const CENTER_GRAVITY = 0.15; // Slightly stronger to ensure centering
+            
+            // Game elements dimensions
+            const TABLE_PADDING = 40;
+            const GOAL_WIDTH = 30;
+            const GOAL_HEIGHT = 120;
+            const BAR_WIDTH = 12;
+            const BAR_HEIGHT = 80;
+            const PLAYER_RADIUS = 12;
+            const PLAYERS_PER_BAR = [1, 3, 4, 3, 3, 4, 3, 1];
+            
+            // Bar positions
+            const barPositions = [
+                TABLE_PADDING + GOAL_WIDTH + 40,    // Goalkeeper (left)
+                TABLE_PADDING + GOAL_WIDTH + 120,   // Defenders (left)
+                TABLE_PADDING + GOAL_WIDTH + 240,   // Attackers (left)
+                TABLE_PADDING + GOAL_WIDTH + 360,   // Midfielders (left)
+                WIDTH - TABLE_PADDING - GOAL_WIDTH - 360, // Midfielders (right)
+                WIDTH - TABLE_PADDING - GOAL_WIDTH - 240, // Attackers (right)
+                WIDTH - TABLE_PADDING - GOAL_WIDTH - 120, // Defenders (right)
+                WIDTH - TABLE_PADDING - GOAL_WIDTH - 40   // Goalkeeper (right)
+            ];
+            
+            // Game state
+            let leftBars = Array(4).fill(HEIGHT / 2 - BAR_HEIGHT / 2);
+            let rightBars = Array(4).fill(HEIGHT / 2 - BAR_HEIGHT / 2);
+            let ball = {
+                x: WIDTH / 2,
+                y: HEIGHT / 2,
+                vx: 0,
+                vy: 0,
+                spin: 0,
+                lastHit: null
+            };
+            let scoreLeft = 0, scoreRight = 0;
+            let gameActive = false;
+            let servingPlayer = 1;
+            let particles = [];
+            let shakeIntensity = 0;
+            let lastTime = 0;
+            let deltaTime = 0;
+            
+            // Initialize game
+            function initGame() {
+                scoreLeft = 0;
+                scoreRight = 0;
+                scoreLeftEl.textContent = '0';
+                scoreRightEl.textContent = '0';
+                leftBars = Array(4).fill(HEIGHT / 2 - BAR_HEIGHT / 2);
+                rightBars = Array(4).fill(HEIGHT / 2 - BAR_HEIGHT / 2);
+                resetBall();
+                showMessage('PRESIONA ESPACIO');
+                gameActive = false;
+                celebration.classList.add('hidden');
+                gameOverScreen.classList.add('hidden');
+                
+                if (soundEnabled) {
+                    sounds.crowd.currentTime = 0;
+                    sounds.crowd.play();
+                }
+            }
+            
+            // Show game message
+            function showMessage(msg) {
+                const msgEl = gameMessage.querySelector('div');
+                msgEl.textContent = msg;
+                msgEl.classList.remove('scale-0');
+                msgEl.classList.add('scale-100');
+            }
+            
+            // Hide game message
+            function hideMessage() {
+                const msgEl = gameMessage.querySelector('div');
+                msgEl.classList.remove('scale-100');
+                msgEl.classList.add('scale-0');
+            }
+            
+            // Reset ball
+            function resetBall() {
+                ball.x = WIDTH / 2;
+                ball.y = HEIGHT / 2;
+                const targetBarIndex = servingPlayer === 1 ? 2 : 5; // Target attackers
+                const targetX = barPositions[targetBarIndex];
+                const targetY = HEIGHT / 2;
+                const speed = 10; // Faster initial speed
+                const dx = targetX - ball.x;
+                const dy = targetY - ball.y;
+                const angle = Math.atan2(dy, dx) + (Math.random() - 0.5) * Math.PI / 6;
+                ball.vx = Math.cos(angle) * speed * (servingPlayer === 1 ? -1 : 1);
+                ball.vy = Math.sin(angle) * speed;
+                ball.spin = 0;
+                ball.lastHit = null;
+            }
+            
+            // Create particles
+            function createParticles(x, y, color, count) {
+                for (let i = 0; i < count; i++) {
+                    particles.push({
+                        x, y,
+                        vx: (Math.random() - 0.5) * 8, // Faster particles
+                        vy: (Math.random() - 0.5) * 8,
+                        radius: Math.random() * 4 + 2,
+                        color,
+                        life: Math.random() * 30 + 20,
+                        decay: Math.random() * 0.05 + 0.02
+                    });
+                }
+            }
+            
+            // Create goal explosion
+            function createGoalExplosion(x, y, color) {
+                for (let i = 0; i < 60; i++) { // More particles for dramatic effect
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = Math.random() * 10 + 3;
+                    particles.push({
+                        x, y,
+                        vx: Math.cos(angle) * speed,
+                        vy: Math.sin(angle) * speed,
+                        radius: Math.random() * 6 + 3,
+                        color,
+                        life: Math.random() * 40 + 30,
+                        decay: Math.random() * 0.03 + 0.02
+                    });
+                }
+            }
+            
+            // Check collision
+            function checkCollision(ball, playerX, playerY) {
+                const dx = ball.x - playerX;
+                const dy = ball.y - playerY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < BALL_RADIUS + PLAYER_RADIUS) {
+                    const nx = dx / distance;
+                    const ny = dy / distance;
+                    const pv = (ball.lastHit === 'left' ? -1 : 1) * 6; // Faster player velocity
+                    const relVelX = ball.vx - pv * nx;
+                    const relVelY = ball.vy - pv * ny;
+                    const impulse = (1 + RESTITUTION) * (relVelX * nx + relVelY * ny) * 1.3; // Stronger impulse
+                    ball.vx -= impulse * nx;
+                    ball.vy -= impulse * ny;
+                    ball.spin = Math.max(-MAX_SPIN, Math.min(MAX_SPIN, ball.spin + dy * 0.15));
+                    const overlap = BALL_RADIUS + PLAYER_RADIUS - distance;
+                    ball.x += nx * overlap * 1.2;
+                    ball.y += ny * overlap * 1.2;
+                    return true;
+                }
+                return false;
+            }
+            
+            // Update game state
+            function update(timestamp) {
+                if (!lastTime) lastTime = timestamp;
+                deltaTime = (timestamp - lastTime) / 16;
+                lastTime = timestamp;
+                particles.forEach(p => {
+                    p.x += p.vx * deltaTime;
+                    p.y += p.vy * deltaTime;
+                    p.vy += 0.1 * deltaTime;
+                    p.life -= p.decay * deltaTime;
+                    p.radius *= 0.99;
+                });
+                particles = particles.filter(p => p.life > 0);
+                if (!gameActive) return;
+                ball.x += ball.vx * deltaTime;
+                ball.y += ball.vy * deltaTime;
+                ball.vx *= BALL_FRICTION;
+                ball.vy *= BALL_FRICTION;
+                
+                // Center gravity
+                const centerX = WIDTH / 2;
+                const centerY = HEIGHT / 2;
+                const dxCenter = centerX - ball.x;
+                const dyCenter = centerY - ball.y;
+                const distanceFromCenter = Math.sqrt(dxCenter * dxCenter + dyCenter * dyCenter);
+                if (distanceFromCenter > 10 && Math.abs(ball.vx) < 2 && Math.abs(ball.vy) < 2) {
+                    ball.vx += (dxCenter / distanceFromCenter) * CENTER_GRAVITY * deltaTime;
+                    ball.vy += (dyCenter / distanceFromCenter) * CENTER_GRAVITY * deltaTime;
+                }
+                
+                // Prevent ball from stopping
+                if (Math.abs(ball.vx) < 0.2 && Math.abs(ball.vy) < 0.2 && distanceFromCenter > 50) {
+                    ball.vx += (Math.random() - 0.5) * 0.8;
+                    ball.vy += (Math.random() - 0.5) * 0.8;
+                }
+                ball.vy += ball.spin * 0.12 * deltaTime;
+                ball.spin *= SPIN_DECAY;
+                
+                // Wall collisions
+                if (ball.y - BALL_RADIUS < TABLE_PADDING || ball.y + BALL_RADIUS > HEIGHT - TABLE_PADDING) {
+                    ball.vy *= -RESTITUTION * 1.2;
+                    ball.y = Math.max(BALL_RADIUS + TABLE_PADDING, Math.min(HEIGHT - TABLE_PADDING - BALL_RADIUS, ball.y));
+                    createParticles(ball.x, ball.y, '#FFFFFF', 8);
+                    shakeIntensity = 6;
+                    if (soundEnabled) {
+                        sounds.hit.currentTime = 0;
+                        sounds.hit.play();
+                    }
+                }
+                if (ball.x - BALL_RADIUS < TABLE_PADDING + 10) {
+                    ball.x = Math.max(BALL_RADIUS + TABLE_PADDING + 10, ball.x);
+                    ball.vx = Math.abs(ball.vx) * RESTITUTION * 1.2;
+                    createParticles(ball.x, ball.y, '#FFFFFF', 5);
+                    if (soundEnabled) {
+                        sounds.hit.currentTime = 0;
+                        sounds.hit.play();
+                    }
+                } else if (ball.x + BALL_RADIUS > WIDTH - TABLE_PADDING - 10) {
+                    ball.x = Math.min(WIDTH - TABLE_PADDING - 10 - BALL_RADIUS, ball.x);
+                    ball.vx = -Math.abs(ball.vx) * RESTITUTION * 1.2;
+                    createParticles(ball.x, ball.y, '#FFFFFF', 5);
+                    if (soundEnabled) {
+                        sounds.hit.currentTime = 0;
+                        sounds.hit.play();
+                    }
+                }
+                
+                // Left side collisions (Player 1)
+                for (let i = 0; i < 4; i++) {
+                    const barY = leftBars[i];
+                    const barX = barPositions[i];
+                    for (let j = 0; j < PLAYERS_PER_BAR[i]; j++) {
+                        const playerY = barY + (j + 0.5) * (BAR_HEIGHT / PLAYERS_PER_BAR[i]);
+                        const playerX = barX + BAR_WIDTH / 2;
+                        if (checkCollision(ball, playerX, playerY)) {
+                            ball.lastHit = 'left';
+                            createParticles(ball.x, ball.y, PLAYER_COLORS[i], 10);
+                            shakeIntensity = 10;
+                            if (soundEnabled) {
+                                sounds.kick.currentTime = 0;
+                                sounds.kick.play();
+                            }
+                        }
+                    }
+                }
+                
+                // Right side collisions and AI (Player 2)
+                const aiSpeeds = [7, 6, 5, 6]; // Faster AI for dynamic gameplay
+                const offsets = [-30, -10, 10, 30];
+                for (let i = 0; i < 4; i++) {
+                    const predictTime = (barPositions[7 - i] - ball.x) / ball.vx;
+                    let targetY = ball.y;
+                    if (predictTime > 0 && predictTime < 1) {
+                        targetY = ball.y + ball.vy * predictTime * 16;
+                        targetY = Math.max(TABLE_PADDING + BALL_RADIUS, Math.min(HEIGHT - TABLE_PADDING - BALL_RADIUS, targetY));
+                    }
+                    targetY += offsets[i] + (Math.random() - 0.5) * 8;
+                    const targetBarY = targetY - BAR_HEIGHT / 2;
+                    const aiSpeed = aiSpeeds[i] * (ball.x > WIDTH / 2 ? 1.3 : 0.9) * deltaTime;
+                    if (rightBars[i] < targetBarY - 5) {
+                        rightBars[i] += aiSpeed;
+                    } else if (rightBars[i] > targetBarY + 5) {
+                        rightBars[i] -= aiSpeed;
+                    }
+                    rightBars[i] = Math.max(TABLE_PADDING, Math.min(HEIGHT - TABLE_PADDING - BAR_HEIGHT, rightBars[i]));
+                    
+                    const barX = barPositions[7 - i];
+                    for (let j = 0; j < PLAYERS_PER_BAR[7 - i]; j++) {
+                        const playerY = rightBars[i] + (j + 0.5) * (BAR_HEIGHT / PLAYERS_PER_BAR[7 - i]);
+                        const playerX = barX - BAR_WIDTH / 2;
+                        if (checkCollision(ball, playerX, playerY)) {
+                            ball.lastHit = 'right';
+                            createParticles(ball.x, ball.y, PLAYER_COLORS[7 - i], 10);
+                            shakeIntensity = 10;
+                            if (soundEnabled) {
+                                sounds.kick.currentTime = 0;
+                                sounds.kick.play();
+                            }
+                        }
+                    }
+                }
+                
+                // Check goals
+                if (ball.x - BALL_RADIUS < TABLE_PADDING &&
+                    ball.y > HEIGHT / 2 - GOAL_HEIGHT / 2 &&
+                    ball.y < HEIGHT / 2 + GOAL_HEIGHT / 2) {
+                    scoreRight++;
+                    scoreRightEl.textContent = scoreRight;
+                    createGoalExplosion(ball.x, ball.y, GOAL_COLOR);
+                    servingPlayer = 1;
+                    shakeIntensity = 20;
+                    if (soundEnabled) {
+                        sounds.goal.currentTime = 0;
+                        sounds.goal.play();
+                        setTimeout(() => {
+                            if (soundEnabled) {
+                                sounds.cheer.currentTime = 0;
+                                sounds.cheer.play();
+                            }
+                        }, 200);
+                    }
+                    showMessage('¡GOL!');
+                    setTimeout(hideMessage, 1000);
+                    checkGameOver();
+                }
+                if (ball.x + BALL_RADIUS > WIDTH - TABLE_PADDING &&
+                    ball.y > HEIGHT / 2 - GOAL_HEIGHT / 2 &&
+                    ball.y < HEIGHT / 2 + GOAL_HEIGHT / 2) {
+                    scoreLeft++;
+                    scoreLeftEl.textContent = scoreLeft;
+                    createGoalExplosion(ball.x, ball.y, GOAL_COLOR);
+                    servingPlayer = 2;
+                    shakeIntensity = 20;
+                    if (soundEnabled) {
+                        sounds.goal.currentTime = 0;
+                        sounds.goal.play();
+                        setTimeout(() => {
+                            if (soundEnabled) {
+                                sounds.cheer.currentTime = 0;
+                                sounds.cheer.play();
+                            }
+                        }, 200);
+                    }
+                    showMessage('¡GOL!');
+                    setTimeout(hideMessage, 1000);
+                    checkGameOver();
+                }
+                
+                // Out of bounds
+                if (ball.x < 0 || ball.x > WIDTH) {
+                    resetBall();
+                }
+            }
+            
+            // Check game over
+            function checkGameOver() {
+                if (scoreLeft >= 5 || scoreRight >= 5) {
+                    gameActive = false;
+                    if (scoreLeft > bestScore) {
+                        bestScore = scoreLeft;
+                        localStorage.setItem('foosballBestScore', bestScore);
+                        topScorePreview.textContent = bestScore;
+                    }
+                    if (scoreLeft > scoreRight) {
+                        celebration.classList.remove('hidden');
+                    }
+                    finalScoreLeft.textContent = scoreLeft;
+                    finalScoreRight.textContent = scoreRight;
+                    resultTitle.textContent = scoreLeft > scoreRight ? '¡VICTORIA!' : '¡DERROTA!';
+                    resultMessage.textContent = `Has ${scoreLeft > scoreRight ? 'ganado' : 'perdido'} ${scoreLeft}-${scoreRight}`;
+                    gameOverScreen.classList.remove('hidden');
+                } else {
+                    setTimeout(resetBall, 1500);
+                }
+            }
+            
+            // Draw game
+            function draw() {
+                ctx.clearRect(0, 0, WIDTH, HEIGHT);
+                const shakeX = shakeIntensity > 0 ? (Math.random() - 0.5) * shakeIntensity : 0;
+                const shakeY = shakeIntensity > 0 ? (Math.random() - 0.5) * shakeIntensity : 0;
+                shakeIntensity *= 0.8;
+                ctx.save();
+                ctx.translate(shakeX, shakeY);
+                ctx.fillStyle = TABLE_COLOR;
+                ctx.fillRect(TABLE_PADDING, TABLE_PADDING, WIDTH - 2 * TABLE_PADDING, HEIGHT - 2 * TABLE_PADDING);
+                ctx.strokeStyle = TABLE_BORDER;
+                ctx.lineWidth = 10;
+                ctx.strokeRect(TABLE_PADDING, TABLE_PADDING, WIDTH - 2 * TABLE_PADDING, HEIGHT - 2 * TABLE_PADDING);
+                ctx.setLineDash([20, 15]);
+                ctx.beginPath();
+                ctx.moveTo(WIDTH / 2, TABLE_PADDING);
+                ctx.lineTo(WIDTH / 2, HEIGHT - TABLE_PADDING);
+                ctx.strokeStyle = '#FFFFFF';
+                ctx.lineWidth = 3;
+                ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.beginPath();
+                ctx.arc(WIDTH / 2, HEIGHT / 2, 60, 0, Math.PI * 2);
+                ctx.strokeStyle = '#FFFFFF';
+                ctx.lineWidth = 3;
+                ctx.stroke();
+                const leftGradient = ctx.createLinearGradient(TABLE_PADDING, 0, TABLE_PADDING + GOAL_WIDTH, 0);
+                leftGradient.addColorStop(0, GOAL_COLOR);
+                leftGradient.addColorStop(1, GOAL_GRADIENT);
+                ctx.fillStyle = leftGradient;
+                ctx.fillRect(0, HEIGHT / 2 - GOAL_HEIGHT / 2, TABLE_PADDING, GOAL_HEIGHT);
+                const rightGradient = ctx.createLinearGradient(WIDTH - TABLE_PADDING - GOAL_WIDTH, 0, WIDTH - TABLE_PADDING, 0);
+                rightGradient.addColorStop(0, GOAL_GRADIENT);
+                rightGradient.addColorStop(1, GOAL_COLOR);
+                ctx.fillStyle = rightGradient;
+                ctx.fillRect(WIDTH - TABLE_PADDING, HEIGHT / 2 - GOAL_HEIGHT / 2, TABLE_PADDING, GOAL_HEIGHT);
+                for (let i = 0; i < 4; i++) {
+                    const barY = leftBars[i];
+                    const barX = barPositions[i];
+                    ctx.fillStyle = '#5D4037';
+                    ctx.fillRect(barX - BAR_WIDTH / 2, barY, BAR_WIDTH, BAR_HEIGHT);
+                    for (let j = 0; j < PLAYERS_PER_BAR[i]; j++) {
+                        const playerY = barY + (j + 0.5) * (BAR_HEIGHT / PLAYERS_PER_BAR[i]);
+                        const playerX = barX + BAR_WIDTH / 2;
+                        ctx.beginPath();
+                        ctx.arc(playerX + 3, playerY + 3, PLAYER_RADIUS, 0, Math.PI * 2);
+                        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+                        ctx.fill();
+                        ctx.beginPath();
+                        ctx.arc(playerX, playerY, PLAYER_RADIUS, 0, Math.PI * 2);
+                        ctx.fillStyle = PLAYER_COLORS[i];
+                        ctx.fill();
+                        ctx.beginPath();
+                        ctx.arc(playerX - PLAYER_RADIUS / 3, playerY - PLAYER_RADIUS / 3, PLAYER_RADIUS / 3, 0, Math.PI * 2);
+                        ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+                        ctx.fill();
+                    }
+                }
+                for (let i = 0; i < 4; i++) {
+                    const barY = rightBars[i];
+                    const barX = barPositions[7 - i];
+                    ctx.fillStyle = '#5D4037';
+                    ctx.fillRect(barX - BAR_WIDTH / 2, barY, BAR_WIDTH, BAR_HEIGHT);
+                    for (let j = 0; j < PLAYERS_PER_BAR[7 - i]; j++) {
+                        const playerY = barY + (j + 0.5) * (BAR_HEIGHT / PLAYERS_PER_BAR[7 - i]);
+                        const playerX = barX - BAR_WIDTH / 2;
+                        ctx.beginPath();
+                        ctx.arc(playerX + 3, playerY + 3, PLAYER_RADIUS, 0, Math.PI * 2);
+                        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+                        ctx.fill();
+                        ctx.beginPath();
+                        ctx.arc(playerX, playerY, PLAYER_RADIUS, 0, Math.PI * 2);
+                        ctx.fillStyle = PLAYER_COLORS[7 - i];
+                        ctx.fill();
+                        ctx.beginPath();
+                        ctx.arc(playerX + PLAYER_RADIUS / 3, playerY - PLAYER_RADIUS / 3, PLAYER_RADIUS / 3, 0, Math.PI * 2);
+                        ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+                        ctx.fill();
+                    }
+                }
+                ctx.beginPath();
+                ctx.arc(ball.x + 4, ball.y + 4, BALL_RADIUS, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+                ctx.fill();
+                ctx.beginPath();
+                ctx.arc(ball.x, ball.y, BALL_RADIUS, 0, Math.PI * 2);
+                const ballGradient = ctx.createRadialGradient(
+                    ball.x - BALL_RADIUS / 3, ball.y - BALL_RADIUS / 3, 1,
+                    ball.x, ball.y, BALL_RADIUS
+                );
+                ballGradient.addColorStop(0, '#FFFFFF');
+                ballGradient.addColorStop(1, '#DDDDDD');
+                ctx.fillStyle = ballGradient;
+                ctx.fill();
+                ctx.strokeStyle = 'rgba(0, 0, 0, 0.1)';
+                ctx.lineWidth = 1;
+                for (let i = 0; i < 6; i++) {
+                    const angle = i * Math.PI / 3 + ball.spin * 0.1; // Spin visual effect
+                    ctx.beginPath();
+                    ctx.moveTo(ball.x, ball.y);
+                    ctx.lineTo(
+                        ball.x + Math.cos(angle) * BALL_RADIUS,
+                        ball.y + Math.sin(angle) * BALL_RADIUS
+                    );
+                    ctx.stroke();
+                }
+                particles.forEach(p => {
+                    ctx.globalAlpha = p.life / 50;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.fill();
+                });
+                ctx.globalAlpha = 1;
+                ctx.restore();
+                ctx.font = 'bold 60px Arial';
+                ctx.fillStyle = '#FFFFFF';
+                ctx.textAlign = 'center';
+                ctx.fillText(scoreLeft, WIDTH / 2 - 100, 80);
+                ctx.fillText(scoreRight, WIDTH / 2 + 100, 80);
+                if (!gameActive) {
+                    ctx.beginPath();
+                    ctx.arc(
+                        servingPlayer === 1 ? WIDTH / 2 - 150 : WIDTH / 2 + 150,
+                        HEIGHT - 50,
+                        10, 0, Math.PI * 2
+                    );
+                    ctx.fillStyle = '#FFD700';
+                    ctx.fill();
+                }
+            }
+            
+            function gameLoop(timestamp) {
+                update(timestamp);
+                draw();
+                requestAnimationFrame(gameLoop);
+            }
+            
+            requestAnimationFrame(gameLoop);
+            
+            // Controls
+            const keys = {
+                w: false, s: false, e: false, d: false, r: false, f: false, t: false, g: false
+            };
+
+            document.addEventListener('keydown', e => {
+                if (!canvas.closest('.fixed') || canvas.closest('.fixed').classList.contains('hidden')) return;
+                if (e.key === 'w') keys.w = true;
+                if (e.key === 's') keys.s = true;
+                if (e.key === 'e') keys.e = true;
+                if (e.key === 'd') keys.d = true;
+                if (e.key === 'r') keys.r = true;
+                if (e.key === 'f') keys.f = true;
+                if (e.key === 't') keys.t = true;
+                if (e.key === 'g') keys.g = true;
+                if (e.key === ' ' && gameActive) {
+                    const threshold = 20;
+                    if (Math.abs(ball.x - WIDTH / 2) < threshold && Math.abs(ball.y - HEIGHT / 2) < threshold) {
+                        const randomAngle = Math.random() * 2 * Math.PI;
+                        const boostSpeed = 14; // Faster for lighter ball
+                        ball.vx = Math.cos(randomAngle) * boostSpeed;
+                        ball.vy = Math.sin(randomAngle) * boostSpeed;
+                        if (soundEnabled) {
+                            sounds.kick.currentTime = 0;
+                            sounds.kick.play();
+                        }
+                    }
+                } else if (e.key === ' ' && !gameActive) {
+                    gameActive = true;
+                    hideMessage();
+                }
+            });
+            document.addEventListener('keyup', e => {
+                if (e.key === 'w') keys.w = false;
+                if (e.key === 's') keys.s = false;
+                if (e.key === 'e') keys.e = false;
+                if (e.key === 'd') keys.d = false;
+                if (e.key === 'r') keys.r = false;
+                if (e.key === 'f') keys.f = false;
+                if (e.key === 't') keys.t = false;
+                if (e.key === 'g') keys.g = false;
+            });
+            
+            // Handle controls
+            function handleControls() {
+                const speed = 8;
+                if (keys.w) leftBars[0] -= speed; // Goalkeeper
+                if (keys.s) leftBars[0] += speed;
+                if (keys.e) leftBars[1] -= speed; // Defenders
+                if (keys.d) leftBars[1] += speed;
+                if (keys.r) leftBars[2] -= speed; // Attackers
+                if (keys.f) leftBars[2] += speed;
+                if (keys.t) leftBars[3] -= speed; // Midfielders
+                if (keys.g) leftBars[3] += speed;
+                for (let i = 0; i < 4; i++) {
+                    leftBars[i] = Math.max(TABLE_PADDING, Math.min(HEIGHT - TABLE_PADDING - BAR_HEIGHT, leftBars[i]));
+                }
+            }
+            setInterval(handleControls, 1000 / 60);
+            
+            playAgainBtn.addEventListener('click', initGame);
+            
+            function drawPreview() {
+                previewCtx.fillStyle = '#1a3a1a';
+                previewCtx.fillRect(0, 0, previewCanvas.width, previewCanvas.height);
+                previewCtx.strokeStyle = '#8B5A2B';
+                previewCtx.lineWidth = 4;
+                previewCtx.strokeRect(20, 20, previewCanvas.width - 40, previewCanvas.height - 40);
+                previewCtx.fillStyle = '#5D4037';
+                previewCtx.fillRect(80, previewCanvas.height / 2 - 40, 12, 80);
+                previewCtx.fillRect(previewCanvas.width - 92, previewCanvas.height / 2 - 40, 12, 80);
+                previewCtx.fillStyle = '#FFD700';
+                for (let j = 0; j < 4; j++) {
+                    const playerY = previewCanvas.height / 2 - 40 + (j + 0.5) * (80 / 4);
+                    previewCtx.beginPath();
+                    previewCtx.arc(92, playerY, 8, 0, Math.PI * 2);
+                    previewCtx.fill();
+                    previewCtx.beginPath();
+                    previewCtx.arc(previewCanvas.width - 80, playerY, 8, 0, Math.PI * 2);
+                    previewCtx.fill();
+                }
+                previewCtx.beginPath();
+                previewCtx.arc(previewCanvas.width / 2, previewCanvas.height / 2, 6, 0, Math.PI * 2);
+                previewCtx.fillStyle = '#FFFFFF';
+                previewCtx.fill();
+            }
+            drawPreview();
+            
+            const modal = document.getElementById('modal-futbolin');
+            const gameCard = document.querySelector('[data-modal="modal-futbolin"]');
+            const closeModalBtn = modal.querySelector('.close-modal');
+            gameCard.addEventListener('click', () => {
+                modal.classList.remove('hidden');
+                canvas.focus();
+                initGame();
+            });
+            closeModalBtn.addEventListener('click', () => {
+                modal.classList.add('hidden');
+                gameActive = false;
+                sounds.crowd.pause();
+                sounds.crowd.currentTime = 0;
+            });
+            document.addEventListener('keydown', e => {
+                if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                    modal.classList.add('hidden');
+                    gameActive = false;
+                    sounds.crowd.pause();
+                    sounds.crowd.currentTime = 0;
+                }
+            });
+            document.addEventListener('keydown', e => {
+                if (['w', 's', 'e', 'd', 'r', 'f', 't', 'g', ' ', 'ArrowUp', 'ArrowDown'].includes(e.key) && !modal.classList.contains('hidden')) {
+                    e.preventDefault();
+                }
+            });
+            initGame();
+        })();
+    </script>
 </section>
 
-    <section id="contacto">
-        <h2>Contacto</h2>
-        <p>Puedes contactarnos mediante <a class="instalink" href="https://www.instagram.com/envidia_cafeycopas" target="_blank"> Nuestro Instagram </a></p>
-        <p>Síguenos en redes sociales para estar al tanto de nuestras promociones y eventos especiales</p>
-        <p>Nuestro horario:</p>
-        <p>Martes - Sábado: 16:00pm - 2:00am</p>
-        <p>Domingo: 16:00pm - 21:00pm</p>
+    <!-- Gallery Section -->
+    <section id="galeria" class="py-20 bg-dark parallax" style="background-image: url('https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80');">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 font-serif">
+                    <span class="text-accent" style="text-shadow: 0 4px 24px rgba(255,215,0,0.7), 0 2px 8px #000, 0 0 2px #000;">Galería</span> <span style="text-shadow: 0 2px 8px #000, 0 0 2px #000;">de Imágenes</span>
+                </h2>
+                <p class="text-gray-300 max-w-2xl mx-auto"
+                    style="text-shadow:
+                        0 2px 8px #000,
+                        0 4px 24px rgba(0,0,0,0.8),
+                        0 0 2px #6c6643,
+                        0 0 8px #514d3b;">
+                    Descubre el ambiente único de Bar Envidia a través de nuestras fotos más recientes.
+                </p>
+            </div>
+            <div class="flex justify-center">
+                <div class="w-full max-w-5xl rounded-2xl overflow-hidden shadow-2xl border-4 border-accent bg-night bg-opacity-80 backdrop-blur-md p-6 md:p-10">
+                    <div class="aspect-w-16 aspect-h-9">
+                        <iframe 
+                            src="https://www.instagram.com/envidia_cafeycopas/embed" 
+                            width="100%" 
+                            height="600" 
+                            frameborder="0" 
+                            scrolling="yes" 
+                            allowtransparency="true"
+                            class="w-full rounded-xl"
+                            style="min-height:400px; background:#fff; overflow:auto;"></iframe>
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-16 text-center">
+                <p class="text-gray-300 max-w-2xl mx-auto"
+                    style="text-shadow:
+                        0 2px 8px #000,
+                        0 4px 24px rgba(0,0,0,0.8),
+                        0 0 2px #6c6643,
+                        0 0 8px #514d3b;">
+                    Síguenos en Instagram para ver más fotos y estar al tanto de nuestros eventos especiales.
+                </p>
+                <a href="https://www.instagram.com/envidia_cafeycopas/" target="_blank" class="inline-block instagram-feed hover:opacity-90 text-white px-8 py-3 rounded-full font-medium transition transform hover:scale-105">
+                    <i class="fab fa-instagram mr-2"></i> @envidia_cafeycopas
+                </a>
+            </div>
+        </div>
     </section>
-    <footer>
-        <p>&copy; 2025 Envidia Copas. Todos los derechos reservados.</p>
+    
+    <script>
+    // Replace with your Instagram Access Token
+    const ACCESS_TOKEN = 'YOUR_INSTAGRAM_ACCESS_TOKEN';
+
+    // Function to fetch Instagram posts
+    async function fetchInstagramPosts() {
+        try {
+            const response = await fetch(`https://graph.instagram.com/me/media?fields=id,media_type,media_url,permalink&access_token=${ACCESS_TOKEN}`);
+            const data = await response.json();
+            
+            if (data.error) {
+                console.error('Error fetching Instagram posts:', data.error);
+                return;
+            }
+
+            // Get the gallery container
+            const gallery = document.getElementById('instagram-gallery');
+            gallery.innerHTML = ''; // Clear existing content
+
+            // Filter for images and limit to 6 posts
+            const posts = data.data.filter(post => post.media_type === 'IMAGE').slice(0, 6);
+
+            // Create gallery items
+            posts.forEach(post => {
+                const galleryItem = `
+                    <a href="${post.permalink}" class="gallery-item group" target="_blank" rel="noopener">
+                        <div class="relative overflow-hidden rounded-xl h-64">
+                            <img src="${post.media_url}" alt="Instagram Bar Envidia" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-70"></div>
+                            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                                <i class="fab fa-instagram text-3xl text-white"></i>
+                            </div>
+                        </div>
+                    </a>
+                `;
+                gallery.innerHTML += galleryItem;
+            });
+        } catch (error) {
+            console.error('Error fetching Instagram posts:', error);
+        }
+    }
+
+    // Call the function when the page loads
+    document.addEventListener('DOMContentLoaded', fetchInstagramPosts);
+    </script>
+
+    <!-- Events Section -->
+    <section id="eventos" class="py-20 bg-night">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 font-serif">
+                    <span class="text-accent">Próximos</span> Eventos
+                </h2>
+                <p class="text-gray-300 max-w-2xl mx-auto">
+                    No te pierdas nuestras fiestas temáticas, noches especiales y promociones exclusivas.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <!-- Event 1 -->
+                <div class="bg-dark rounded-xl overflow-hidden shadow-lg">
+                    <div class="relative overflow-hidden h-48">
+                        <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                             alt="Noche de cócteles" 
+                             class="w-full h-full object-cover">
+                        <div class="absolute top-4 right-4 bg-accent text-night px-3 py-1 rounded-full text-sm font-bold">
+                            15 Junio
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Noche de Cócteles Clásicos</h3>
+                        <p class="text-gray-300 mb-4">Disfruta de los cócteles más icónicos de la historia a precio especial. Nuestro mixólogo te contará sus secretos.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-400">21:00 - 02:00</span>
+                            <button class="text-accent hover:text-opacity-80 text-sm font-medium">
+                                Más información
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Event 2 -->
+                <div class="bg-dark rounded-xl overflow-hidden shadow-lg">
+                    <div class="relative overflow-hidden h-48">
+                        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                             alt="Torneo de futbolín" 
+                             class="w-full h-full object-cover">
+                        <div class="absolute top-4 right-4 bg-accent text-night px-3 py-1 rounded-full text-sm font-bold">
+                            22 Junio
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Torneo de Futbolín</h3>
+                        <p class="text-gray-300 mb-4">Inscríbete en nuestro torneo mensual. Premios para los primeros clasificados y promociones especiales.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-400">19:00 - 23:00</span>
+                            <button class="text-accent hover:text-opacity-80 text-sm font-medium">
+                                Inscribirse
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Event 3 -->
+                <div class="bg-dark rounded-xl overflow-hidden shadow-lg">
+                    <div class="relative overflow-hidden h-48">
+                        <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                             alt="DJ en vivo" 
+                             class="w-full h-full object-cover">
+                        <div class="absolute top-4 right-4 bg-accent text-night px-3 py-1 rounded-full text-sm font-bold">
+                            29 Junio
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">DJ en Vivo - Noche Electrónica</h3>
+                        <p class="text-gray-300 mb-4">Disfruta de la mejor música electrónica con nuestro DJ invitado. Cócteles especiales y ambiente garantizado.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-400">23:00 - 02:00</span>
+                            <button class="text-accent hover:text-opacity-80 text-sm font-medium">
+                                Ver cartel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Event 4 -->
+                <div class="bg-dark rounded-xl overflow-hidden shadow-lg">
+                    <div class="relative overflow-hidden h-48">
+                        <img src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                             alt="Noche de cócteles" 
+                             class="w-full h-full object-cover">
+                        <div class="absolute top-4 right-4 bg-accent text-night px-3 py-1 rounded-full text-sm font-bold">
+                            6 Julio
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Taller de Mixología</h3>
+                        <p class="text-gray-300 mb-4">Aprende a preparar tus cócteles favoritos con nuestro experto mixólogo. Incluye degustación y diploma.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-400">18:00 - 20:00</span>
+                            <button class="text-accent hover:text-opacity-80 text-sm font-medium">
+                                Reservar plaza
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Calendar CTA -->
+            <div class="mt-16 text-center">
+                <p class="text-gray-300 mb-6 max-w-2xl mx-auto">
+                    ¿Quieres celebrar tu cumpleaños o evento privado en Bar Envidia? Contáctanos para personalizar tu experiencia.
+                </p>
+                <a href="#contacto" class="inline-block bg-accent hover:bg-opacity-90 text-night px-8 py-3 rounded-full font-medium transition transform hover:scale-105">
+                    Reservar evento privado
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="py-20 bg-dark">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 font-serif">
+                    <span class="text-accent">Contacto</span> y Reservas
+                </h2>
+                <p class="text-gray-300 max-w-2xl mx-auto">
+                    Visítanos, reserva tu mesa o contáctanos para cualquier consulta. ¡Estaremos encantados de atenderte!
+                </p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-12 max-w-6xl mx-auto">
+                <!-- Contact Info -->
+                <div class="lg:w-1/2">
+                    <div class="bg-night rounded-xl p-8 h-full">
+                        <h3 class="text-xl font-bold mb-6">Información de contacto</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="text-accent mr-4 mt-1">
+                                    <i class="fas fa-map-marker-alt text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Dirección</h4>
+                                    <p class="text-gray-300">C. Juan Antonio Cavestany, 25<br>41003 Sevilla</p>
+                                    <p class="text-gray-400 text-sm mt-1">Junto a la estación de Santa Justa</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="text-accent mr-4 mt-1">
+                                    <i class="fas fa-clock text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Horario</h4>
+                                    <p class="text-gray-300">
+                                        Martes - Jueves: 16:00 - 00:00<br>
+                                        Viernes - Sábado: 16:00 - 02:00<br>
+                                        Domingo: 16:00 - 21:00
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="text-accent mr-4 mt-1">
+                                    <i class="fas fa-phone-alt text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Teléfono</h4>
+                                    <p class="text-gray-300">+34 955 123 456</p>
+                                    <p class="text-gray-400 text-sm mt-1">Reservas recomendadas los fines de semana</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="text-accent mr-4 mt-1">
+                                    <i class="fas fa-envelope text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Email</h4>
+                                    <p class="text-gray-300">info@barenvidia.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="text-accent mr-4 mt-1">
+                                    <i class="fas fa-hashtag text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium mb-1">Redes Sociales</h4>
+                                    <div class="flex space-x-4 mt-2">
+                                        <a href="https://www.instagram.com/envidia_cafeycopas" target="_blank" class="text-gray-300 hover:text-secondary transition">
+                                            <i class="fab fa-instagram text-2xl"></i>
+                                        </a>
+                                        <a href="#" class="text-gray-300 hover:text-secondary transition">
+                                            <i class="fab fa-tiktok text-2xl"></i>
+                                        </a>
+                                        <a href="#" class="text-gray-300 hover:text-secondary transition">
+                                            <i class="fab fa-facebook text-2xl"></i>
+                                        </a>
+                                        <a href="#" class="text-gray-300 hover:text-secondary transition">
+                                            <i class="fab fa-twitter text-2xl"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Reservation Form -->
+                <div class="lg:w-1/2">
+                    <div class="bg-night rounded-xl p-8 h-full">
+                        <h3 class="text-xl font-bold mb-6">Reserva tu mesa</h3>
+                        
+                        <form class="reservation-form space-y-4">
+                            <div>
+                                <label for="name" class="block mb-2 text-gray-300">Nombre completo *</label>
+                                <input type="text" id="name" class="w-full px-4 py-3 rounded-lg text-white" required>
+                            </div>
+                            
+                            <div>
+                                <label for="email" class="block mb-2 text-gray-300">Email *</label>
+                                <input type="email" id="email" class="w-full px-4 py-3 rounded-lg text-white" required>
+                            </div>
+                            
+                            <div>
+                                <label for="phone" class="block mb-2 text-gray-300">Teléfono *</label>
+                                <input type="tel" id="phone" class="w-full px-4 py-3 rounded-lg text-white" required>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="date" class="block mb-2 text-gray-300">Fecha *</label>
+                                    <input type="date" id="date" class="w-full px-4 py-3 rounded-lg text-white" required>
+                                </div>
+                                
+                                <div>
+                                    <label for="time" class="block mb-2 text-gray-300">Hora *</label>
+                                    <input type="time" id="time" class="w-full px-4 py-3 rounded-lg text-white" required>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label for="guests" class="block mb-2 text-gray-300">Número de personas *</label>
+                                <select id="guests" class="w-full px-4 py-3 rounded-lg text-white" required>
+                                    <option value="">Selecciona...</option>
+                                    <option value="1-2">1-2 personas</option>
+                                    <option value="3-4">3-4 personas</option>
+                                    <option value="5-6">5-6 personas</option>
+                                    <option value="7+">7+ personas</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label for="message" class="block mb-2 text-gray-300">Mensaje adicional</label>
+                                <textarea id="message" rows="3" class="w-full px-4 py-3 rounded-lg text-white"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full bg-accent hover:bg-opacity-90 text-night py-3 rounded-full font-medium transition transform hover:scale-[1.02] mt-4">
+                                Enviar reserva
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Map -->
+            <div class="mt-16 bg-night rounded-xl overflow-hidden">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3169.931407000786!2d-5.9789268!3d37.39145439999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd126ea64dbca6b7%3A0x24c24993e32ea5c5!2sCaf%C3%A9%20Envidia%20Copas!5e0!3m2!1ses!2ses!4v1750008017622!5m2!1ses!2ses" 
+                        width="100%" 
+                        height="450" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade"
+                        class="rounded-xl">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-16 bg-gradient-to-r from-primary to-secondary">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 font-serif text-white">
+                ¡No te pierdas nada!
+            </h2>
+            <p class="text-white mb-8 max-w-2xl mx-auto">
+                Suscríbete a nuestro newsletter para recibir promociones exclusivas, información sobre eventos y novedades.
+            </p>
+            
+            <form class="max-w-xl mx-auto flex flex-col sm:flex-row gap-4">
+                <input type="email" placeholder="Tu email" class="flex-grow px-6 py-3 rounded-full focus:outline-none">
+                <button type="submit" class="bg-night hover:bg-opacity-90 text-white px-8 py-3 rounded-full font-medium transition transform hover:scale-105 whitespace-nowrap">
+                    Suscribirme
+                </button>
+            </form>
+            
+            <p class="text-white text-opacity-70 text-sm mt-4">
+                Prometemos no enviar spam. Puedes darte de baja en cualquier momento.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-night py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <a href="#" class="flex items-center">
+                        <span class="text-3xl font-bold text-accent mr-2">ENVIDIA</span>
+                        <span class="text-sm font-light italic">bar & cocktails</span>
+                    </a>
+                    <p class="text-gray-400 mt-2">
+                        El mejor ambiente nocturno en Santa Justa, Sevilla
+                    </p>
+                </div>
+                
+                <div class="flex flex-col items-center md:items-end">
+                    <div class="flex space-x-6 mb-4">
+                        <a href="https://www.instagram.com/envidia_cafeycopas" target="_blank" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-tiktok text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-facebook text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="text-center md:text-right">
+                        <p class="text-gray-400 text-sm">
+                            &copy; 2025 Bar Envidia. Todos los derechos reservados.
+                        </p>
+                        <p class="text-gray-500 text-xs mt-1">
+                            Diseñado con ❤️ para los amantes de la noche sevillana
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-accent text-night w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition opacity-0 invisible">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center hidden">
+        <div class="relative max-w-4xl w-full mx-4">
+            <button id="close-lightbox" class="absolute -top-12 right-0 text-white text-3xl">
+                <i class="fas fa-times"></i>
+            </button>
+            <img id="lightbox-image" src="" alt="" class="w-full h-auto max-h-[90vh] object-contain">
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', () => {
+                // Toggle the visibility of the mobile menu when the button is clicked
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    window.scrollTo({
+                        top: targetElement.offsetTop - (document.querySelector('header')?.offsetHeight || 80),
+                        behavior: 'smooth'
+                    });
+                    // Close mobile menu if open
+                    if (mobileMenu) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+        
+        // Back to top button
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        if (backToTopButton) {
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.remove('opacity-0', 'invisible');
+                    backToTopButton.classList.add('opacity-100', 'visible');
+                } else {
+                    backToTopButton.classList.remove('opacity-100', 'visible');
+                    backToTopButton.classList.add('opacity-0', 'invisible');
+                }
+            });
+            
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+        
+        // Active nav link on scroll
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('nav a');
+        window.addEventListener('scroll', () => {
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 80; // Adjust for fixed header
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            const toggleActiveClass = (link, isActive) => {
+                link.classList.toggle('text-accent', isActive);
+            };
+
+            navLinks.forEach(link => {
+                const isActive = link.getAttribute('href') === `#${currentSection}`;
+                toggleActiveClass(link, isActive);
+            });
+        });
+
+        // Lightbox functionality
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightbox-image');
+        const closeLightbox = document.getElementById('close-lightbox');
+        if (galleryItems && lightbox && lightboxImage && closeLightbox) {
+            galleryItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const imageUrl = item.getAttribute('href');
+                    if (imageUrl) {
+                        lightboxImage.src = imageUrl;
+                        lightbox.classList.remove('hidden');
+                    }
+                });
+            });
+            closeLightbox.addEventListener('click', () => {
+                lightbox.classList.add('hidden');
+                lightboxImage.src = '';
+            });
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    lightbox.classList.add('hidden');
+                    lightboxImage.src = '';
+                }
+            });
+        }
+    </script>
 </body>
 </html>
