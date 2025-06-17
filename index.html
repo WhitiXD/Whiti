@@ -91,7 +91,299 @@
         }
         @media (max-width: 768px) {
             .parallax {
-                background-attachment: scroll;
+            background-attachment: scroll;
+            }
+            /* Ajustes para el canvas del futbolín en móviles */
+            #foosball-canvas {
+            width: 100% !important;
+            height: auto !important;
+            max-width: 100vw;
+            max-height: 60vw;
+            touch-action: none;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            }
+            /* Vista previa ocupa todo el ancho disponible y mantiene proporción */
+            #foosball-preview {
+            width: 100% !important;
+            height: auto !important;
+            max-width: 100vw;
+            max-height: 60vw;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            position: static;
+            top: auto;
+            left: auto;
+            transform: none;
+            }
+            /* El contenedor del modal debe ser relativo y alto completo para centrar el canvas */
+            #modal-futbolin .relative.w-full.max-w-5xl.h-full {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            position: relative;
+            }
+            .game-card {
+            min-width: 0;
+            }
+            /* Ajuste para que el canvas no se solape con los controles móviles */
+            #modal-futbolin .relative.w-full.max-w-5xl.h-full {
+            padding-bottom: 0; /* El canvas ocupa todo, los controles van fuera */
+            }
+            #foosball-canvas {
+            position: relative;
+            top: 0;
+            left: 0;
+            transform: none;
+            margin-bottom: 16px;
+            }
+        }
+        /* Botones de control móvil para el futbolín */
+        .foosball-mobile-controls {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .foosball-mobile-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 8px;
+            margin: 0;
+            z-index: 60;
+            position: fixed;
+            left: 0;
+            right: 0;
+            /* Ajuste clave: los controles van justo debajo del modal, nunca encima */
+            top: auto;
+            bottom: 0;
+            background: rgba(18,18,18,0.98);
+            padding: 24px 0 8px 0; /* <-- Aumenta el padding-top para separar más los controles del campo */
+            pointer-events: none;
+            box-shadow: 0 -4px 24px rgba(0,0,0,0.25);
+            backdrop-filter: blur(6px);
+            }
+            .foosball-mobile-controls > div,
+            .foosball-mobile-controls button {
+            pointer-events: auto;
+            }
+            .foosball-mobile-controls > div {
+            width: 100%;
+            display: flex;
+            justify-content: center; /* Centra los botones horizontalmente */
+            gap: 8px;
+            }
+            .foosball-mobile-controls button {
+            flex: 1 1 0;
+            min-width: 0;
+            max-width: 100%;
+            background: linear-gradient(180deg, #2e7d32 0%, #388e3c 100%);
+            color: #FFD700;
+            font-weight: 700;
+            border: none;
+            border-radius: 12px;
+            padding: 10px 0;
+            font-size: 1rem;
+            margin: 0 2px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.18), 0 1.5px 0 #fff2 inset;
+            transition: 
+            background 0.2s,
+            box-shadow 0.2s,
+            transform 0.1s,
+            color 0.2s;
+            letter-spacing: 0.02em;
+            outline: none;
+            position: relative;
+            overflow: hidden;
+            text-shadow: 0 2px 4px #000, 0 0 2px #388e3c;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            }
+            .foosball-mobile-controls button:active {
+            background: linear-gradient(180deg, #FFD700 0%, #E11D48 100%);
+            color: #fff;
+            box-shadow: 0 2px 16px rgba(255,45,85,0.18), 0 1.5px 0 #fff2 inset;
+            transform: scale(0.97);
+            }
+            .foosball-mobile-controls button:focus-visible {
+            outline: 2px solid #FFD700;
+            outline-offset: 2px;
+            }
+            .foosball-mobile-controls button::after {
+            content: '';
+            display: block;
+            position: absolute;
+            left: 10%;
+            right: 10%;
+            bottom: 0;
+            height: 3px;
+            border-radius: 2px;
+            background: linear-gradient(90deg, #FFD700 0%, #FFED85 100%);
+            opacity: 0.7;
+            transition: opacity 0.2s;
+            }
+            .foosball-mobile-controls button:active::after {
+            opacity: 1;
+            background: linear-gradient(90deg, #FFD700 0%, #E11D48 100%);
+            }
+            /* Botón EMPEZAR destacado */
+            #foosball-start-btn {
+            background: linear-gradient(180deg, #FFD700 0%, #E11D48 100%);
+            color: #121212;
+            font-size: 1.15rem;
+            font-weight: 900;
+            box-shadow: 0 4px 24px rgba(255,45,85,0.15), 0 1.5px 0 #fff inset;
+            border: none;
+            border-radius: 16px;
+            padding: 16px 0;
+            margin-top: 8px;
+            letter-spacing: 0.04em;
+            transition: 
+            background 0.2s,
+            box-shadow 0.2s,
+            transform 0.1s,
+            color 0.2s;
+            text-shadow: 0 2px 8px #fff8, 0 0 2px #FFD700;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            }
+            #foosball-start-btn:active {
+            background: linear-gradient(180deg, #E11D48 0%, #FFD700 100%);
+            color: #fff;
+            transform: scale(0.97);
+            }
+            #foosball-start-btn:focus-visible {
+            outline: 2px solid #E11D48;
+            outline-offset: 2px;
+            }
+            /* Evita que los botones toquen el campo: añade separación extra */
+            .foosball-mobile-controls {
+            padding-bottom: calc(env(safe-area-inset-bottom, 16px) + 8px);
+            }
+            /* Ajuste: el canvas del futbolín debe dejar espacio abajo para los controles */
+            #modal-futbolin .relative.w-full.max-w-5xl.h-full {
+            padding-bottom: 110px !important; /* Altura aproximada de los controles + margen */
+            }
+            /* Ajuste para evitar desbordamiento de texto */
+            .foosball-mobile-controls button {
+            font-size: 0.98rem;
+            padding-left: 0.2em;
+            padding-right: 0.2em;
+            }
+        }
+        /* NUEVO: Mantener proporción y formato en PC y fullscreen */
+        @media (min-width: 769px) {
+            #modal-futbolin .relative.w-full.max-w-5xl.h-full {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 0 !important;
+            }
+            #foosball-canvas, #foosball-preview {
+            display: block;
+            margin: 0 auto;
+            width: 100%;
+            height: auto;
+            max-width: 1200px;
+            max-height: 720px;
+            aspect-ratio: 1200 / 720;
+            position: static;
+            top: auto;
+            left: auto;
+            transform: none;
+            background: #1a3a1a;
+            }
+            /* Cuando está en fullscreen, el canvas mantiene proporción centrado */
+            #modal-futbolin:fullscreen #foosball-canvas,
+            #modal-futbolin:-webkit-full-screen #foosball-canvas {
+            width: 100vw !important;
+            height: auto !important;
+            max-width: 100vw;
+            max-height: 100vh;
+            aspect-ratio: 1200 / 720;
+            display: block;
+            margin: 0 auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #1a3a1a;
+            }
+            /* El contenedor también debe ocupar todo y centrar el canvas */
+            #modal-futbolin:fullscreen .relative.w-full.max-w-5xl.h-full,
+            #modal-futbolin:-webkit-full-screen .relative.w-full.max-w-5xl.h-full {
+            min-height: 100vh;
+            min-width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 !important;
+            position: relative;
+            }
+        }
+        /* NUEVO: Vista previa futbolín SIEMPRE mantiene proporción y se ve completa en PC */
+        #foosball-preview {
+            width: 100%;
+            height: auto;
+            max-width: 600px;
+            max-height: 360px;
+            aspect-ratio: 600 / 360;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            background: #1a3a1a;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+        }
+        @media (min-width: 769px) {
+            #foosball-preview {
+            width: 100%;
+            height: auto;
+            max-width: 600px;
+            max-height: 360px;
+            aspect-ratio: 600 / 360;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            background: #1a3a1a;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+            }
+        }
+        @media (min-width: 1200px) {
+            #foosball-preview {
+            max-width: 600px;
+            max-height: 360px;
+            }
+        }
+        @media (min-width: 500px) {
+            .foosball-mobile-controls {
+            /* Haz los controles absolutamente posicionados fuera del área del campo */
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: auto;
+            z-index: 60;
+            /* Asegura que no tapen el campo: añade fondo y sombra */
+            background: rgba(18,18,18,0.98);
+            box-shadow: 0 -4px 24px rgba(0,0,0,0.25);
+            /* Opcional: reduce el padding para que ocupen menos altura */
+            padding: 8px 0 8px 0;
+            }
+            #modal-futbolin .relative.w-full.max-w-5xl.h-full {
+            padding-bottom: 0 !important; /* El canvas ocupa todo, los controles van fuera */
             }
         }
     </style>
@@ -102,7 +394,7 @@
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <a href="#" class="flex items-center">
                 <span class="text-3xl font-bold text-accent mr-2">ENVIDIA</span>
-                <span class="text-sm font-light italic">bar & cocktails</span>
+                <span class="text-sm font-light italic">cafe & copas</span>
             </a>
             
             <nav class="hidden md:flex space-x-8">
@@ -202,13 +494,15 @@
                 </div>
                 <div class="md:w-1/2 relative">
                     <div class="relative rounded-xl overflow-hidden shadow-2xl">
-                        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" 
-                             alt="Interior del Bar Envidia" 
-                             class="w-full h-auto rounded-xl transform hover:scale-105 transition duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-night via-transparent to-transparent opacity-80"></div>
+                        <div class="relative w-full" style="height: 75%;">
+                        </div>
+                            <img src="https://github.com/WhitiXD/Whiti/blob/master/desayuno.png?raw=true" 
+                                 alt="Interior del Bar Envidia" 
+                                 class="w-full h-full object-cover object-center rounded-xl">
+                        </div>
                         <div class="absolute bottom-0 left-0 p-6">
-                            <h3 class="text-xl font-bold text-white">Ambiente exclusivo</h3>
-                            <p class="text-gray-200">Diseño moderno con toques andaluces</p>
+                            <h3 class="text-xl font-bold text-white drop-shadow-lg" style="text-shadow: 0 4px 24px rgba(0,0,0,0.7), 0 2px 8px #FFD700;">Ambiente exclusivo</h3>
+                            <p class="text-gray-200 drop-shadow" style="text-shadow: 0 2px 8px #000, 0 0 2px #FFD700;">Diseño moderno con toques andaluces</p>
                         </div>
                     </div>
                 </div>
@@ -1509,25 +1803,116 @@
         </div>
     </div>
     <script>
-        // Sound Effects
+        const AudioManager = {
+            audioContext: null,
+            sounds: {},
+            soundEnabled: true,
+
+            init() {
+                if (!this.audioContext) {
+                    this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                this.loadSound('kick', 'https://assets.mixkit.co/sfx/preview/mp3/arcade-retro-jump-223.mp3');
+                this.loadSound('goal', 'https://assets.mixkit.co/sfx/preview/mp3/victory-fanfare-140.mp3');
+                this.loadSound('crowd', 'https://assets.mixkit.co/sfx/preview/mp3/crowd-cheer-1.mp3');
+                this.loadSound('hit', 'https://assets.mixkit.co/sfx/preview/mp3/arpeggio-146.mp3');
+                this.loadSound('cheer', 'https://assets.mixkit.co/sfx/preview/mp3/applause-8.mp3');
+                this.loadSound('success', 'https://assets.mixkit.co/sfx/preview/mp3/positive-notification-953.mp3');
+            },
+
+            async loadSound(name, url) {
+                try {
+                    const response = await fetch(url);
+                    const buffer = await response.arrayBuffer();
+                    this.sounds[name] = await this.audioContext.decodeAudioData(buffer);
+                } catch (error) {
+                    console.error("Error cargando sonido:", error);
+                }
+            },
+
+            play(name, options = {}) {
+                if (!this.soundEnabled || !this.sounds[name]) return;
+                const source = this.audioContext.createBufferSource();
+                source.buffer = this.sounds[name];
+                const gain = this.audioContext.createGain();
+                gain.gain.value = options.volume !== undefined ? options.volume : 0.7;
+                source.connect(gain).connect(this.audioContext.destination);
+                source.start(0);
+                return source;
+            },
+
+            stopAll() {
+                // No-op: Web Audio API sources are one-shot, so nothing to stop
+            },
+
+            setEnabled(enabled) {
+                this.soundEnabled = enabled;
+            },
+
+            unlock() {
+                if (this.audioContext && this.audioContext.state === 'suspended') {
+                    this.audioContext.resume();
+                }
+            }
+        };
+        AudioManager.init();
+        document.body.addEventListener('touchstart', () => AudioManager.unlock(), {once: true});
+        document.body.addEventListener('click', () => AudioManager.unlock(), {once: true});
+        // Preload and unlock AudioContext functions
+        function preloadAudio(audioObj) {
+            Object.values(audioObj).forEach(sound => sound.load());
+        }
+        function unlockAudioContext(audioObj) {
+            // On first user interaction, play the sound silently to unlock playback
+            document.body.addEventListener('touchstart', () => {
+                Object.values(audioObj).forEach(sound => {
+                    sound.play().then(() => {
+                        sound.pause();
+                        sound.currentTime = 0;
+                    }).catch(err => console.error("Unlock error:", err));
+                });
+            }, {once: true});
+            document.body.addEventListener('click', () => {
+                Object.values(audioObj).forEach(sound => {
+                    sound.play().then(() => {
+                        sound.pause();
+                        sound.currentTime = 0;
+                    }).catch(err => console.error("Unlock error:", err));
+                });
+            }, {once: true});
+        }
+
+        // Modified Audio Setup with accessible URLs from Mixkit and error handling
         const sounds = {
-            kick: new Audio('https://www.soundjay.com/button/button-10.mp3'),
-            goal: new Audio('https://www.soundjay.com/button/button-4.mp3'),
-            crowd: new Audio('https://www.soundjay.com/nature/sounds/crowd-murmur-2.mp3'),
-            hit: new Audio('https://www.soundjay.com/button/button-16.mp3'),
-            cheer: new Audio('https://www.soundjay.com/human/sounds/applause-12.mp3'),
-            success: new Audio('https://www.soundjay.com/button/button-3.mp3')
+            kick: new Audio('https://assets.mixkit.co/sfx/preview/mp3/arcade-retro-jump-223.mp3'),
+            goal: new Audio('https://assets.mixkit.co/sfx/preview/mp3/victory-fanfare-140.mp3'),
+            crowd: new Audio('https://assets.mixkit.co/sfx/preview/mp3/crowd-cheer-1.mp3'),
+            hit: new Audio('https://assets.mixkit.co/sfx/preview/mp3/arpeggio-146.mp3'),
+            cheer: new Audio('https://assets.mixkit.co/sfx/preview/mp3/applause-8.mp3'),
+            success: new Audio('https://assets.mixkit.co/sfx/preview/mp3/positive-notification-953.mp3')
         };
 
-        // Set sound volumes
+        // Error handling: log any audio load problems
+        function checkAudioLoaded(soundObj) {
+            Object.entries(soundObj).forEach(([key, sound]) => {
+                sound.addEventListener('error', () => {
+                    console.error(`Error loading sound: ${key} from ${sound.src}`);
+                });
+            });
+        }
+        checkAudioLoaded(sounds);
+        preloadAudio(sounds);
+        unlockAudioContext(sounds);
+
+        // Increase volumes to ensure audio is perceptible
         Object.values(sounds).forEach(sound => {
-            sound.volume = 0.5; // Slightly increased for better audibility
+            sound.volume = 0.7;
         });
         sounds.crowd.loop = true;
-        sounds.goal.volume = 0.8; // Louder goal sound for emphasis
-        sounds.cheer.volume = 0.7;
+        sounds.goal.volume = 0.9;
+        sounds.cheer.volume = 0.8;
 
-        // --- Ultra Realistic Foosball Game ---
+        // --- Ultra Realistic Foosball Game with Modifications ---
         (function() {
             const canvas = document.getElementById('foosball-canvas');
             const ctx = canvas.getContext('2d');
@@ -1551,8 +1936,8 @@
             // Load best score
             let bestScore = localStorage.getItem('foosballBestScore') || 0;
             topScorePreview.textContent = bestScore;
-            
-            // Sound control
+
+            // Sound control ensuring playback occurs post user interaction
             let soundEnabled = true;
             soundToggle.addEventListener('click', () => {
                 soundEnabled = !soundEnabled;
@@ -1579,7 +1964,7 @@
                 }
             });
             
-            // Random Kick Button
+            // Random Kick Button: increased impulse by retaining similar logic
             randomKickBtn.addEventListener('click', () => {
                 const centerX = WIDTH / 2;
                 const centerY = HEIGHT / 2;
@@ -1588,17 +1973,17 @@
                 const dist = Math.sqrt(dx * dx + dy * dy);
                 if (dist < 50 && gameActive) {
                     const randomAngle = Math.random() * 2 * Math.PI;
-                    const speed = 10; // Faster for lighter ball
+                    const speed = 12; // Increased random kick speed
                     ball.vx = Math.cos(randomAngle) * speed;
                     ball.vy = Math.sin(randomAngle) * speed;
                     if (soundEnabled) {
                         sounds.kick.currentTime = 0;
-                        sounds.kick.play();
+                        sounds.kick.play().catch(err => console.error(err));
                     }
                 }
             });
             
-            // Game constants
+            // Game constants and physics modifications
             const WIDTH = canvas.width, HEIGHT = canvas.height;
             const TABLE_COLOR = '#1a3a1a';
             const TABLE_BORDER = '#8B5A2B';
@@ -1607,15 +1992,17 @@
             const GOAL_COLOR = '#E11D48';
             const GOAL_GRADIENT = '#450A0A';
             
-            // Physics constants
-            const FRICTION = 0.995; // Reduced friction for faster movement
-            const BALL_FRICTION = 0.99; // Lighter ball
-            const RESTITUTION = 0.9; // Higher for bouncier collisions
+            // Reduced friction for a lighter ball and added speed cap
+            const FRICTION = 0.995;
+            const BALL_FRICTION = 0.98;
+            const RESTITUTION = 0.9; 
             const SPIN_DECAY = 0.96;
             const MAX_SPIN = 5;
-            const CENTER_GRAVITY = 0.15; // Slightly stronger to ensure centering
-            
-            // Game elements dimensions
+            // AUMENTA la fuerza de retorno al centro
+            const CENTER_GRAVITY = 0.35; // antes 0.15, ahora más rápido
+            const maxSpeed = 18; // Increased speed cap for ball
+
+            // Game elements dimensions remain the same
             const TABLE_PADDING = 40;
             const GOAL_WIDTH = 30;
             const GOAL_HEIGHT = 120;
@@ -1624,16 +2011,15 @@
             const PLAYER_RADIUS = 12;
             const PLAYERS_PER_BAR = [1, 3, 4, 3, 3, 4, 3, 1];
             
-            // Bar positions
             const barPositions = [
-                TABLE_PADDING + GOAL_WIDTH + 40,    // Goalkeeper (left)
-                TABLE_PADDING + GOAL_WIDTH + 120,   // Defenders (left)
-                TABLE_PADDING + GOAL_WIDTH + 240,   // Attackers (left)
-                TABLE_PADDING + GOAL_WIDTH + 360,   // Midfielders (left)
-                WIDTH - TABLE_PADDING - GOAL_WIDTH - 360, // Midfielders (right)
-                WIDTH - TABLE_PADDING - GOAL_WIDTH - 240, // Attackers (right)
-                WIDTH - TABLE_PADDING - GOAL_WIDTH - 120, // Defenders (right)
-                WIDTH - TABLE_PADDING - GOAL_WIDTH - 40   // Goalkeeper (right)
+                TABLE_PADDING + GOAL_WIDTH + 40,
+                TABLE_PADDING + GOAL_WIDTH + 120,
+                TABLE_PADDING + GOAL_WIDTH + 240,
+                TABLE_PADDING + GOAL_WIDTH + 360,
+                WIDTH - TABLE_PADDING - GOAL_WIDTH - 360,
+                WIDTH - TABLE_PADDING - GOAL_WIDTH - 240,
+                WIDTH - TABLE_PADDING - GOAL_WIDTH - 120,
+                WIDTH - TABLE_PADDING - GOAL_WIDTH - 40
             ];
             
             // Game state
@@ -1654,6 +2040,7 @@
             let shakeIntensity = 0;
             let lastTime = 0;
             let deltaTime = 0;
+            let goalInProgress = false;
             
             // Initialize game
             function initGame() {
@@ -1668,51 +2055,54 @@
                 gameActive = false;
                 celebration.classList.add('hidden');
                 gameOverScreen.classList.add('hidden');
+                goalInProgress = false;
                 
                 if (soundEnabled) {
                     sounds.crowd.currentTime = 0;
-                    sounds.crowd.play();
+                    sounds.crowd.play().catch(err => console.error(err));
                 }
             }
             
-            // Show game message
+            // Show and hide game message functions
             function showMessage(msg) {
                 const msgEl = gameMessage.querySelector('div');
                 msgEl.textContent = msg;
                 msgEl.classList.remove('scale-0');
                 msgEl.classList.add('scale-100');
             }
-            
-            // Hide game message
             function hideMessage() {
                 const msgEl = gameMessage.querySelector('div');
                 msgEl.classList.remove('scale-100');
                 msgEl.classList.add('scale-0');
             }
             
-            // Reset ball
+            // Reset ball with increased serve power
             function resetBall() {
                 ball.x = WIDTH / 2;
                 ball.y = HEIGHT / 2;
-                const targetBarIndex = servingPlayer === 1 ? 2 : 5; // Target attackers
+                ball.vx = 0; // Stop immediately
+                ball.vy = 0;
+                const targetBarIndex = servingPlayer === 1 ? 2 : 5;
                 const targetX = barPositions[targetBarIndex];
                 const targetY = HEIGHT / 2;
-                const speed = 10; // Faster initial speed
+                const speed = 12; // Increased initial serve speed
                 const dx = targetX - ball.x;
                 const dy = targetY - ball.y;
                 const angle = Math.atan2(dy, dx) + (Math.random() - 0.5) * Math.PI / 6;
-                ball.vx = Math.cos(angle) * speed * (servingPlayer === 1 ? -1 : 1);
-                ball.vy = Math.sin(angle) * speed;
-                ball.spin = 0;
-                ball.lastHit = null;
+                // Delay relaunch by 1500 ms
+                setTimeout(() => {
+                    ball.vx = Math.cos(angle) * speed * (servingPlayer === 1 ? -1 : 1);
+                    ball.vy = Math.sin(angle) * speed;
+                    goalInProgress = false;
+                }, 1500);
             }
             
-            // Create particles
+            // Particle and goal explosion functions remain largely the same (with slightly increased counts for dramatic effect)
             function createParticles(x, y, color, count) {
                 for (let i = 0; i < count; i++) {
                     particles.push({
                         x, y,
-                        vx: (Math.random() - 0.5) * 8, // Faster particles
+                        vx: (Math.random() - 0.5) * 8,
                         vy: (Math.random() - 0.5) * 8,
                         radius: Math.random() * 4 + 2,
                         color,
@@ -1721,10 +2111,8 @@
                     });
                 }
             }
-            
-            // Create goal explosion
             function createGoalExplosion(x, y, color) {
-                for (let i = 0; i < 60; i++) { // More particles for dramatic effect
+                for (let i = 0; i < 60; i++) {
                     const angle = Math.random() * Math.PI * 2;
                     const speed = Math.random() * 10 + 3;
                     particles.push({
@@ -1739,7 +2127,7 @@
                 }
             }
             
-            // Check collision
+            // Modified collision impulse: multiplier increased to 2.5 and pv increased to 8. Also add 5 extra particles.
             function checkCollision(ball, playerX, playerY) {
                 const dx = ball.x - playerX;
                 const dy = ball.y - playerY;
@@ -1747,22 +2135,33 @@
                 if (distance < BALL_RADIUS + PLAYER_RADIUS) {
                     const nx = dx / distance;
                     const ny = dy / distance;
-                    const pv = (ball.lastHit === 'left' ? -1 : 1) * 6; // Faster player velocity
+                    const pv = (ball.lastHit === 'left' ? -8 : 8);
                     const relVelX = ball.vx - pv * nx;
                     const relVelY = ball.vy - pv * ny;
-                    const impulse = (1 + RESTITUTION) * (relVelX * nx + relVelY * ny) * 1.3; // Stronger impulse
+                    const impulse = (1 + RESTITUTION) * (relVelX * nx + relVelY * ny) * 2.5;
                     ball.vx -= impulse * nx;
                     ball.vy -= impulse * ny;
                     ball.spin = Math.max(-MAX_SPIN, Math.min(MAX_SPIN, ball.spin + dy * 0.15));
                     const overlap = BALL_RADIUS + PLAYER_RADIUS - distance;
-                    ball.x += nx * overlap * 1.2;
-                    ball.y += ny * overlap * 1.2;
+                    ball.x += nx * overlap;
+                    ball.y += ny * overlap;
+                    createParticles(ball.x, ball.y, '#FFFFFF', 5); // Extra particles for dramatic effect
                     return true;
                 }
                 return false;
             }
-            
-            // Update game state
+
+            // --- IA Mejorada: cada línea se mueve de forma independiente e inteligente ---
+            // IA parameters por barra (más cerca de la portería, más defensiva)
+            const aiBarConfigs = [
+                // [barIndex, anticipation, reactiveness, randomness, zone]
+                { anticipation: 0.8, reactiveness: 0.7, randomness: 8, zone: [0, HEIGHT] }, // Portero
+                { anticipation: 0.7, reactiveness: 0.8, randomness: 10, zone: [HEIGHT/4, HEIGHT*3/4] }, // Defensa
+                { anticipation: 0.6, reactiveness: 1.0, randomness: 16, zone: [HEIGHT/6, HEIGHT*5/6] }, // Centro
+                { anticipation: 0.5, reactiveness: 1.2, randomness: 22, zone: [0, HEIGHT] } // Delantero
+            ];
+
+            // Update game state with ball speed cap added
             function update(timestamp) {
                 if (!lastTime) lastTime = timestamp;
                 deltaTime = (timestamp - lastTime) / 16;
@@ -1780,19 +2179,24 @@
                 ball.y += ball.vy * deltaTime;
                 ball.vx *= BALL_FRICTION;
                 ball.vy *= BALL_FRICTION;
-                
-                // Center gravity
+                // Cap ball speed
+                let speed = Math.sqrt(ball.vx * ball.vx + ball.vy * ball.vy);
+                if (speed > maxSpeed) {
+                    const scale = maxSpeed / speed;
+                    ball.vx *= scale;
+                    ball.vy *= scale;
+                }
+
                 const centerX = WIDTH / 2;
                 const centerY = HEIGHT / 2;
                 const dxCenter = centerX - ball.x;
                 const dyCenter = centerY - ball.y;
                 const distanceFromCenter = Math.sqrt(dxCenter * dxCenter + dyCenter * dyCenter);
+                // Pelota vuelve más rápido al centro (CENTER_GRAVITY aumentado)
                 if (distanceFromCenter > 10 && Math.abs(ball.vx) < 2 && Math.abs(ball.vy) < 2) {
                     ball.vx += (dxCenter / distanceFromCenter) * CENTER_GRAVITY * deltaTime;
                     ball.vy += (dyCenter / distanceFromCenter) * CENTER_GRAVITY * deltaTime;
                 }
-                
-                // Prevent ball from stopping
                 if (Math.abs(ball.vx) < 0.2 && Math.abs(ball.vy) < 0.2 && distanceFromCenter > 50) {
                     ball.vx += (Math.random() - 0.5) * 0.8;
                     ball.vy += (Math.random() - 0.5) * 0.8;
@@ -1800,7 +2204,7 @@
                 ball.vy += ball.spin * 0.12 * deltaTime;
                 ball.spin *= SPIN_DECAY;
                 
-                // Wall collisions
+                // Wall collisions with left/right boundaries outside goal area
                 if (ball.y - BALL_RADIUS < TABLE_PADDING || ball.y + BALL_RADIUS > HEIGHT - TABLE_PADDING) {
                     ball.vy *= -RESTITUTION * 1.2;
                     ball.y = Math.max(BALL_RADIUS + TABLE_PADDING, Math.min(HEIGHT - TABLE_PADDING - BALL_RADIUS, ball.y));
@@ -1808,24 +2212,26 @@
                     shakeIntensity = 6;
                     if (soundEnabled) {
                         sounds.hit.currentTime = 0;
-                        sounds.hit.play();
+                        sounds.hit.play().catch(err => console.error(err));
                     }
                 }
-                if (ball.x - BALL_RADIUS < TABLE_PADDING + 10) {
+                if (ball.x - BALL_RADIUS < TABLE_PADDING + 10 &&
+                    (ball.y < HEIGHT / 2 - GOAL_HEIGHT / 2 || ball.y > HEIGHT / 2 + GOAL_HEIGHT / 2)) {
                     ball.x = Math.max(BALL_RADIUS + TABLE_PADDING + 10, ball.x);
                     ball.vx = Math.abs(ball.vx) * RESTITUTION * 1.2;
                     createParticles(ball.x, ball.y, '#FFFFFF', 5);
                     if (soundEnabled) {
                         sounds.hit.currentTime = 0;
-                        sounds.hit.play();
+                        sounds.hit.play().catch(err => console.error(err));
                     }
-                } else if (ball.x + BALL_RADIUS > WIDTH - TABLE_PADDING - 10) {
+                } else if (ball.x + BALL_RADIUS > WIDTH - TABLE_PADDING - 10 &&
+                    (ball.y < HEIGHT / 2 - GOAL_HEIGHT / 2 || ball.y > HEIGHT / 2 + GOAL_HEIGHT / 2)) {
                     ball.x = Math.min(WIDTH - TABLE_PADDING - 10 - BALL_RADIUS, ball.x);
                     ball.vx = -Math.abs(ball.vx) * RESTITUTION * 1.2;
                     createParticles(ball.x, ball.y, '#FFFFFF', 5);
                     if (soundEnabled) {
                         sounds.hit.currentTime = 0;
-                        sounds.hit.play();
+                        sounds.hit.play().catch(err => console.error(err));
                     }
                 }
                 
@@ -1842,103 +2248,126 @@
                             shakeIntensity = 10;
                             if (soundEnabled) {
                                 sounds.kick.currentTime = 0;
-                                sounds.kick.play();
+                                sounds.kick.play().catch(err => console.error(err));
                             }
                         }
                     }
                 }
-                
-                // Right side collisions and AI (Player 2)
-                const aiSpeeds = [7, 6, 5, 6]; // Faster AI for dynamic gameplay
-                const offsets = [-30, -10, 10, 30];
+
+                // --- IA Mejorada: cada barra se mueve de forma independiente e inteligente ---
                 for (let i = 0; i < 4; i++) {
-                    const predictTime = (barPositions[7 - i] - ball.x) / ball.vx;
-                    let targetY = ball.y;
-                    if (predictTime > 0 && predictTime < 1) {
-                        targetY = ball.y + ball.vy * predictTime * 16;
-                        targetY = Math.max(TABLE_PADDING + BALL_RADIUS, Math.min(HEIGHT - TABLE_PADDING - BALL_RADIUS, targetY));
+                    // Configuración de la barra IA
+                    const config = aiBarConfigs[i];
+                    const barIdx = 7 - i;
+                    const barX = barPositions[barIdx];
+                    // Si la pelota está en la mitad derecha, la IA es más agresiva
+                    let anticipation = config.anticipation;
+                    if (ball.x > WIDTH * 0.7) anticipation += 0.15;
+                    // Predecir la posición futura de la pelota cuando pase por la barra
+                    let predictTime = (barX - ball.x) / (ball.vx || 0.01);
+                    let predictedY = ball.y;
+                    if (predictTime > 0 && predictTime < 1.5) {
+                        predictedY = ball.y + ball.vy * predictTime * 16 * anticipation;
                     }
-                    targetY += offsets[i] + (Math.random() - 0.5) * 8;
-                    const targetBarY = targetY - BAR_HEIGHT / 2;
-                    const aiSpeed = aiSpeeds[i] * (ball.x > WIDTH / 2 ? 1.3 : 0.9) * deltaTime;
-                    if (rightBars[i] < targetBarY - 5) {
+                    // Limitar predicción a la zona de la barra
+                    predictedY = Math.max(config.zone[0] + BAR_HEIGHT/2, Math.min(config.zone[1] - BAR_HEIGHT/2, predictedY));
+                    // Añadir aleatoriedad para hacerlo más humano
+                    predictedY += (Math.random() - 0.5) * config.randomness;
+                    // Si la pelota está lejos, volver al centro de la zona
+                    if (Math.abs(barX - ball.x) > WIDTH/2) {
+                        predictedY = (config.zone[0] + config.zone[1]) / 2;
+                    }
+                    // La barra reacciona con su propia velocidad
+                    const aiSpeed = config.reactiveness * deltaTime * 7;
+                    if (rightBars[i] + BAR_HEIGHT/2 < predictedY - 5) {
                         rightBars[i] += aiSpeed;
-                    } else if (rightBars[i] > targetBarY + 5) {
+                    } else if (rightBars[i] + BAR_HEIGHT/2 > predictedY + 5) {
                         rightBars[i] -= aiSpeed;
                     }
                     rightBars[i] = Math.max(TABLE_PADDING, Math.min(HEIGHT - TABLE_PADDING - BAR_HEIGHT, rightBars[i]));
                     
-                    const barX = barPositions[7 - i];
-                    for (let j = 0; j < PLAYERS_PER_BAR[7 - i]; j++) {
-                        const playerY = rightBars[i] + (j + 0.5) * (BAR_HEIGHT / PLAYERS_PER_BAR[7 - i]);
+                    // Colisiones de la IA
+                    for (let j = 0; j < PLAYERS_PER_BAR[barIdx]; j++) {
+                        const playerY = rightBars[i] + (j + 0.5) * (BAR_HEIGHT / PLAYERS_PER_BAR[barIdx]);
                         const playerX = barX - BAR_WIDTH / 2;
                         if (checkCollision(ball, playerX, playerY)) {
                             ball.lastHit = 'right';
-                            createParticles(ball.x, ball.y, PLAYER_COLORS[7 - i], 10);
+                            createParticles(ball.x, ball.y, PLAYER_COLORS[barIdx], 10);
                             shakeIntensity = 10;
                             if (soundEnabled) {
                                 sounds.kick.currentTime = 0;
-                                sounds.kick.play();
+                                sounds.kick.play().catch(err => console.error(err));
                             }
                         }
                     }
                 }
                 
-                // Check goals
-                if (ball.x - BALL_RADIUS < TABLE_PADDING &&
-                    ball.y > HEIGHT / 2 - GOAL_HEIGHT / 2 &&
-                    ball.y < HEIGHT / 2 + GOAL_HEIGHT / 2) {
-                    scoreRight++;
-                    scoreRightEl.textContent = scoreRight;
-                    createGoalExplosion(ball.x, ball.y, GOAL_COLOR);
-                    servingPlayer = 1;
-                    shakeIntensity = 20;
-                    if (soundEnabled) {
-                        sounds.goal.currentTime = 0;
-                        sounds.goal.play();
+                // Goal detection with immediate ball stop and delayed relaunch
+                if (!goalInProgress) {
+                    if (ball.x - BALL_RADIUS < TABLE_PADDING &&
+                        ball.y > HEIGHT / 2 - GOAL_HEIGHT / 2 &&
+                        ball.y < HEIGHT / 2 + GOAL_HEIGHT / 2) {
+                        goalInProgress = true;
+                        scoreRight++;
+                        scoreRightEl.textContent = scoreRight;
+                        ball.vx = 0;
+                        ball.vy = 0;
+                        createGoalExplosion(ball.x, ball.y, GOAL_COLOR);
+                        servingPlayer = 1;
+                        shakeIntensity = 20;
+                        if (soundEnabled) {
+                            sounds.goal.currentTime = 0;
+                            sounds.goal.play().catch(err => console.error(err));
+                            setTimeout(() => {
+                                if (soundEnabled) {
+                                    sounds.cheer.currentTime = 0;
+                                    sounds.cheer.play().catch(err => console.error(err));
+                                }
+                            }, 200);
+                        }
+                        showMessage('¡GOL!');
                         setTimeout(() => {
-                            if (soundEnabled) {
-                                sounds.cheer.currentTime = 0;
-                                sounds.cheer.play();
-                            }
-                        }, 200);
-                    }
-                    showMessage('¡GOL!');
-                    setTimeout(hideMessage, 1000);
-                    checkGameOver();
-                }
-                if (ball.x + BALL_RADIUS > WIDTH - TABLE_PADDING &&
-                    ball.y > HEIGHT / 2 - GOAL_HEIGHT / 2 &&
-                    ball.y < HEIGHT / 2 + GOAL_HEIGHT / 2) {
-                    scoreLeft++;
-                    scoreLeftEl.textContent = scoreLeft;
-                    createGoalExplosion(ball.x, ball.y, GOAL_COLOR);
-                    servingPlayer = 2;
-                    shakeIntensity = 20;
-                    if (soundEnabled) {
-                        sounds.goal.currentTime = 0;
-                        sounds.goal.play();
+                            hideMessage();
+                            resetBall();
+                        }, 1500);
+                    } else if (ball.x + BALL_RADIUS > WIDTH - TABLE_PADDING &&
+                        ball.y > HEIGHT / 2 - GOAL_HEIGHT / 2 &&
+                        ball.y < HEIGHT / 2 + GOAL_HEIGHT / 2) {
+                        goalInProgress = true;
+                        scoreLeft++;
+                        scoreLeftEl.textContent = scoreLeft;
+                        ball.vx = 0;
+                        ball.vy = 0;
+                        createGoalExplosion(ball.x, ball.y, GOAL_COLOR);
+                        servingPlayer = 2;
+                        shakeIntensity = 20;
+                        if (soundEnabled) {
+                            sounds.goal.currentTime = 0;
+                            sounds.goal.play().catch(err => console.error(err));
+                            setTimeout(() => {
+                                if (soundEnabled) {
+                                    sounds.cheer.currentTime = 0;
+                                    sounds.cheer.play().catch(err => console.error(err));
+                                }
+                            }, 200);
+                        }
+                        showMessage('¡GOL!');
                         setTimeout(() => {
-                            if (soundEnabled) {
-                                sounds.cheer.currentTime = 0;
-                                sounds.cheer.play();
-                            }
-                        }, 200);
+                            hideMessage();
+                            resetBall();
+                        }, 1500);
                     }
-                    showMessage('¡GOL!');
-                    setTimeout(hideMessage, 1000);
-                    checkGameOver();
                 }
                 
-                // Out of bounds
+                // Out-of-bounds reset as a backup
                 if (ball.x < 0 || ball.x > WIDTH) {
                     resetBall();
                 }
             }
             
-            // Check game over
+            // Check game over remains unchanged
             function checkGameOver() {
-                if (scoreLeft >= 5 || scoreRight >= 5) {
+                if (scoreLeft >= 9 || scoreRight >= 9) {
                     gameActive = false;
                     if (scoreLeft > bestScore) {
                         bestScore = scoreLeft;
@@ -1953,12 +2382,10 @@
                     resultTitle.textContent = scoreLeft > scoreRight ? '¡VICTORIA!' : '¡DERROTA!';
                     resultMessage.textContent = `Has ${scoreLeft > scoreRight ? 'ganado' : 'perdido'} ${scoreLeft}-${scoreRight}`;
                     gameOverScreen.classList.remove('hidden');
-                } else {
-                    setTimeout(resetBall, 1500);
                 }
             }
             
-            // Draw game
+            // Draw game remains mostly unchanged except for visual clarifications in debugging if needed
             function draw() {
                 ctx.clearRect(0, 0, WIDTH, HEIGHT);
                 const shakeX = shakeIntensity > 0 ? (Math.random() - 0.5) * shakeIntensity : 0;
@@ -2055,7 +2482,7 @@
                 ctx.strokeStyle = 'rgba(0, 0, 0, 0.1)';
                 ctx.lineWidth = 1;
                 for (let i = 0; i < 6; i++) {
-                    const angle = i * Math.PI / 3 + ball.spin * 0.1; // Spin visual effect
+                    const angle = i * Math.PI / 3 + ball.spin * 0.1;
                     ctx.beginPath();
                     ctx.moveTo(ball.x, ball.y);
                     ctx.lineTo(
@@ -2095,14 +2522,12 @@
                 draw();
                 requestAnimationFrame(gameLoop);
             }
-            
             requestAnimationFrame(gameLoop);
             
-            // Controls
+            // Controls with keyboard: increased serving boost speed
             const keys = {
                 w: false, s: false, e: false, d: false, r: false, f: false, t: false, g: false
             };
-
             document.addEventListener('keydown', e => {
                 if (!canvas.closest('.fixed') || canvas.closest('.fixed').classList.contains('hidden')) return;
                 if (e.key === 'w') keys.w = true;
@@ -2117,12 +2542,12 @@
                     const threshold = 20;
                     if (Math.abs(ball.x - WIDTH / 2) < threshold && Math.abs(ball.y - HEIGHT / 2) < threshold) {
                         const randomAngle = Math.random() * 2 * Math.PI;
-                        const boostSpeed = 14; // Faster for lighter ball
+                        const boostSpeed = 18; // Increased serving boost speed
                         ball.vx = Math.cos(randomAngle) * boostSpeed;
                         ball.vy = Math.sin(randomAngle) * boostSpeed;
                         if (soundEnabled) {
                             sounds.kick.currentTime = 0;
-                            sounds.kick.play();
+                            sounds.kick.play().catch(err => console.error(err));
                         }
                     }
                 } else if (e.key === ' ' && !gameActive) {
@@ -2140,17 +2565,149 @@
                 if (e.key === 't') keys.t = false;
                 if (e.key === 'g') keys.g = false;
             });
+
+            // Touch controls for mobile mejorados + botón de empezar
+            function createMobileControls() {
+                // Evita duplicados
+                if (document.getElementById('foosball-mobile-controls')) return;
+                const controls = document.createElement('div');
+                controls.id = 'foosball-mobile-controls';
+                controls.className = 'foosball-mobile-controls fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 w-[98vw] max-w-2xl flex-col items-center';
+
+                // Botones para cada barra (arriba/abajo)
+                controls.innerHTML = `
+                    <div class="flex gap-2 mb-2 w-full">
+                        <button data-bar="0" data-dir="up">Portero ▲</button>
+                        <button data-bar="1" data-dir="up">Defensa ▲</button>
+                        <button data-bar="2" data-dir="up">Centro ▲</button>
+                        <button data-bar="3" data-dir="up">Delantero ▲</button>
+                    </div>
+                    <div class="flex gap-2 mb-2 w-full">
+                        <button data-bar="0" data-dir="down">Portero ▼</button>
+                        <button data-bar="1" data-dir="down">Defensa ▼</button>
+                        <button data-bar="2" data-dir="down">Centro ▼</button>
+                        <button data-bar="3" data-dir="down">Delantero ▼</button>
+                    </div>
+                    <div class="flex justify-center w-full">
+                        <button id="foosball-start-btn" class="bg-accent text-night font-bold px-8 py-3 rounded-full shadow-lg text-lg" style="flex:1 1 0;max-width:300px;">EMPEZAR</button>
+                    </div>
+                `;
+                document.body.appendChild(controls);
+
+                // Definir modal aquí para evitar ReferenceError
+                const modal = document.getElementById('modal-futbolin');
+
+                // Mostrar controles solo si el modal está abierto y en móvil
+                function updateControlsVisibility() {
+                    if (window.innerWidth <= 768 && modal && !modal.classList.contains('hidden')) {
+                        controls.style.display = 'flex';
+                    } else {
+                        controls.style.display = 'none';
+                    }
+                }
+                window.addEventListener('resize', updateControlsVisibility);
+                if (modal) {
+                    const observer = new MutationObserver(updateControlsVisibility);
+                    observer.observe(modal, { attributes: true, attributeFilter: ['class'] });
+                }
+                updateControlsVisibility();
+
+                // Movimiento suave al mantener pulsado
+                let intervals = {};
+                controls.querySelectorAll('button[data-bar]').forEach(btn => {
+                    const bar = parseInt(btn.getAttribute('data-bar'));
+                    const dir = btn.getAttribute('data-dir');
+                    const delta = dir === 'up' ? -18 : 18;
+                    function moveBar() {
+                        leftBars[bar] += delta;
+                        leftBars[bar] = Math.max(TABLE_PADDING, Math.min(HEIGHT - TABLE_PADDING - BAR_HEIGHT, leftBars[bar]));
+                    }
+                    btn.addEventListener('touchstart', e => {
+                        e.preventDefault();
+                        moveBar();
+                        intervals[bar + dir] = setInterval(moveBar, 60);
+                    });
+                    btn.addEventListener('touchend', () => {
+                        clearInterval(intervals[bar + dir]);
+                    });
+                    btn.addEventListener('mousedown', e => {
+                        e.preventDefault();
+                        moveBar();
+                        intervals[bar + dir] = setInterval(moveBar, 60);
+                    });
+                    btn.addEventListener('mouseup', () => {
+                        clearInterval(intervals[bar + dir]);
+                    });
+                    btn.addEventListener('mouseleave', () => {
+                        clearInterval(intervals[bar + dir]);
+                    });
+                });
+
+                // Botón EMPEZAR para iniciar la partida (en vez de espacio)
+                const startBtn = document.getElementById('foosball-start-btn');
+                if (startBtn) {
+                    startBtn.addEventListener('click', () => {
+                        if (!gameActive) {
+                            gameActive = true;
+                            // Oculta el mensaje de "PRESIONA ESPACIO"
+                            const msgEl = document.getElementById('game-message')?.querySelector('div');
+                            if (msgEl) {
+                                msgEl.classList.remove('scale-100');
+                                msgEl.classList.add('scale-0');
+                            }
+                        } else {
+                            // Si ya está activo, sirve la bola si está en el centro
+                            const threshold = 20;
+                            if (Math.abs(ball.x - WIDTH / 2) < threshold && Math.abs(ball.y - HEIGHT / 2) < threshold) {
+                                const randomAngle = Math.random() * 2 * Math.PI;
+                                const boostSpeed = 18;
+                                ball.vx = Math.cos(randomAngle) * boostSpeed;
+                                ball.vy = Math.sin(randomAngle) * boostSpeed;
+                                if (soundEnabled) {
+                                    sounds.kick.currentTime = 0;
+                                    sounds.kick.play().catch(err => console.error(err));
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+            createMobileControls();
+
+            // Updated: Divide canvas into 4 vertical strips to control each bar separately.
+            canvas.addEventListener('touchstart', e => {
+                const touch = e.touches[0];
+                updateLeftBarsFromTouch(touch);
+            });
+            canvas.addEventListener('touchmove', e => {
+                const touch = e.touches[0];
+                updateLeftBarsFromTouch(touch);
+                e.preventDefault();
+            });
+            canvas.addEventListener('touchend', () => {});
+            function updateLeftBarsFromTouch(touch) {
+                const rect = canvas.getBoundingClientRect();
+                const touchY = ((touch.clientY - rect.top) / rect.height) * HEIGHT;
+                const touchX = ((touch.clientX - rect.left) / rect.width) * WIDTH;
+                // Divide canvas width into 4 equal strips, determine bar index
+                const stripWidth = WIDTH / 4;
+                const barIndex = Math.floor(touchX / stripWidth);
+                if (barIndex >= 0 && barIndex < leftBars.length) {
+                    // Smoothly update only the touched bar
+                    leftBars[barIndex] += (touchY - (leftBars[barIndex] + BAR_HEIGHT / 2)) * 0.1;
+                    leftBars[barIndex] = Math.max(TABLE_PADDING, Math.min(HEIGHT - TABLE_PADDING - BAR_HEIGHT, leftBars[barIndex]));
+                }
+            }
             
-            // Handle controls
             function handleControls() {
                 const speed = 8;
-                if (keys.w) leftBars[0] -= speed; // Goalkeeper
+                if (keys.w) leftBars[0] -= speed;
                 if (keys.s) leftBars[0] += speed;
-                if (keys.e) leftBars[1] -= speed; // Defenders
+                if (keys.e) leftBars[1] -= speed;
                 if (keys.d) leftBars[1] += speed;
-                if (keys.r) leftBars[2] -= speed; // Attackers
+                if (keys.r) leftBars[2] -= speed;
                 if (keys.f) leftBars[2] += speed;
-                if (keys.t) leftBars[3] -= speed; // Midfielders
+                if (keys.t) leftBars[3] -= speed;
                 if (keys.g) leftBars[3] += speed;
                 for (let i = 0; i < 4; i++) {
                     leftBars[i] = Math.max(TABLE_PADDING, Math.min(HEIGHT - TABLE_PADDING - BAR_HEIGHT, leftBars[i]));
@@ -2312,119 +2869,133 @@
     document.addEventListener('DOMContentLoaded', fetchInstagramPosts);
     </script>
 
-    <!-- Events Section -->
-    <section id="eventos" class="py-20 bg-night">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 font-serif">
-                    <span class="text-accent">Próximos</span> Eventos
-                </h2>
-                <p class="text-gray-300 max-w-2xl mx-auto">
-                    No te pierdas nuestras fiestas temáticas, noches especiales y promociones exclusivas.
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                <!-- Event 1 -->
-                <div class="bg-dark rounded-xl overflow-hidden shadow-lg">
-                    <div class="relative overflow-hidden h-48">
-                        <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
-                             alt="Noche de cócteles" 
-                             class="w-full h-full object-cover">
-                        <div class="absolute top-4 right-4 bg-accent text-night px-3 py-1 rounded-full text-sm font-bold">
-                            15 Junio
-                        </div>
+    <!-- Mostrar eventos solo si la variable showEvents es true -->
+    <script>
+        // Cambia a false para ocultar la sección de eventos
+        window.showEvents = false;
+    </script>
+    <div id="eventos-section-container"></div>
+    <script>
+        // Código HTML de la sección de eventos
+        const eventosHTML = `
+            <section id="eventos" class="py-20 bg-night">
+                    <div class="container mx-auto px-4">
+                            <div class="text-center mb-16">
+                                    <h2 class="text-3xl md:text-4xl font-bold mb-4 font-serif">
+                                            <span class="text-accent">Próximos</span> Eventos
+                                    </h2>
+                                    <p class="text-gray-300 max-w-2xl mx-auto">
+                                            No te pierdas nuestras fiestas temáticas, noches especiales y promociones exclusivas.
+                                    </p>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                                    <!-- Event 1 -->
+                                    <div class="bg-dark rounded-xl overflow-hidden shadow-lg">
+                                            <div class="relative overflow-hidden h-48">
+                                                    <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                                                             alt="Noche de cócteles" 
+                                                             class="w-full h-full object-cover">
+                                                    <div class="absolute top-4 right-4 bg-accent text-night px-3 py-1 rounded-full text-sm font-bold">
+                                                            15 Junio
+                                                    </div>
+                                            </div>
+                                            <div class="p-6">
+                                                    <h3 class="text-xl font-bold mb-2">Noche de Cócteles Clásicos</h3>
+                                                    <p class="text-gray-300 mb-4">Disfruta de los cócteles más icónicos de la historia a precio especial. Nuestro mixólogo te contará sus secretos.</p>
+                                                    <div class="flex justify-between items-center">
+                                                            <span class="text-sm text-gray-400">21:00 - 02:00</span>
+                                                            <button class="text-accent hover:text-opacity-80 text-sm font-medium">
+                                                                    Más información
+                                                            </button>
+                                                    </div>
+                                            </div>
+                                    </div>
+                                    
+                                    <!-- Event 2 -->
+                                    <div class="bg-dark rounded-xl overflow-hidden shadow-lg">
+                                            <div class="relative overflow-hidden h-48">
+                                                    <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                                                             alt="Torneo de futbolín" 
+                                                             class="w-full h-full object-cover">
+                                                    <div class="absolute top-4 right-4 bg-accent text-night px-3 py-1 rounded-full text-sm font-bold">
+                                                            22 Junio
+                                                    </div>
+                                            </div>
+                                            <div class="p-6">
+                                                    <h3 class="text-xl font-bold mb-2">Torneo de Futbolín</h3>
+                                                    <p class="text-gray-300 mb-4">Inscríbete en nuestro torneo mensual. Premios para los primeros clasificados y promociones especiales.</p>
+                                                    <div class="flex justify-between items-center">
+                                                            <span class="text-sm text-gray-400">19:00 - 23:00</span>
+                                                            <button class="text-accent hover:text-opacity-80 text-sm font-medium">
+                                                                    Inscribirse
+                                                            </button>
+                                                    </div>
+                                            </div>
+                                    </div>
+                                    
+                                    <!-- Event 3 -->
+                                    <div class="bg-dark rounded-xl overflow-hidden shadow-lg">
+                                            <div class="relative overflow-hidden h-48">
+                                                    <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                                                             alt="DJ en vivo" 
+                                                             class="w-full h-full object-cover">
+                                                    <div class="absolute top-4 right-4 bg-accent text-night px-3 py-1 rounded-full text-sm font-bold">
+                                                            29 Junio
+                                                    </div>
+                                            </div>
+                                            <div class="p-6">
+                                                    <h3 class="text-xl font-bold mb-2">DJ en Vivo - Noche Electrónica</h3>
+                                                    <p class="text-gray-300 mb-4">Disfruta de la mejor música electrónica con nuestro DJ invitado. Cócteles especiales y ambiente garantizado.</p>
+                                                    <div class="flex justify-between items-center">
+                                                            <span class="text-sm text-gray-400">23:00 - 02:00</span>
+                                                            <button class="text-accent hover:text-opacity-80 text-sm font-medium">
+                                                                    Ver cartel
+                                                            </button>
+                                                    </div>
+                                            </div>
+                                    </div>
+                                    
+                                    <!-- Event 4 -->
+                                    <div class="bg-dark rounded-xl overflow-hidden shadow-lg">
+                                            <div class="relative overflow-hidden h-48">
+                                                    <img src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                                                             alt="Noche de cócteles" 
+                                                             class="w-full h-full object-cover">
+                                                    <div class="absolute top-4 right-4 bg-accent text-night px-3 py-1 rounded-full text-sm font-bold">
+                                                            6 Julio
+                                                    </div>
+                                            </div>
+                                            <div class="p-6">
+                                                    <h3 class="text-xl font-bold mb-2">Taller de Mixología</h3>
+                                                    <p class="text-gray-300 mb-4">Aprende a preparar tus cócteles favoritos con nuestro experto mixólogo. Incluye degustación y diploma.</p>
+                                                    <div class="flex justify-between items-center">
+                                                            <span class="text-sm text-gray-400">18:00 - 20:00</span>
+                                                            <button class="text-accent hover:text-opacity-80 text-sm font-medium">
+                                                                    Reservar plaza
+                                                            </button>
+                                                    </div>
+                                            </div>
+                                    </div>
+                            </div>
+                            
+                            <!-- Calendar CTA -->
+                            <div class="mt-16 text-center">
+                                    <p class="text-gray-300 mb-6 max-w-2xl mx-auto">
+                                            ¿Quieres celebrar tu cumpleaños o evento privado en Bar Envidia? Contáctanos para personalizar tu experiencia.
+                                    </p>
+                                    <a href="#contacto" class="inline-block bg-accent hover:bg-opacity-90 text-night px-8 py-3 rounded-full font-medium transition transform hover:scale-105">
+                                            Reservar evento privado
+                                    </a>
+                            </div>
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">Noche de Cócteles Clásicos</h3>
-                        <p class="text-gray-300 mb-4">Disfruta de los cócteles más icónicos de la historia a precio especial. Nuestro mixólogo te contará sus secretos.</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-sm text-gray-400">21:00 - 02:00</span>
-                            <button class="text-accent hover:text-opacity-80 text-sm font-medium">
-                                Más información
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Event 2 -->
-                <div class="bg-dark rounded-xl overflow-hidden shadow-lg">
-                    <div class="relative overflow-hidden h-48">
-                        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
-                             alt="Torneo de futbolín" 
-                             class="w-full h-full object-cover">
-                        <div class="absolute top-4 right-4 bg-accent text-night px-3 py-1 rounded-full text-sm font-bold">
-                            22 Junio
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">Torneo de Futbolín</h3>
-                        <p class="text-gray-300 mb-4">Inscríbete en nuestro torneo mensual. Premios para los primeros clasificados y promociones especiales.</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-sm text-gray-400">19:00 - 23:00</span>
-                            <button class="text-accent hover:text-opacity-80 text-sm font-medium">
-                                Inscribirse
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Event 3 -->
-                <div class="bg-dark rounded-xl overflow-hidden shadow-lg">
-                    <div class="relative overflow-hidden h-48">
-                        <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
-                             alt="DJ en vivo" 
-                             class="w-full h-full object-cover">
-                        <div class="absolute top-4 right-4 bg-accent text-night px-3 py-1 rounded-full text-sm font-bold">
-                            29 Junio
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">DJ en Vivo - Noche Electrónica</h3>
-                        <p class="text-gray-300 mb-4">Disfruta de la mejor música electrónica con nuestro DJ invitado. Cócteles especiales y ambiente garantizado.</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-sm text-gray-400">23:00 - 02:00</span>
-                            <button class="text-accent hover:text-opacity-80 text-sm font-medium">
-                                Ver cartel
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Event 4 -->
-                <div class="bg-dark rounded-xl overflow-hidden shadow-lg">
-                    <div class="relative overflow-hidden h-48">
-                        <img src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
-                             alt="Noche de cócteles" 
-                             class="w-full h-full object-cover">
-                        <div class="absolute top-4 right-4 bg-accent text-night px-3 py-1 rounded-full text-sm font-bold">
-                            6 Julio
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">Taller de Mixología</h3>
-                        <p class="text-gray-300 mb-4">Aprende a preparar tus cócteles favoritos con nuestro experto mixólogo. Incluye degustación y diploma.</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-sm text-gray-400">18:00 - 20:00</span>
-                            <button class="text-accent hover:text-opacity-80 text-sm font-medium">
-                                Reservar plaza
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Calendar CTA -->
-            <div class="mt-16 text-center">
-                <p class="text-gray-300 mb-6 max-w-2xl mx-auto">
-                    ¿Quieres celebrar tu cumpleaños o evento privado en Bar Envidia? Contáctanos para personalizar tu experiencia.
-                </p>
-                <a href="#contacto" class="inline-block bg-accent hover:bg-opacity-90 text-night px-8 py-3 rounded-full font-medium transition transform hover:scale-105">
-                    Reservar evento privado
-                </a>
-            </div>
-        </div>
-    </section>
+            </section>
+        `;
+        // Renderizar la sección solo si showEvents es true
+        if (window.showEvents) {
+            document.getElementById('eventos-section-container').innerHTML = eventosHTML;
+        }
+    </script>
 
     <!-- Contact Section -->
     <section id="contacto" class="py-20 bg-dark">
@@ -2463,8 +3034,10 @@
                                 <div>
                                     <h4 class="font-medium mb-1">Horario</h4>
                                     <p class="text-gray-300">
-                                        Martes - Jueves: 16:00 - 00:00<br>
-                                        Viernes - Sábado: 16:00 - 02:00<br>
+                                        <span class="font-semibold text-accent">Desayunos:</span><br>
+                                        Lunes - Sábado: 08:00 - 12:00<br>
+                                        <span class="font-semibold text-accent">Copas:</span><br>
+                                        Martes - Sábado: 16:00 - 02:00<br>
                                         Domingo: 16:00 - 21:00
                                     </p>
                                 </div>
@@ -2476,7 +3049,7 @@
                                 </div>
                                 <div>
                                     <h4 class="font-medium mb-1">Teléfono</h4>
-                                    <p class="text-gray-300">+34 955 123 456</p>
+                                    <p class="text-gray-300">+34 601 35 93 86</p>
                                     <p class="text-gray-400 text-sm mt-1">Reservas recomendadas los fines de semana</p>
                                 </div>
                             </div>
@@ -2619,7 +3192,7 @@
                 <div class="mb-6 md:mb-0">
                     <a href="#" class="flex items-center">
                         <span class="text-3xl font-bold text-accent mr-2">ENVIDIA</span>
-                        <span class="text-sm font-light italic">bar & cocktails</span>
+                        <span class="text-sm font-light italic">cafe & copas</span>
                     </a>
                     <p class="text-gray-400 mt-2">
                         El mejor ambiente nocturno en Santa Justa, Sevilla
@@ -2647,7 +3220,7 @@
                             &copy; 2025 Bar Envidia. Todos los derechos reservados.
                         </p>
                         <p class="text-gray-500 text-xs mt-1">
-                            Diseñado con ❤️ para los amantes de la noche sevillana
+                            Diseñado con ❤️ para los amantes de la noche sevillana (by Miguel Pérez)
                         </p>
                     </div>
                 </div>
