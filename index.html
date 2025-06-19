@@ -12,29 +12,31 @@
     <script>
         tailwind.config = {
             theme: {
-                extend: {
-                    colors: {
-                        primary: '#1DB954',
-                        secondary: '#FF2D55',
-                        accent: '#FFD700',
-                        dark: '#121212',
-                        night: '#0A0A0A',
-                    },
-                    fontFamily: {
-                        sans: ['Poppins', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 3s infinite',
-                        'float': 'float 6s ease-in-out infinite',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-20px)' },
-                        }
-                    }
+            extend: {
+                colors: {
+                primary: '#1DB954',
+                secondary: '#FF2D55',
+                accent: '#FFD700',
+                dark: '#121212',
+                night: '#0A0A0A',
+                neon_purple: '#d000ff', // <-- AÑADIDO
+                neon_pink: '#ff00aa',   // <-- AÑADIDO
+                },
+                fontFamily: {
+                sans: ['Poppins', 'sans-serif'],
+                serif: ['Playfair Display', 'serif'],
+                },
+                animation: {
+                'pulse-slow': 'pulse 3s infinite',
+                'float': 'float 6s ease-in-out infinite',
+                },
+                keyframes: {
+                float: {
+                    '0%, 100%': { transform: 'translateY(0)' },
+                    '50%': { transform: 'translateY(-20px)' },
                 }
+                }
+            }
             }
         }
     </script>
@@ -386,6 +388,42 @@
             #modal-futbolin .relative.w-full.max-w-5xl.h-full {
             padding-bottom: 0 !important; /* El canvas ocupa todo, los controles van fuera */
             }
+        }
+        /* --- CSS PARA JUEGOS (Futbolín y Dardos) --- */
+
+        /* Un estilo común para los canvas de vista previa */
+        .game-preview-canvas {
+            width: 100%;
+            height: auto;
+            max-width: 600px;
+            aspect-ratio: 10 / 6; /* Mantiene la proporción */
+            display: block;
+            margin: auto;
+            background: #1a1a1a;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+        }
+
+        /* Estilos comunes para el modal de juego y el canvas principal */
+        .game-modal .game-canvas {
+            display: block;
+            margin: auto;
+            background: #000;
+            width: 100%;
+            max-width: 1200px;
+            aspect-ratio: 1200 / 720; /* Proporción 16:9, puedes ajustarla */
+        }
+
+        /* Estilos para que el juego se vea bien en pantalla completa */
+        .game-modal:fullscreen .game-canvas,
+        .game-modal:-webkit-full-screen .game-canvas {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100vw !important;
+            height: auto !important;
+            max-height: 100vh;
         }
     </style>
 </head>
@@ -1675,65 +1713,178 @@
             }
         });
     </script>
-
     <!-- Zona de Juegos Mejorada y Adictiva -->
 <section id="juegos" class="py-20 bg-night">
     <div class="container mx-auto px-4">
         <div class="text-center mb-16">
             <h2 class="text-3xl md:text-4xl font-bold mb-4 font-serif">
-                <span class="text-accent">Futbolín</span>
+                <span class="text-accent">Futbolín & Dardos</span>
             </h2>
             <p class="text-gray-300 max-w-2xl mx-auto">
-                Experimenta el futbolín más realista en digital. Física avanzada, controles precisos y efectos visuales espectaculares que te harán sentir en una mesa real.
+                Experimenta el futbolín más realista en digital y reta tu puntería con los Dardos Neón. Física avanzada, controles precisos y efectos visuales espectaculares.
             </p>
         </div>
-        
-        <div class="game-card bg-dark rounded-xl overflow-hidden shadow-lg cursor-pointer group" data-modal="modal-futbolin">
-            <div class="relative overflow-hidden h-96 flex items-center justify-center">
-                <canvas id="foosball-preview" width="600" height="360" class="bg-green-900 rounded-lg shadow-lg border-4 border-gold-500"></canvas>
-                <div class="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-70 pointer-events-none"></div>
-                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
-                    <span class="bg-accent text-night px-6 py-3 rounded-full font-bold shadow-lg text-xl animate-pulse">JUGAR AHORA</span>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <!-- Futbolín Card adaptada estilo neón -->
+            <div class="game-card bg-gradient-to-br from-night via-dark to-black rounded-xl overflow-hidden shadow-2xl cursor-pointer group border-2 border-accent hover:scale-105 transition-transform duration-300" data-modal="modal-futbolin">
+                <div class="relative overflow-hidden h-64 sm:h-80 md:h-96 flex items-center justify-center">
+                    <!-- Mejora: canvas responsive y fallback -->
+                    <div class="w-full h-full flex items-center justify-center">
+                        <canvas id="foosball-preview" width="600" height="360" class="game-preview-canvas bg-green-900 w-full h-full max-w-full max-h-full aspect-video" style="object-fit:contain;display:block;border-radius:0.75rem;"></canvas>
+                        <noscript>
+                            <img src="https://cdn-icons-png.flaticon.com/512/3081/3081985.png" alt="Vista previa futbolín" class="w-full h-full object-contain rounded-xl" />
+                        </noscript>
+                    </div>
+                    <!-- Neon Glow Effect -->
+                    <div class="absolute inset-0 pointer-events-none">
+                        <div class="absolute inset-0 rounded-xl" style="box-shadow: 0 0 60px 10px #FFD700, 0 0 30px 5px #FFD700 inset;"></div>
+                    </div>
+                    <!-- Overlay Gradient -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80 pointer-events-none"></div>
+                    <!-- Animated "JUGAR AHORA" Button -->
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                        <span class="bg-gradient-to-r from-accent via-yellow-400 to-secondary text-night px-4 py-2 md:px-8 md:py-4 rounded-full font-extrabold shadow-2xl text-lg md:text-2xl animate-pulse tracking-wider border-4 border-accent" style="box-shadow: 0 0 30px #FFD700, 0 0 10px #FFD700;">JUGAR AHORA</span>
+                    </div>
+                    <!-- Neon Trophy Icon -->
+                    <div class="absolute top-2 right-2 md:top-6 md:right-6 z-10">
+                        <i class="fas fa-futbol text-3xl md:text-5xl text-accent drop-shadow-[0_0_16px_#FFD700] animate-pulse"></i>
+                    </div>
+                    <!-- Score Preview -->
+                    <div class="absolute bottom-2 left-2 md:bottom-4 md:left-4 bg-black bg-opacity-80 text-white px-2 py-1 md:px-4 md:py-2 rounded-full text-xs md:text-base font-semibold flex items-center gap-2 shadow-lg border border-accent">
+                        <i class="fas fa-trophy text-accent"></i>
+                        TOP SCORE: <span id="top-score-preview" class="text-accent font-bold">0</span>
+                    </div>
                 </div>
-                <div class="absolute bottom-4 left-4 bg-black bg-opacity-70 text-white px-3 py-1 rounded-full text-sm">
-                    <i class="fas fa-trophy mr-2 text-yellow-400"></i>TOP SCORE: <span id="top-score-preview">0</span>
-                </div>
-            </div>
-            <div class="p-6">
-                <div class="flex justify-between items-start mb-4">
-                    <div>
-                        <h3 class="text-2xl font-bold mb-1">Futbolín</h3>
-                        <div class="flex items-center text-sm text-gray-400 mb-2">
-                            <span class="mr-3"><i class="fas fa-users mr-1"></i> 1-2 jugadores</span>
-                            <span><i class="fas fa-stopwatch mr-1"></i> 9 bolas</span>
+                <div class="p-4 md:p-6">
+                    <div class="flex justify-between items-start mb-2 md:mb-4">
+                        <div>
+                            <h3 class="text-lg md:text-2xl font-extrabold mb-1 text-accent drop-shadow-[0_0_10px_#FFD700]">Futbolín</h3>
+                            <div class="flex items-center text-xs md:text-sm text-gray-400 mb-2 gap-2 md:gap-4">
+                                <span class="flex items-center"><i class="fas fa-users mr-1"></i> 1-2 jugadores</span>
+                                <span class="flex items-center"><i class="fas fa-stopwatch mr-1"></i> 9 bolas</span>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-r from-accent to-yellow-400 text-night px-2 py-1 md:px-4 md:py-1 rounded-full text-xs md:text-sm font-bold shadow-md border border-accent">1€/partida</div>
+                    </div>
+                    <p class="text-gray-200 mb-4 md:mb-6 text-sm md:text-base">Control preciso con física realista, efectos de sonido auténticos y múltiples modos de juego. ¡Siente la emoción del futbolín como nunca antes!</p>
+                    <div class="grid grid-cols-3 gap-2 md:gap-4 text-center">
+                        <div class="bg-gradient-to-br from-accent/80 to-black/70 p-2 md:p-3 rounded-lg shadow">
+                            <div class="text-accent font-extrabold text-base md:text-lg drop-shadow-[0_0_8px_#FFD700]">3D</div>
+                            <div class="text-xs text-gray-300">Física</div>
+                        </div>
+                        <div class="bg-gradient-to-br from-yellow-400/80 to-black/70 p-2 md:p-3 rounded-lg shadow">
+                            <div class="text-yellow-400 font-extrabold text-base md:text-lg drop-shadow-[0_0_8px_#FFD700]">4K</div>
+                            <div class="text-xs text-gray-300">Gráficos</div>
+                        </div>
+                        <div class="bg-gradient-to-br from-secondary/80 to-black/70 p-2 md:p-3 rounded-lg shadow">
+                            <div class="text-secondary font-extrabold text-base md:text-lg drop-shadow-[0_0_8px_#FF2D55]">60FPS</div>
+                            <div class="text-xs text-gray-300">Fluido</div>
                         </div>
                     </div>
-                    <div class="bg-accent text-night px-3 py-1 rounded-full text-sm font-bold">1€/partida</div>
                 </div>
-                <p class="text-gray-300 mb-6">Control preciso con física realista, efectos de sonido auténticos y múltiples modos de juego. ¡Siente la emoción del futbolín como nunca antes!</p>
-                
-                <div class="grid grid-cols-3 gap-4 text-center">
-                    <div class="bg-gray-800 p-2 rounded-lg">
-                        <div class="text-accent font-bold text-lg">3D</div>
-                        <div class="text-xs text-gray-400">Física</div>
+            </div>
+            <!-- Dardos Card -->
+            <div class="game-card bg-gradient-to-br from-night via-dark to-black rounded-xl overflow-hidden shadow-2xl cursor-pointer group border-2 border-neon_purple hover:scale-105 transition-transform duration-300" data-modal="modal-dardos">
+                <div class="relative overflow-hidden h-64 sm:h-80 md:h-96 flex items-center justify-center">
+                    <!-- Mejora: canvas responsive y fallback -->
+                    <div class="w-full h-full flex items-center justify-center">
+                        <canvas id="darts-preview" width="600" height="360" class="game-preview-canvas bg-black w-full h-full max-w-full max-h-full aspect-video" style="object-fit:contain;display:block;border-radius:0.75rem;"></canvas>
+                        <noscript>
+                            <img src="https://cdn-icons-png.flaticon.com/512/3081/3081985.png" alt="Vista previa dardos" class="w-full h-full object-contain rounded-xl" />
+                        </noscript>
                     </div>
-                    <div class="bg-gray-800 p-2 rounded-lg">
-                        <div class="text-accent font-bold text-lg">4K</div>
-                        <div class="text-xs text-gray-400">Gráficos</div>
+                    <!-- Neon Glow Effect -->
+                    <div class="absolute inset-0 pointer-events-none">
+                        <div class="absolute inset-0 rounded-xl" style="box-shadow: 0 0 60px 10px #d000ff, 0 0 30px 5px #ff00aa inset;"></div>
                     </div>
-                    <div class="bg-gray-800 p-2 rounded-lg">
-                        <div class="text-accent font-bold text-lg">60FPS</div>
-                        <div class="text-xs text-gray-400">Fluido</div>
+                    <!-- Overlay Gradient -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80 pointer-events-none"></div>
+                    <!-- Animated "JUGAR AHORA" Button -->
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                        <span class="bg-gradient-to-r from-neon_purple via-neon_pink to-accent text-white px-4 py-2 md:px-8 md:py-4 rounded-full font-extrabold shadow-2xl text-lg md:text-2xl animate-pulse tracking-wider border-4 border-neon_purple" style="box-shadow: 0 0 30px #d000ff, 0 0 10px #ff00aa;">JUGAR AHORA</span>
+                    </div>
+                    <!-- Neon Bullseye Icon -->
+                    <div class="absolute top-2 right-2 md:top-6 md:right-6 z-10">
+                        <i class="fas fa-bullseye text-3xl md:text-5xl text-neon_pink drop-shadow-[0_0_16px_#ff00aa] animate-pulse"></i>
+                    </div>
+                    <!-- Score Preview -->
+                    <div class="absolute bottom-2 left-2 md:bottom-4 md:left-4 bg-black bg-opacity-80 text-white px-2 py-1 md:px-4 md:py-2 rounded-full text-xs md:text-base font-semibold flex items-center gap-2 shadow-lg border border-neon_purple">
+                        <i class="fas fa-trophy text-neon_purple"></i>
+                        RÉCORD: <span id="darts-top-score-preview" class="text-neon_pink font-bold">0</span>
+                    </div>
+                </div>
+                <div class="p-4 md:p-6">
+                    <div class="flex justify-between items-start mb-2 md:mb-4">
+                        <div>
+                            <h3 class="text-lg md:text-2xl font-extrabold mb-1 text-neon_purple drop-shadow-[0_0_10px_#d000ff]">Dardos Neón</h3>
+                            <div class="flex items-center text-xs md:text-sm text-gray-400 mb-2 gap-2 md:gap-4">
+                                <span class="flex items-center"><i class="fas fa-user mr-1"></i> 1 jugador</span>
+                                <span class="flex items-center"><i class="fas fa-bullseye mr-1"></i> 10 lanzamientos</span>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-r from-neon_purple to-neon_pink text-white px-2 py-1 md:px-4 md:py-1 rounded-full text-xs md:text-sm font-bold shadow-md border border-neon_purple">Gratis</div>
+                    </div>
+                    <p class="text-gray-200 mb-4 md:mb-6 text-sm md:text-base">Apunta, ajusta la potencia y compite por el récord. Estética neón, controles táctiles y efectos visuales espectaculares.</p>
+                    <div class="grid grid-cols-3 gap-2 md:gap-4 text-center">
+                        <div class="bg-gradient-to-br from-neon_purple/80 to-black/70 p-2 md:p-3 rounded-lg shadow">
+                            <div class="text-neon_purple font-extrabold text-base md:text-lg drop-shadow-[0_0_8px_#d000ff]">Precisión</div>
+                            <div class="text-xs text-gray-300">Control Táctil</div>
+                        </div>
+                        <div class="bg-gradient-to-br from-neon_pink/80 to-black/70 p-2 md:p-3 rounded-lg shadow">
+                            <div class="text-neon_pink font-extrabold text-base md:text-lg drop-shadow-[0_0_8px_#ff00aa]">Estilo</div>
+                            <div class="text-xs text-gray-300">Neón</div>
+                        </div>
+                        <div class="bg-gradient-to-br from-accent/80 to-black/70 p-2 md:p-3 rounded-lg shadow">
+                            <div class="text-accent font-extrabold text-base md:text-lg drop-shadow-[0_0_8px_#FFD700]">Adictivo</div>
+                            <div class="text-xs text-gray-300">High Score</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
+        <style>
+        @media (max-width: 768px) {
+            .game-preview-canvas,
+            #foosball-preview,
+            #darts-preview {
+                width: 100% !important;
+                height: auto !important;
+                max-width: 100vw !important;
+                max-height: 40vw !important;
+                aspect-ratio: 3/2 !important;
+                display: block;
+                margin: 0 auto;
+                border-radius: 0.75rem;
+                background: #1a3a1a;
+            }
+            .game-card .relative.h-96,
+            .game-card .relative.h-80,
+            .game-card .relative.h-64 {
+                height: 40vw !important;
+                min-height: 160px;
+                max-height: 220px;
+            }
+        }
+        @media (max-width: 500px) {
+            .game-preview-canvas,
+            #foosball-preview,
+            #darts-preview {
+                max-height: 120px !important;
+                aspect-ratio: 3/2 !important;
+            }
+            .game-card .relative.h-96,
+            .game-card .relative.h-80,
+            .game-card .relative.h-64 {
+                height: 120px !important;
+                min-height: 100px;
+                max-height: 140px;
+            }
+        }
+        </style>
         <!-- Modal Futbolín Mejorado -->
         <div id="modal-futbolin" class="fixed inset-0 bg-black bg-opacity-95 z-50 flex items-center justify-center hidden">
             <div class="relative w-full max-w-5xl h-full max-h-[90vh] bg-dark rounded-xl overflow-hidden shadow-2xl">
                 <button class="close-modal absolute top-4 right-4 text-white text-3xl z-50 bg-black bg-opacity-50 rounded-full w-10 h-10 flex items-center justify-center hover:bg-accent transition">×</button>
-                
                 <!-- Game UI -->
                 <div class="absolute top-0 left-0 right-0 z-10 p-4 bg-gradient-to-b from-black to-transparent flex justify-between items-center">
                     <div class="flex items-center space-x-6">
@@ -1751,58 +1902,307 @@
                         <button id="fullscreen-btn" class="text-white bg-gray-800 bg-opacity-50 rounded-full p-2 hover:bg-accent transition">
                             <i class="fas fa-expand"></i>
                         </button>
-                        <!-- Botón para reiniciar la bola con una dirección aleatoria -->
                         <button id="random-kick-btn" class="text-white bg-gray-800 bg-opacity-50 rounded-full p-2 hover:bg-accent transition">
                             <i class="fas fa-random"></i>
                         </button>
-                    </div>
                 </div>
-                
-                <!-- Game Canvas -->
-                <canvas id="foosball-canvas" width="1200" height="720" class="w-full h-full" tabindex="0"></canvas>
-                
-                <!-- Game Messages -->
-                <div id="game-message" class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div class="bg-black bg-opacity-70 text-white text-4xl md:text-6xl font-bold px-8 py-4 rounded-lg transform scale-0 transition-transform duration-300">
-                        PRESIONA ESPACIO
-                    </div>
+            </div>
+            <!-- Game Canvas -->
+            <canvas id="foosball-canvas" width="1200" height="720" class="w-full h-full" tabindex="0"></canvas>
+            <!-- Game Messages -->
+            <div id="game-message" class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div class="bg-black bg-opacity-70 text-white text-4xl md:text-6xl font-bold px-8 py-4 rounded-lg transform scale-0 transition-transform duration-300">
+                    PRESIONA ESPACIO
                 </div>
-                
-                <!-- Celebration Effects -->
-                <div id="celebration" class="absolute inset-0 overflow-hidden pointer-events-none hidden">
-                    <div class="confetti"></div>
-                    <div class="confetti"></div>
-                    <div class="confetti"></div>
-                    <div class="confetti"></div>
-                    <div class="confetti"></div>
-                    <div class="confetti"></div>
-                    <div class="confetti"></div>
-                    <div class="confetti"></div>
-                </div>
-                
-                <!-- Game Over Screen -->
-                <div id="game-over" class="absolute inset-0 bg-black bg-opacity-80 flex flex-col items-center justify-center hidden">
-                    <div class="text-center max-w-md px-4">
-                        <h3 class="text-4xl font-bold mb-2 text-accent" id="result-title">¡VICTORIA!</h3>
-                        <p class="text-xl text-white mb-6" id="result-message">Has ganado 5-3</p>
-                        <div class="grid grid-cols-2 gap-4 mb-8">
-                            <div class="bg-gray-900 p-4 rounded-lg">
-                                <div class="text-3xl font-bold text-accent" id="final-score-left">5</div>
-                                <div class="text-gray-400">Jugador 1</div>
-                            </div>
-                            <div class="bg-gray-900 p-4 rounded-lg">
-                                <div class="text-3xl font-bold text-accent" id="final-score-right">3</div>
-                                <div class="text-gray-400">Jugador 2 (IA)</div>
-                            </div>
+            </div>
+            <!-- Celebration Effects -->
+            <div id="celebration" class="absolute inset-0 overflow-hidden pointer-events-none hidden">
+                <div class="confetti"></div>
+                <div class="confetti"></div>
+                <div class="confetti"></div>
+                <div class="confetti"></div>
+                <div class="confetti"></div>
+                <div class="confetti"></div>
+                <div class="confetti"></div>
+                <div class="confetti"></div>
+            </div>
+            <!-- Game Over Screen -->
+            <div id="game-over" class="absolute inset-0 bg-black bg-opacity-80 flex flex-col items-center justify-center hidden">
+                <div class="text-center max-w-md px-4">
+                    <h3 class="text-4xl font-bold mb-2 text-accent" id="result-title">¡VICTORIA!</h3>
+                    <p class="text-xl text-white mb-6" id="result-message">Has ganado 5-3</p>
+                    <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div class="bg-gray-900 p-4 rounded-lg">
+                            <div class="text-3xl font-bold text-accent" id="final-score-left">5</div>
+                            <div class="text-gray-400">Jugador 1</div>
                         </div>
-                        <button id="play-again-btn" class="bg-accent text-night px-8 py-3 rounded-full font-bold text-lg hover:bg-opacity-90 transition">
-                            JUGAR DE NUEVO
-                        </button>
+                        <div class="bg-gray-900 p-4 rounded-lg">
+                            <div class="text-3xl font-bold text-accent" id="final-score-right">3</div>
+                            <div class="text-gray-400">Jugador 2 (IA)</div>
+                        </div>
                     </div>
-                </div>
+                    <button id="play-again-btn" class="bg-accent text-night px-8 py-3 rounded-full font-bold text-lg hover:bg-opacity-90 transition">
+                        JUGAR DE NUEVO
+                    </button>
+                </div>   
             </div>
         </div>
     </div>
+    <!-- Modal Dardos -->
+    <div id="modal-dardos" class="game-modal fixed inset-0 bg-black bg-opacity-95 z-50 flex items-center justify-center hidden">
+        <div class="relative w-full h-full flex items-center justify-center max-w-5xl mx-auto">
+            <button class="close-game-modal absolute top-4 right-4 text-white text-3xl z-50 bg-black bg-opacity-50 rounded-full w-10 h-10 flex items-center justify-center hover:bg-neon_purple transition">×</button>
+            <div class="absolute top-4 left-4 z-10 text-white font-bold pointer-events-none">
+                <div class="text-2xl drop-shadow-lg">Puntuación: <span id="darts-score" class="text-neon_purple">0</span></div>
+                <div class="text-lg drop-shadow-lg">Dardos: <span id="darts-left" class="text-neon_pink">3</span></div>
+            </div>
+            <div class="w-full flex justify-center items-center">
+                <canvas id="darts-canvas" width="1200" height="720" class="game-canvas cursor-pointer w-full h-auto max-w-[1200px] max-h-[70vh] md:max-h-[80vh] rounded-xl shadow-lg" tabindex="0" style="background:#0a0a0a;"></canvas>
+            </div>
+            <div id="darts-game-over" class="absolute inset-0 bg-black bg-opacity-80 flex flex-col items-center justify-center hidden text-center px-4">
+                <h3 class="text-4xl font-bold mb-2 text-neon_purple">Partida Terminada</h3>
+                <p class="text-xl text-white mb-2">Puntuación Final:</p>
+                <p id="darts-final-score" class="text-6xl font-bold text-neon_pink mb-6">0</p>
+                <button id="darts-play-again-btn" class="bg-neon_purple text-white px-8 py-3 rounded-full font-bold text-lg hover:bg-opacity-90 transition shadow-lg" style="box-shadow: 0 0 20px #d000ff;">JUGAR DE NUEVO</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script>
+    // --- GESTOR DE AUDIO UNIFICADO PARA DARDOS ---
+    const DartsAudioManager = {
+      audioContext: null,
+      sounds: {},
+      isUnlocked: false,
+
+      init() {
+        try {
+          this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        } catch (e) {
+          console.error("Web Audio API no es soportada en este navegador.");
+        }
+      },
+
+      unlock() {
+        if (!this.audioContext || this.isUnlocked) return;
+        if (this.audioContext.state === 'suspended') {
+          this.audioContext.resume().then(() => this.isUnlocked = true);
+        } else {
+            this.isUnlocked = true;
+        }
+      },
+    
+      async loadSound(name, url) {
+        if (!this.audioContext || this.sounds[name]) return;
+        try {
+          const response = await fetch(url);
+          const arrayBuffer = await response.arrayBuffer();
+          this.sounds[name] = await this.audioContext.decodeAudioData(arrayBuffer);
+        } catch(e) {
+          console.error(`Error cargando sonido ${name}:`, e);
+        }
+      },
+
+      play(name, options = { volume: 0.7 }) {
+        if (!this.sounds[name] || !this.isUnlocked) return;
+        const source = this.audioContext.createBufferSource();
+        source.buffer = this.sounds[name];
+        const gainNode = this.audioContext.createGain();
+        gainNode.gain.setValueAtTime(options.volume, this.audioContext.currentTime);
+        source.connect(gainNode).connect(this.audioContext.destination);
+        source.start();
+      }
+    };
+
+    DartsAudioManager.init();
+    document.body.addEventListener('click', () => DartsAudioManager.unlock(), { once: true });
+    DartsAudioManager.loadSound('darts_throw', 'https://assets.mixkit.co/sfx/preview/mp3/fast-sword-whoosh-2767.mp3');
+    DartsAudioManager.loadSound('darts_hit', 'https://assets.mixkit.co/sfx/preview/mp3/knife-hit-in-a-wall-1123.mp3');
+
+    // --- SCRIPT DEL JUEGO DE DARDOS NEÓN ---
+    (function() {
+        const modal = document.getElementById('modal-dardos');
+        const openBtn = document.querySelector('[data-modal="modal-dardos"]');
+        const closeBtn = modal.querySelector('.close-game-modal');
+        const canvas = document.getElementById('darts-canvas');
+        const ctx = canvas.getContext('2d');
+        const scoreEl = document.getElementById('darts-score');
+        const dartsLeftEl = document.getElementById('darts-left');
+        const gameOverScreen = document.getElementById('darts-game-over');
+        const finalScoreEl = document.getElementById('darts-final-score');
+        const playAgainBtn = document.getElementById('darts-play-again-btn');
+        let animationFrameId, gameState, score, dartsLeft, dart, power, angle;
+        const DART_VALUES = [20, 1, 18, 4, 13, 6, 10, 15, 2, 17, 3, 19, 7, 16, 8, 11, 14, 9, 12, 5];
+
+        function initDarts() {
+            gameState = 'ready';
+            score = 0;
+            dartsLeft = 3;
+            dart = { x: canvas.width / 2, y: canvas.height - 50, vx: 0, vy: 0, rotation: 0 };
+            power = { val: 0, dir: 1 };
+            angle = { val: 0, dir: 1 };
+            scoreEl.textContent = score;
+            dartsLeftEl.textContent = dartsLeft;
+            gameOverScreen.classList.add('hidden');
+            if (animationFrameId) cancelAnimationFrame(animationFrameId);
+            gameLoop();
+        }
+
+        function drawDartboard() {
+            const cx = canvas.width / 2;
+            const cy = canvas.height / 2 - 50;
+            const radius = Math.min(canvas.width, canvas.height) / 2.5 - 40;
+            ctx.save();
+            ctx.translate(cx, cy);
+            ctx.shadowColor = '#d000ff'; ctx.shadowBlur = 30;
+            ctx.beginPath(); ctx.arc(0, 0, radius + 20, 0, 2 * Math.PI);
+            ctx.fillStyle = '#1a1a1a'; ctx.fill();
+            for (let i = 0; i < 20; i++) {
+                const angleStart = (i - 0.5) * (Math.PI / 10) - Math.PI / 2;
+                const angleEnd = (i + 0.5) * (Math.PI / 10) - Math.PI / 2;
+                ctx.beginPath(); ctx.moveTo(0, 0); ctx.arc(0, 0, radius, angleStart, angleEnd); ctx.closePath();
+                ctx.fillStyle = i % 2 === 0 ? '#111' : '#222'; ctx.fill();
+            }
+            const rings = [{ r: radius, color: '#ff00aa', width: 15 }, { r: radius - 80, color: '#1DB954', width: 15 }];
+            rings.forEach(ring => {
+                ctx.beginPath(); ctx.arc(0, 0, ring.r, 0, 2 * Math.PI);
+                ctx.strokeStyle = ring.color; ctx.lineWidth = ring.width;
+                ctx.shadowBlur = 15; ctx.shadowColor = ring.color; ctx.stroke();
+            });
+            ctx.beginPath(); ctx.arc(0, 0, 25, 0, 2 * Math.PI);
+            ctx.fillStyle = '#1DB954'; ctx.shadowColor = '#1DB954'; ctx.fill(); // Bull
+            ctx.beginPath(); ctx.arc(0, 0, 10, 0, 2 * Math.PI);
+            ctx.fillStyle = '#ff00aa'; ctx.shadowColor = '#ff00aa'; ctx.fill(); // Bullseye
+            ctx.restore();
+        }
+
+        function drawDart() {
+            ctx.save();
+            ctx.translate(dart.x, dart.y);
+            ctx.rotate(dart.rotation);
+            const scale = Math.max(0.1, 1 - (dart.y / canvas.height) * 0.7);
+            ctx.scale(scale, scale);
+            ctx.fillStyle = '#cccccc'; ctx.beginPath(); ctx.moveTo(0, -30); ctx.lineTo(5, 0); ctx.lineTo(-5, 0); ctx.closePath(); ctx.fill();
+            ctx.fillStyle = '#ff00aa'; ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(10, 20); ctx.lineTo(0, 15); ctx.lineTo(-10, 20); ctx.closePath(); ctx.fill();
+            ctx.restore();
+        }
+
+        function drawUI() {
+            if (gameState === 'aim_power' || gameState === 'aim_angle') {
+                const barX = 50, barY = canvas.height - 150, barW = 30, barH = 100;
+                ctx.fillStyle = 'rgba(255,255,255,0.2)'; ctx.fillRect(barX, barY, barW, barH);
+                const powerHeight = power.val * barH;
+                ctx.fillStyle = '#ff00aa'; ctx.shadowColor = '#ff00aa'; ctx.shadowBlur = 10;
+                ctx.fillRect(barX, barY + barH - powerHeight, barW, powerHeight);
+                ctx.shadowBlur = 0;
+            }
+            if (gameState === 'aim_angle') {
+                const indY = canvas.height - 50, indW = 200;
+                const angleX = canvas.width/2 + angle.val * (indW / 2);
+                ctx.fillStyle = '#d000ff'; ctx.beginPath(); ctx.arc(angleX, indY + 2.5, 10, 0, 2 * Math.PI);
+                ctx.shadowColor = '#d000ff'; ctx.shadowBlur = 10; ctx.fill(); ctx.shadowBlur = 0;
+            }
+        }
+
+        function update() {
+            if (gameState === 'aim_power') { power.val += 0.05 * power.dir; if (power.val > 1 || power.val < 0) power.dir *= -1; }
+            if (gameState === 'aim_angle') { angle.val += 0.05 * angle.dir; if (angle.val > 1 || angle.val < -1) angle.dir *= -1; }
+            if (gameState === 'throwing') {
+                dart.x += dart.vx; dart.y += dart.vy; dart.vy += 0.2; // Gravity
+                dart.rotation = Math.PI + Math.atan2(dart.vy, dart.vx);
+                const hitY = canvas.height / 2 - 50;
+                if (dart.y <= hitY) {
+                    gameState = 'hit';
+                    DartsAudioManager.play('darts_hit', { volume: 0.8 });
+                    calculateScore();
+                    setTimeout(() => {
+                        if (dartsLeft > 0) {
+                            gameState = 'ready'; dart.x = canvas.width/2; dart.y = canvas.height-50; dart.rotation = 0;
+                        } else {
+                            gameState = 'ended'; finalScoreEl.textContent = score; gameOverScreen.classList.remove('hidden');
+                        }
+                    }, 1500);
+                }
+            }
+        }
+
+        function calculateScore() {
+            const cx = canvas.width / 2, cy = canvas.height / 2 - 50;
+            const hitX = dart.x - cx, hitY = dart.y - cy;
+            const dist = Math.sqrt(hitX * hitX + hitY * hitY);
+            const radius = Math.min(canvas.width, canvas.height) / 2.5 - 40;
+            let hitScore = 0;
+            if (dist < radius + 10) {
+                const angleRad = Math.atan2(hitY, hitX) + Math.PI / 20;
+                const segment = Math.floor((angleRad * 10 / Math.PI + 10.5) % 20);
+                const baseScore = DART_VALUES[segment];
+                if (dist < 10) hitScore = 50;
+                else if (dist < 25) hitScore = 25;
+                else if (dist > radius - 15 && dist <= radius) hitScore = baseScore * 2;
+                else if (dist > radius - 95 && dist < radius - 80) hitScore = baseScore * 3;
+                else if (dist < radius) hitScore = baseScore;
+            }
+            score += hitScore;
+            scoreEl.textContent = score;
+        }
+
+        function gameLoop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#0a0a0a'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            update();
+            drawDartboard();
+            if(gameState !== 'stopped') drawDart();
+            drawUI();
+            animationFrameId = requestAnimationFrame(gameLoop);
+        }
+        
+        canvas.addEventListener('click', () => {
+            if(gameState === 'ended') return;
+            if (gameState === 'ready') gameState = 'aim_power';
+            else if (gameState === 'aim_power') gameState = 'aim_angle';
+            else if (gameState === 'aim_angle') {
+                gameState = 'throwing';
+                dartsLeft--;
+                dartsLeftEl.textContent = dartsLeft;
+                const throwPower = 25 + power.val * 15;
+                dart.vx = angle.val * 10;
+                dart.vy = -throwPower;
+                DartsAudioManager.play('darts_throw', { volume: 0.6 });
+            }
+        });
+
+        playAgainBtn.addEventListener('click', initDarts);
+
+        // Modal open/close logic
+        if (openBtn && modal) {
+            openBtn.addEventListener('click', () => {
+                modal.classList.remove('hidden');
+                initDarts();
+            });
+        }
+        if (closeBtn && modal) {
+            closeBtn.addEventListener('click', () => {
+                modal.classList.add('hidden');
+                if (animationFrameId) cancelAnimationFrame(animationFrameId);
+            });
+        }
+        // Close modal on click outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.add('hidden');
+                if (animationFrameId) cancelAnimationFrame(animationFrameId);
+            }
+        });
+        // ESC key closes modal
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                modal.classList.add('hidden');
+                if (animationFrameId) cancelAnimationFrame(animationFrameId);
+            }
+        });
+    })();
+    </script>
+</div>
     <script>
         const AudioManager = {
             audioContext: null,
@@ -2773,7 +3173,175 @@
             });
             initGame();
         })();
+        /* --- MINIJUEGO DE DARDOS NEÓN --- */
+        (function() {
+            const canvas = document.getElementById('darts-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const scoreEl = document.getElementById('darts-score');
+            const dartsLeftEl = document.getElementById('darts-left');
+            const gameOverScreen = document.getElementById('darts-game-over');
+            const finalScoreEl = document.getElementById('darts-final-score');
+            const playAgainBtn = document.getElementById('darts-play-again-btn');
+
+            let animationFrameId, gameState, score, dartsLeft, dart, power, angle;
+            const DART_VALUES = [20, 1, 18, 4, 13, 6, 10, 15, 2, 17, 3, 19, 7, 16, 8, 11, 14, 9, 12, 5];
+
+            window.initDarts = () => {
+                gameState = 'ready';
+                score = 0;
+                dartsLeft = 10;
+                dart = { x: canvas.width / 2, y: canvas.height - 50, vx: 0, vy: 0, rotation: 0 };
+                power = { val: 0, dir: 1 };
+                angle = { val: 0, dir: 1 };
+                scoreEl.textContent = score;
+                dartsLeftEl.textContent = dartsLeft;
+                gameOverScreen.classList.add('hidden');
+                if (animationFrameId) cancelAnimationFrame(animationFrameId);
+                gameLoop();
+            };
+
+            window.stopDarts = () => {
+                if (animationFrameId) cancelAnimationFrame(animationFrameId);
+                gameState = 'stopped';
+            };
+
+            function drawDartboard() {
+                const cx = canvas.width / 2, cy = canvas.height / 2 - 50;
+                const radius = Math.min(canvas.width, canvas.height) / 2.5 - 40;
+                ctx.save();
+                ctx.translate(cx, cy);
+                ctx.shadowColor = '#d000ff'; ctx.shadowBlur = 30;
+                ctx.beginPath(); ctx.arc(0, 0, radius + 20, 0, 2 * Math.PI);
+                ctx.fillStyle = '#1a1a1a'; ctx.fill();
+                for (let i = 0; i < 20; i++) {
+                    const angleStart = (i - 0.5) * (Math.PI / 10) - Math.PI / 2;
+                    const angleEnd = (i + 0.5) * (Math.PI / 10) - Math.PI / 2;
+                    ctx.beginPath(); ctx.moveTo(0, 0); ctx.arc(0, 0, radius, angleStart, angleEnd); ctx.closePath();
+                    ctx.fillStyle = i % 2 === 0 ? '#111' : '#222'; ctx.fill();
+                }
+                const rings = [
+                    { r: radius, color: '#ff00aa', width: 15 },
+                    { r: radius - 80, color: '#1DB954', width: 15 }
+                ];
+                rings.forEach(r => {
+                    ctx.beginPath(); ctx.arc(0, 0, r.r, 0, 2 * Math.PI);
+                    ctx.strokeStyle = r.color; ctx.lineWidth = r.width;
+                    ctx.shadowBlur = 15; ctx.shadowColor = r.color; ctx.stroke();
+                });
+                ctx.beginPath(); ctx.arc(0, 0, 25, 0, 2 * Math.PI); ctx.fillStyle = '#1DB954'; ctx.shadowColor = '#1DB954'; ctx.fill();
+                ctx.beginPath(); ctx.arc(0, 0, 10, 0, 2 * Math.PI); ctx.fillStyle = '#ff00aa'; ctx.shadowColor = '#ff00aa'; ctx.fill();
+                ctx.restore();
+            }
+
+            function drawDart() {
+                ctx.save();
+                ctx.translate(dart.x, dart.y);
+                ctx.rotate(dart.rotation);
+                const scale = Math.max(0.1, 1 - (dart.y / canvas.height) * 0.7);
+                ctx.scale(scale, scale);
+                ctx.fillStyle = '#cccccc'; ctx.beginPath(); ctx.moveTo(0, -30); ctx.lineTo(5, 0); ctx.lineTo(-5, 0); ctx.closePath(); ctx.fill();
+                ctx.fillStyle = '#ff00aa'; ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(10, 20); ctx.lineTo(0, 15); ctx.lineTo(-10, 20); ctx.closePath(); ctx.fill();
+                ctx.restore();
+            }
+
+            function drawUI() {
+                if (gameState === 'aim_power' || gameState === 'aim_angle') {
+                    const barX = 50, barY = canvas.height - 150, barW = 30, barH = 100;
+                    ctx.fillStyle = 'rgba(255,255,255,0.2)'; ctx.fillRect(barX, barY, barW, barH);
+                    const powerHeight = power.val * barH;
+                    ctx.fillStyle = '#ff00aa'; ctx.shadowColor = '#ff00aa'; ctx.shadowBlur = 10;
+                    ctx.fillRect(barX, barY + barH - powerHeight, barW, powerHeight);
+                    ctx.shadowBlur = 0;
+                }
+                if (gameState === 'aim_angle') {
+                    const indY = canvas.height - 50, indW = 200;
+                    const angleX = canvas.width/2 + angle.val * (indW / 2);
+                    ctx.fillStyle = '#d000ff'; ctx.beginPath(); ctx.arc(angleX, indY + 2.5, 10, 0, 2 * Math.PI);
+                    ctx.shadowColor = '#d000ff'; ctx.shadowBlur = 10; ctx.fill(); ctx.shadowBlur = 0;
+                }
+            }
+
+            function update() {
+                if (gameState === 'aim_power') { power.val += 0.05 * power.dir; if (power.val > 1 || power.val < 0) power.dir *= -1; }
+                if (gameState === 'aim_angle') { angle.val += 0.05 * angle.dir; if (angle.val > 1 || angle.val < -1) angle.dir *= -1; }
+                if (gameState === 'throwing') {
+                    dart.x += dart.vx; dart.y += dart.vy; dart.vy += 0.2;
+                    dart.rotation = Math.PI + Math.atan2(dart.vy, dart.vx);
+                    const hitY = canvas.height / 2 - 50;
+                    if (dart.y <= hitY) {
+                        gameState = 'hit';
+                        AudioManager.play('darts_hit', { volume: 0.8 });
+                        calculateScore();
+                        setTimeout(() => {
+                            if (dartsLeft > 0) {
+                                gameState = 'ready'; dart.x = canvas.width/2; dart.y = canvas.height-50; dart.rotation = 0;
+                            } else {
+                                gameState = 'ended'; finalScoreEl.textContent = score; gameOverScreen.classList.remove('hidden');
+                            }
+                        }, 1500);
+                    }
+                }
+            }
+
+            function calculateScore() {
+                const cx = canvas.width / 2, cy = canvas.height / 2 - 50;
+                const hitX = dart.x - cx, hitY = dart.y - cy;
+                const dist = Math.sqrt(hitX * hitX + hitY * hitY);
+                const radius = Math.min(canvas.width, canvas.height) / 2.5 - 40;
+                let hitScore = 0;
+                if (dist < radius + 10) {
+                    const angleRad = Math.atan2(hitY, hitX) + Math.PI / 20;
+                    const segment = Math.floor((angleRad * 10 / Math.PI + 10.5) % 20);
+                    const baseScore = DART_VALUES[segment];
+                    if (dist < 10) hitScore = 50;
+                    else if (dist < 25) hitScore = 25;
+                    else if (dist > radius - 15 && dist <= radius) hitScore = baseScore * 2;
+                    else if (dist > radius - 95 && dist < radius - 80) hitScore = baseScore * 3;
+                    else if (dist < radius) hitScore = baseScore;
+                }
+                score += hitScore;
+                scoreEl.textContent = score;
+            }
+
+            function gameLoop() {
+                if(gameState === 'stopped') return;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#0a0a0a'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+                update();
+                drawDartboard();
+                if(gameState !== 'stopped') drawDart();
+                drawUI();
+                animationFrameId = requestAnimationFrame(gameLoop);
+            }
+
+            canvas.addEventListener('click', () => {
+                if (gameState === 'ready') gameState = 'aim_power';
+                else if (gameState === 'aim_power') gameState = 'aim_angle';
+                else if (gameState === 'aim_angle') {
+                    gameState = 'throwing';
+                    dartsLeft--;
+                    dartsLeftEl.textContent = dartsLeft;
+                    const throwPower = 25 + power.val * 15;
+                    dart.vx = angle.val * 10;
+                    dart.vy = -throwPower;
+                    AudioManager.play('darts_throw', { volume: 0.6 });
+                }
+            });
+
+            playAgainBtn.addEventListener('click', initDarts);
+
+            // Dibuja la previsualización
+            const previewCtx = document.getElementById('darts-preview').getContext('2d');
+            previewCtx.fillStyle = '#0a0a0a'; previewCtx.fillRect(0,0,600,360);
+            const cx = 300, cy = 180, r = 100;
+            previewCtx.shadowColor = '#d000ff'; previewCtx.shadowBlur = 20;
+            previewCtx.strokeStyle = '#d000ff'; previewCtx.lineWidth = 5;
+            previewCtx.beginPath(); previewCtx.arc(cx, cy, r, 0, 2*Math.PI); previewCtx.stroke();
+            previewCtx.shadowBlur = 0;
+        })();
     </script>
+</section>
 </section>
 
     <!-- Gallery Section -->
@@ -2891,12 +3459,11 @@
                             </div>
                             
                             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                                    <!-- Event 1 -->
                                     <div class="bg-dark rounded-xl overflow-hidden shadow-lg">
                                             <div class="relative overflow-hidden h-48">
                                                     <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
                                                              alt="Noche de cócteles" 
-                                                             class="w-full h-full object-cover">
+                                                             class="w-full h-full object-cover" />
                                                     <div class="absolute top-4 right-4 bg-accent text-night px-3 py-1 rounded-full text-sm font-bold">
                                                             15 Junio
                                                     </div>
@@ -2934,13 +3501,11 @@
                                                     </div>
                                             </div>
                                     </div>
-                                    
-                                    <!-- Event 3 -->
                                     <div class="bg-dark rounded-xl overflow-hidden shadow-lg">
                                             <div class="relative overflow-hidden h-48">
                                                     <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
                                                              alt="DJ en vivo" 
-                                                             class="w-full h-full object-cover">
+                                                             class="w-full h-full object-cover" />
                                                     <div class="absolute top-4 right-4 bg-accent text-night px-3 py-1 rounded-full text-sm font-bold">
                                                             29 Junio
                                                     </div>
@@ -3149,7 +3714,7 @@
             </div>
             
             <!-- Map -->
-            <div class="mt-16 bg-night rounded-xl overflow-hidden">
+            <div class="mt-16 bg-night rounded-xl overflow-hidden" style="background: linear-gradient(135deg, #1db954 0%, #2196f3 100%); border-radius: 0.75rem; padding: 8px;">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3169.931407000786!2d-5.9789268!3d37.39145439999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd126ea64dbca6b7%3A0x24c24993e32ea5c5!2sCaf%C3%A9%20Envidia%20Copas!5e0!3m2!1ses!2ses!4v1750008017622!5m2!1ses!2ses" 
                         width="100%" 
                         height="450" 
@@ -3162,30 +3727,6 @@
             </div>
         </div>
     </section>
-
-    <!-- Newsletter -->
-    <section class="py-16 bg-gradient-to-r from-primary to-secondary">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4 font-serif text-white">
-                ¡No te pierdas nada!
-            </h2>
-            <p class="text-white mb-8 max-w-2xl mx-auto">
-                Suscríbete a nuestro newsletter para recibir promociones exclusivas, información sobre eventos y novedades.
-            </p>
-            
-            <form class="max-w-xl mx-auto flex flex-col sm:flex-row gap-4">
-                <input type="email" placeholder="Tu email" class="flex-grow px-6 py-3 rounded-full focus:outline-none">
-                <button type="submit" class="bg-night hover:bg-opacity-90 text-white px-8 py-3 rounded-full font-medium transition transform hover:scale-105 whitespace-nowrap">
-                    Suscribirme
-                </button>
-            </form>
-            
-            <p class="text-white text-opacity-70 text-sm mt-4">
-                Prometemos no enviar spam. Puedes darte de baja en cualquier momento.
-            </p>
-        </div>
-    </section>
-
     <!-- Footer -->
     <footer class="bg-night py-12">
         <div class="container mx-auto px-4">
